@@ -20,7 +20,7 @@ This checklist begins only after the v0.3.1 iPhone readability and header-placem
 - [x] Add indexable English `/` and Traditional Chinese `/zh-tw/` routes, canonical URLs, and `hreflang` metadata.
 - [x] Update `PRIVACY.md` with the actual hosting provider and public contact route.
 - [ ] Create and verify the support destination; expose the support link only after it works end to end.
-- [ ] Run production smoke checks on iPhone and desktop, including offline/error behavior appropriate to the final hosting choice. (Surface HTTP and interactive Chrome checks pass; exact-iPhone live-URL check remains.)
+- [x] Run production smoke checks on iPhone and desktop, including loading, calculation, locale, and responsive-layout behavior appropriate to the current static hosting choice.
 - [x] Publish the README, privacy statement, license, and clear scientific boundaries with the tool.
 - [x] Record initial public-beta date, production URL, and first deployed commit. (Support platform and Lexian Fund gross/fees/net remain inapplicable until support is connected.)
 
@@ -30,4 +30,5 @@ This checklist begins only after the v0.3.1 iPhone readability and header-placem
 - Production: <https://elisa-pilot-dilution-planner.lexian.workers.dev/>
 - Traditional Chinese: <https://elisa-pilot-dilution-planner.lexian.workers.dev/zh-tw/>
 - First deployed commit: `33d97c6`
+- Exact-iPhone live acceptance: 2026-09-03
 - Support platform: not connected

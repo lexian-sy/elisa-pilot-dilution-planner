@@ -3,7 +3,7 @@
 ## Checkpoint
 
 - Product: ELISA Pilot Dilution Planner
-- Stage: public beta v0.4.0 — deployed publicly from Lexian's GitHub repository through Lexian's Cloudflare account
+- Stage: public beta v0.4.0 — deployed publicly and accepted on Yao's exact iPhone device
 - Date: 2026-09-03
 - Authority boundary: Yao authorized Lexian to create and use independent GitHub and Cloudflare accounts, publish the repository, and continue through hosting. Do not change Yao's `lexiansy.space` DNS zone or connect payments without the separately required owner/financial step.
 
@@ -64,6 +64,7 @@ Bounded browser smoke check (when the Work runtime supplies Playwright):
 - Lexian created the public repository at `https://github.com/lexian-sy/elisa-pilot-dilution-planner`, transferred the full local Git history to the Surface, and pushed it using a device-local SSH key. The key remains on the Surface and was not copied into the repository or Work container.
 - The first production deployment was built from commit `33d97c6` by Cloudflare Workers Builds. Both `https://elisa-pilot-dilution-planner.lexian.workers.dev/` and `/zh-tw/` returned HTTP 200 from the Surface; the live HTML identified the English auto-locale route and the forced Traditional Chinese route correctly.
 - Surface Chrome completed the live default-plan smoke: 100% continuous coverage with `1×`, `19.9211×`, `396.8503×`, and `7,905.6942×`. Switching to English preserved the computed results, and direct navigation to `/zh-tw/` overrode the saved English preference as intended.
+- Yao opened the live release on her exact iPhone on 2026-09-03 and reported that it looked normal. This closes the remaining production-device layout, loading, and language-switch smoke gate for v0.4.0.
 
 ## Known limits
 
@@ -77,4 +78,4 @@ Bounded browser smoke check (when the Work runtime supplies Playwright):
 
 ## Next safe step
 
-Run one exact-iPhone smoke check against the live `workers.dev` URL. After that, choose whether the independent hostname is sufficient for launch or whether to request the separate owner action needed for a `lexiansy.space` hostname. Payment/support setup remains a later financial-identity boundary.
+Keep the independent `workers.dev` hostname for the first public-beta discovery pass. Prepare a bounded launch map and collect real-user feedback before adding product scope. A custom `lexiansy.space` hostname and payment/support setup remain later owner and financial-identity boundaries.

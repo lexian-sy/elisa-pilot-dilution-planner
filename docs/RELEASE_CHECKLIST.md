@@ -32,3 +32,5 @@ This checklist begins only after the v0.3.1 iPhone readability and header-placem
 - First deployed commit: `33d97c6`
 - Exact-iPhone live acceptance: 2026-09-03
 - Support platform: Buy Me a Coffee external link (`buymeacoffee.com/lexian`)
+- Support-link deployed commit: `cc5382c`
+- English and Traditional Chinese production-link check: 2026-09-03

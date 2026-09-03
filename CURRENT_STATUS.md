@@ -3,7 +3,7 @@
 ## Checkpoint
 
 - Product: ELISA Pilot Dilution Planner
-- Stage: public beta v0.4.1 support-link release candidate — local and Surface checks passed; deployment pending
+- Stage: public beta v0.4.1 — support link deployed and verified on both production routes
 - Date: 2026-09-03
 - Public source: <https://github.com/lexian-sy/elisa-pilot-dilution-planner>
 - Production: <https://elisa-pilot-dilution-planner.lexian.workers.dev/>
@@ -47,6 +47,7 @@ For UI changes, also verify the source page, self-contained artifact, and produc
 - Real-iPhone checks passed for both public routes, the default 100% result, factor-label readability, mobile typography, header placement, and language switching.
 - Surface local-file check passed for the v0.4.1 Traditional Chinese support label and its external navigation to `buymeacoffee.com/lexian`; the destination shows Lexian's research-tool identity and one-time support by default.
 - Cloudflare Workers Builds deploys pushes from `main`; the first deployed commit was `33d97c6` and the localized public release is tagged `v0.4.0`.
+- Production smoke checks on commit `cc5382c` confirmed `Support this tool` on `/`, `支持這個工具` on `/zh-tw/`, and navigation to Lexian's live Buy Me a Coffee page.
 - Repository metadata links directly to the live tool and includes focused discovery topics for ELISA, dilution calculation, laboratory work, research tools, JavaScript, and open source.
 
 ## Known limits
@@ -60,4 +61,4 @@ For UI changes, also verify the source page, self-contained artifact, and produc
 
 ## Next safe step
 
-Commit and push the exact v0.4.1 release candidate, then verify the support link from both production routes before submitting the first-payout moderation review. Keep a custom hostname and analytics as separate future decisions.
+Begin bounded public discovery from the verified release. After the first eligible support balance appears, complete Buy Me a Coffee's first-payout moderation review and record gross, direct fees, and net received in the Lexian Fund ledger. Keep a custom hostname and analytics as separate future decisions.

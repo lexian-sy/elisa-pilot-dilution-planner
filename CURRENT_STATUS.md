@@ -3,7 +3,7 @@
 ## Checkpoint
 
 - Product: ELISA Pilot Dilution Planner
-- Stage: bilingual local release candidate v0.3.1 — v0.3 iPhone functionality is accepted; mobile readability and upper-right language-switch feedback are implemented and await one focused iPhone UX check
+- Stage: bilingual local release candidate v0.3.1 — accepted on Yao's real iPhone; the local release gate is fully closed
 - Date: 2026-09-03
 - Authority boundary: prepare and verify a recoverable public-release candidate without push, deployment, DNS, payment/account changes, analytics, or external commitment.
 
@@ -54,8 +54,9 @@ Bounded browser smoke check (when the Work runtime supplies Playwright):
 - Surface Microsoft Edge executed the earlier self-contained candidate at desktop and responsive mobile-breakpoint widths. Default calculation, EN/繁中 translation, input/result preservation, saved-language reload, bench-friendly factors, fixed-fold factors, linked validation errors, impossible-low-range handling, header separation, and horizontal-overflow checks passed.
 - The hash-verified v0.3.1 artifact (`53014bec44913a9eed8260fa7d23ffd3ad8ab1674e39a0b0538d55f65da06117`) was transferred to a temporary folder on Lexian's Surface and exercised in Microsoft Edge headless with `--lang=zh-TW` at the responsive mobile breakpoint. It reported `html lang=zh-Hant`, default coverage `100%`, `innerWidth=492`, `clientWidth=477`, and both document/body `scrollWidth=477`, so no horizontal overflow was present. The badge rectangle was `10..166.6875` and the language-switch rectangle was `361.03125..467`; both stayed within the viewport with the badge left and language switch right.
 - Computed v0.3.1 mobile sizes in that Edge run matched the intended scale: header/result/factor-primary copy 16 px, intro/supporting/factor-band/summary/footer copy 15.2 px, and preparation-detail labels 14.4 px. A 500 px screenshot also passed visual inspection with no header collision.
+- Yao then opened v0.3.1 on her real iPhone and explicitly accepted both focused UX points on 2026-09-03: the text size is comfortable and the language-switch position is correct (`「我看了，我覺得這樣大小跟位置都可以了」`). This closes the final subjective readability and exact-device header-placement gate.
 - In the current iOS ChatGPT file-preview flow, the preview's **Download** command did not save reliably. **Share → Save to Files** succeeded; this is delivery friction outside the planner artifact.
-- The Work container itself had no browser executable, but the hash-matched artifact completed the bounded v0.3.1 Surface Edge smoke described above. Edge enforces a 492 px minimum inner width in this headless setup, so exact 390 CSS px iPhone fit and subjective reading comfort remain the owner-QA gate rather than being inferred from the Surface run.
+- The Work container itself had no browser executable, but the hash-matched artifact completed the bounded v0.3.1 Surface Edge smoke described above. Edge enforces a 492 px minimum inner width in this headless setup; the previously outstanding exact-device fit and subjective comfort questions are now resolved by Yao's real-iPhone acceptance.
 
 ## Known limits
 
@@ -69,4 +70,4 @@ Bounded browser smoke check (when the Work runtime supplies Playwright):
 
 ## Next safe step
 
-Hand Yao the v0.3.1 self-contained artifact for one focused iPhone check: confirm the larger copy is comfortable to read without zoom and the release badge stays left while the language switch stays independently at the upper right without wrapping, collision, or overflow. This is the only remaining iPhone acceptance point. After that evidence, the next boundary is a separately authorized public repo/deployment/support setup.
+The local v0.3.1 release gate is complete. The next boundary is separately authorized public-release work: public repository/push, production hosting and DNS, indexable locale routes, support setup, privacy-host update, and production smoke checks. None of those external actions is authorized by this acceptance checkpoint.

@@ -1,4 +1,4 @@
-# v0.3.1 mobile readability checkpoint
+# v0.3.1 mobile readability acceptance checkpoint
 
 ## For Yao
 
@@ -9,9 +9,9 @@ The v0.3.1 self-contained planner keeps the accepted v0.3 calculation and Tradit
 - The desktop header keeps the same visual character and large title; the language switch is also the rightmost desktop tool.
 - The default math, coverage rules, direct-preparation logic, scientific boundaries, and local-only behavior were not changed.
 
-The automated checkpoint and bounded Surface Edge v0.3.1 smoke are green, and the self-contained HTML is ready. Yao needs to do one final iPhone UX check with `dist/elisa-pilot-dilution-planner.html`: confirm the type is comfortable without zoom and the two top-row controls do not collide or overflow. This is the single next step and the only remaining iPhone acceptance point.
+The automated checkpoint and bounded Surface Edge v0.3.1 smoke are green. Yao opened the self-contained HTML on her real iPhone and accepted the larger text and updated control position: `「我看了，我覺得這樣大小跟位置都可以了」`. The final local iPhone gate is closed; Yao does not need to do another local acceptance step.
 
-Stop and preserve screenshots if the top-row controls overlap, wrap, or leave the screen; if supporting text still requires browser zoom; if any Chinese copy or factor is clipped; or if the default factors/100% result change.
+The single next step is separately authorized public-release work. Stop before any public repository/push, deployment, DNS, locale-route, support, analytics, payment, backend, or other external-state change unless that release authority is explicitly granted.
 
 Exact handoff artifact: `handoffs/2026-09-03-mobile-readability-v0.3.1.md`.
 
@@ -60,4 +60,4 @@ Exact handoff artifact: `handoffs/2026-09-03-mobile-readability-v0.3.1.md`.
 
 ### Remaining risk and next safe construction point
 
-The only remaining device risk is subjective/physical iPhone readability plus exact top-row fit in the real external-file browser view. The next safe step is exactly the focused check in `docs/YAO_QA.md`. If accepted, the next boundary is separately authorized public-release work; if it fails, preserve the two screenshots and patch only the evidenced mobile selector/viewport issue.
+The subjective/physical iPhone readability and exact-device header-placement risk is resolved by Yao's real-iPhone acceptance on 2026-09-03. The local release gate is fully closed. The next safe construction point is the external release checklist, which requires separate authorization before any public repository/push, deployment, DNS, locale-route, support, privacy-host, production-verification, analytics, payment, backend, or other external-state action.

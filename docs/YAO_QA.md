@@ -1,4 +1,4 @@
-# Yao real-device QA — v0.3.1 mobile readability patch
+# Yao real-device QA — v0.3.1 accepted
 
 Use the v0.3.1 self-contained `elisa-pilot-dilution-planner.html` artifact. No account or network connection is required.
 
@@ -11,6 +11,7 @@ On iPhone, use **Share → Save to Files** from the preview. The preview's own *
 - No horizontal overflow or result-card clipping is visible from the coverage summary through the footer.
 - 2026-09-03, Chinese-locale iPhone evidence: the page starts in Traditional Chinese, the unchanged example calculates 100% coverage, visible factors and Chinese text are not clipped, and the shared calculation behavior remains correct.
 - The same evidence produced one clear UX finding: supporting and result-detail text is too small for comfortable phone reading, and the language switch belongs at the upper right.
+- 2026-09-03, v0.3.1 real-iPhone follow-up: Yao accepted the increased text size and the language-switch position (`「我看了，我覺得這樣大小跟位置都可以了」`). The final mobile readability and header-placement gate is closed.
 
 ## Accepted on Surface Edge
 
@@ -18,14 +19,14 @@ On iPhone, use **Share → Save to Files** from the preview. The preview's own *
 - The selected language survives reload; a Chinese browser locale starts in Traditional Chinese when no saved choice exists.
 - Bench-friendly and fixed-fold factor sequences, linked validation errors, and the impossible-low-range stop are correct.
 - Desktop and responsive mobile-breakpoint runs report no horizontal overflow or header collision.
-- The hash-matched v0.3.1 artifact passed a new `--lang=zh-TW` headless run: Traditional Chinese startup, default 100% coverage, equal 477 px client/document/body widths, left-side badge and right-side language control inside the viewport, intended 16/15.2/14.4 px mobile type scale, and a visually clean 500 px screenshot. Edge's enforced 492 px minimum inner width does not replace the final real-iPhone comfort/fit check.
+- The hash-matched v0.3.1 artifact passed a new `--lang=zh-TW` headless run: Traditional Chinese startup, default 100% coverage, equal 477 px client/document/body widths, left-side badge and right-side language control inside the viewport, intended 16/15.2/14.4 px mobile type scale, and a visually clean 500 px screenshot. Edge's enforced 492 px minimum inner width did not replace the real-iPhone comfort/fit check; Yao's later device acceptance supplied that final evidence.
 
-## Final v0.3.1 iPhone UX check
+## Completed v0.3.1 iPhone UX check
 
-1. Open v0.3.1 on the same iPhone. In the top row, confirm the release-candidate badge is on the left and the **EN / 繁中** switch is independently aligned to the upper right. Neither item should wrap, overlap, or leave the screen, and both language buttons should be easy to tap.
-2. Scan the intro, form labels and help text, then leave the example values unchanged and tap **建立初次稀釋計畫**. Confirm body copy, hints, notices, coverage details, liquid-volume details, summary, and footer are now comfortably readable without browser zoom.
-3. Confirm the four factors remain `1 / 19.9211 / 396.8503 / 7905.6942`, coverage remains 100%, and no Chinese text or factor label extends beyond its card.
-4. Capture one top-of-page screenshot and one representative result screenshot. This readability/header-placement confirmation is the only remaining iPhone acceptance point.
+1. Yao opened the self-contained v0.3.1 artifact on her real iPhone after saving it through **Share → Save to Files**.
+2. She reviewed the larger mobile text and the repositioned language control in the upper-right header area.
+3. She explicitly accepted both size and position. Earlier iPhone evidence already accepted the default 100% result, the four factors, Traditional Chinese startup, and unclipped content.
+4. No iPhone acceptance point remains for the local release candidate. Public release and production verification begin only under separate authorization.
 
 ## Stop and preserve evidence if
 

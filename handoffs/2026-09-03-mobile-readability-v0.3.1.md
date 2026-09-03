@@ -9,7 +9,7 @@ The v0.3.1 self-contained planner keeps the accepted v0.3 calculation and Tradit
 - The desktop header keeps the same visual character and large title; the language switch is also the rightmost desktop tool.
 - The default math, coverage rules, direct-preparation logic, scientific boundaries, and local-only behavior were not changed.
 
-The automated checkpoint is green and the self-contained HTML is ready. Yao needs to do one final iPhone UX check with `dist/elisa-pilot-dilution-planner.html`: confirm the type is comfortable without zoom and the two top-row controls do not collide or overflow. This is the single next step and the only remaining iPhone acceptance point.
+The automated checkpoint and bounded Surface Edge v0.3.1 smoke are green, and the self-contained HTML is ready. Yao needs to do one final iPhone UX check with `dist/elisa-pilot-dilution-planner.html`: confirm the type is comfortable without zoom and the two top-row controls do not collide or overflow. This is the single next step and the only remaining iPhone acceptance point.
 
 Stop and preserve screenshots if the top-row controls overlap, wrap, or leave the screen; if supporting text still requires browser zoom; if any Chinese copy or factor is clipped; or if the default factors/100% result change.
 
@@ -47,7 +47,9 @@ Exact handoff artifact: `handoffs/2026-09-03-mobile-readability-v0.3.1.md`.
 - Artifact size: 78,563 bytes.
 - Artifact SHA-256: `53014bec44913a9eed8260fa7d23ffd3ad8ab1674e39a0b0538d55f65da06117`.
 - Self-contained/no-network/static accessibility assertions: passed in the automated suite.
-- Browser smoke limitation: this container has no Chrome, Chromium, Firefox, WebKit, or other browser executable, so a new interactive desktop/mobile v0.3.1 smoke was not available. This limitation is recorded in `CURRENT_STATUS.md`; no simulated browser result is claimed.
+- The exact hash-matched artifact was transferred to a temporary folder on Lexian's Surface and tested in Microsoft Edge headless with `--lang=zh-TW` at the responsive mobile breakpoint. Results: `html lang=zh-Hant`; default coverage `100%`; `innerWidth=492`; `clientWidth=477`; document and body `scrollWidth=477`; badge rectangle `10..166.6875`; language-switch rectangle `361.03125..467`. This verifies no horizontal overflow and the intended left-badge/right-language geometry at Edge's available mobile width.
+- Computed styles were header copy 16 px, intro/supporting copy 15.2 px, result copy 16 px, factor main 16 px, factor band 15.2 px, preparation-detail label 14.4 px, and summary/footer copy 15.2 px. Visual inspection of the 500 px screenshot found no header collision.
+- Browser limitation: the Work container itself has no browser executable and Edge's headless window enforces a 492 px minimum inner width. The Surface evidence therefore does not replace exact 390 CSS px iPhone layout or subjective comfort acceptance.
 
 ### Git and authority boundary
 

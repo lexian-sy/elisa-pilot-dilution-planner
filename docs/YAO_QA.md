@@ -18,6 +18,7 @@ On iPhone, use **Share → Save to Files** from the preview. The preview's own *
 - The selected language survives reload; a Chinese browser locale starts in Traditional Chinese when no saved choice exists.
 - Bench-friendly and fixed-fold factor sequences, linked validation errors, and the impossible-low-range stop are correct.
 - Desktop and responsive mobile-breakpoint runs report no horizontal overflow or header collision.
+- The hash-matched v0.3.1 artifact passed a new `--lang=zh-TW` headless run: Traditional Chinese startup, default 100% coverage, equal 477 px client/document/body widths, left-side badge and right-side language control inside the viewport, intended 16/15.2/14.4 px mobile type scale, and a visually clean 500 px screenshot. Edge's enforced 492 px minimum inner width does not replace the final real-iPhone comfort/fit check.
 
 ## Final v0.3.1 iPhone UX check
 

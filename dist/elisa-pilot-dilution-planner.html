@@ -552,37 +552,105 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
 }
 
 @media (max-width: 620px) {
+  :root {
+    --mobile-reading-size: 1rem;
+    --mobile-secondary-size: 0.95rem;
+    --mobile-detail-size: 0.9rem;
+  }
+
   .header-inner, main { width: min(100% - 1.25rem, 960px); }
-  .header-inner { min-height: 390px; padding: 4.8rem 0 3.8rem; align-items: flex-end; }
+  .header-inner { min-height: 410px; padding: 5.4rem 0 3.8rem; align-items: flex-end; }
   h1 { font-size: clamp(3.05rem, 16vw, 4.4rem); }
-  .header-copy { font-size: 0.9rem; }
-  .header-tools { top: 0.85rem; left: 0; right: auto; max-width: 100%; flex-wrap: wrap; }
-  .prototype-badge { padding: 0.5rem 0.7rem; }
+  .header-copy { font-size: var(--mobile-reading-size); line-height: 1.7; }
+  .header-tools {
+    top: 0.85rem;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: none;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+  }
+  .prototype-badge {
+    min-width: 0;
+    padding: 0.55rem 0.65rem;
+    font-size: var(--mobile-detail-size);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+  .language-switch { flex: 0 0 auto; padding: 0.15rem; }
+  .language-switch button {
+    min-width: 3rem;
+    min-height: 2.75rem;
+    padding: 0 0.7rem;
+    font-size: var(--mobile-detail-size);
+  }
+  .product-label, .eyebrow { font-size: var(--mobile-detail-size); line-height: 1.4; }
   .intro-strip { grid-template-columns: 1fr; margin-top: -1rem; }
   .intro-strip div { padding: 0.9rem 1rem; }
   .intro-strip div + div { border-left: 0; border-top: 1px solid var(--line); }
+  .intro-strip strong { font-size: var(--mobile-reading-size); }
+  .intro-strip span { font-size: var(--mobile-secondary-size); line-height: 1.6; }
   .form-card, .result-section, .boundary-card { padding: 1.15rem; }
+  .step-number { font-size: var(--mobile-detail-size); }
   .mode-picker, .field-grid { grid-template-columns: 1fr; }
+  .mode-picker strong { font-size: var(--mobile-reading-size); }
+  .mode-picker small,
+  .mode-description { font-size: var(--mobile-secondary-size); line-height: 1.6; }
   .full-on-desktop { grid-column: auto; max-width: none; }
+  .field > span,
+  .field-label-row > span:first-child,
+  .check-line,
+  .switch-line { font-size: var(--mobile-reading-size); line-height: 1.5; }
+  .field small,
+  .full-field > small,
+  .field-error,
+  .unit-display,
+  .suffix-input span { font-size: var(--mobile-secondary-size); line-height: 1.6; }
+  .required-label { font-size: var(--mobile-detail-size); }
+  input[type="number"], input[type="text"] { min-height: 3.1rem; font-size: 1rem; }
+  input[type="checkbox"] { width: 1.4rem; height: 1.4rem; }
   .range-inputs, .expected-inputs { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); }
   .unit-field, .unit-display { grid-column: 1 / -1; }
   .unit-field input { width: 100%; }
   .form-actions { display: grid; }
   .primary-button { width: 100%; min-width: 0; }
   .secondary-button { width: 100%; }
+  .primary-button, .secondary-button, .error-summary { font-size: var(--mobile-reading-size); }
   .result-hero { align-items: flex-start; }
+  .result-hero p { font-size: var(--mobile-reading-size); line-height: 1.65; }
   .hero-metric strong { font-size: 2rem; }
+  .hero-metric span { font-size: var(--mobile-detail-size); }
+  .rounding-control,
+  .success-note,
+  .warning-note,
+  .info-note,
+  .point-notice { font-size: var(--mobile-reading-size); line-height: 1.65; }
+  .rounding-control p,
+  .section-copy { font-size: var(--mobile-secondary-size); line-height: 1.65; }
   .coverage-axis { margin-left: 0; }
+  .coverage-axis { font-size: var(--mobile-detail-size); }
   .coverage-row { grid-template-columns: minmax(0, 1fr); gap: 0.3rem; }
-  .coverage-row-label { text-align: left; overflow-wrap: anywhere; }
+  .coverage-row-label { font-size: var(--mobile-reading-size); text-align: left; overflow-wrap: anywhere; }
   .coverage-track { width: 100%; }
-  .coverage-row-value { grid-column: 1; text-align: left; overflow-wrap: anywhere; }
+  .coverage-row-value { grid-column: 1; font-size: var(--mobile-secondary-size); text-align: left; overflow-wrap: anywhere; }
   .factor-row { grid-template-columns: 1.7rem minmax(0, 1fr); padding: 0.75rem; }
+  .factor-index { font-size: var(--mobile-detail-size); }
+  .factor-main { font-size: var(--mobile-reading-size); line-height: 1.5; }
+  .factor-band { font-size: var(--mobile-secondary-size); line-height: 1.55; }
   .mix-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .mix-grid div:last-child { grid-column: 1 / -1; }
+  .mix-grid dt { font-size: var(--mobile-detail-size); line-height: 1.45; }
+  .mix-grid dd { font-size: var(--mobile-reading-size); line-height: 1.45; }
+  .factor-status { font-size: var(--mobile-detail-size); line-height: 1.45; }
   .budget-grid { grid-template-columns: 1fr; }
   .budget-grid div + div { border-left: 0; border-top: 1px solid var(--line); }
+  .budget-grid span { font-size: var(--mobile-secondary-size); line-height: 1.5; }
+  .budget-grid strong { font-size: 1.05rem; }
+  .boundary-card p { font-size: var(--mobile-secondary-size); line-height: 1.65; }
   footer { display: grid; gap: 1rem; }
+  footer strong { font-size: var(--mobile-reading-size); }
+  footer span, footer p { font-size: var(--mobile-secondary-size); line-height: 1.6; }
   footer p { text-align: left; }
 }
 
@@ -607,11 +675,11 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
         <p class="header-copy" data-i18n="header.copy">Turn an assay range and a rough target-analyte estimate into a transparent pilot coverage plan—before spending wells or sample.</p>
       </div>
       <div class="header-tools">
+        <div class="prototype-badge" data-i18n="header.prototype">Release candidate · v0.3.1</div>
         <div class="language-switch" role="group" aria-label="Language" data-i18n-aria-label="language.label">
           <button type="button" data-language="en" aria-pressed="true">EN</button>
           <button type="button" data-language="zh-Hant" aria-pressed="false">繁中</button>
         </div>
-        <div class="prototype-badge" data-i18n="header.prototype">Release candidate · v0.3</div>
       </div>
     </div>
   </header>
@@ -1103,7 +1171,7 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
       "language.label": "Language",
       "header.productLabel": "Pre-run planning calculator",
       "header.copy": "Turn an assay range and a rough target-analyte estimate into a transparent pilot coverage plan—before spending wells or sample.",
-      "header.prototype": "Release candidate · v0.3",
+      "header.prototype": "Release candidate · v0.3.1",
       "intro.label": "Planner boundaries",
       "intro.coverage.title": "Coverage, not validation",
       "intro.coverage.body": "Shows what each dilution can mathematically cover.",
@@ -1221,7 +1289,7 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
       "language.label": "語言",
       "header.productLabel": "實驗前稀釋規劃工具",
       "header.copy": "輸入可用分析範圍與目標分析物的概略濃度，在耗用孔位與樣本之前，先建立透明可核對的初次稀釋涵蓋計畫。",
-      "header.prototype": "發布候選版 · v0.3",
+      "header.prototype": "發布候選版 · v0.3.1",
       "intro.label": "規劃器界線",
       "intro.coverage.title": "規劃涵蓋範圍",
       "intro.coverage.body": "顯示每個稀釋倍率在數學上可涵蓋的濃度。",

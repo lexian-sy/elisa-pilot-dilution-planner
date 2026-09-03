@@ -59,6 +59,43 @@ test("mobile layout and accessibility scaffolding are present", () => {
   assert.doesNotMatch(css, /min-width:\s*(?:[4-9]\d{2}|\d{4,})px/);
 });
 
+test("mobile header separates the release badge from the right-aligned language switch", () => {
+  const headerTools = sourceHtml.match(/<div class="header-tools">([\s\S]*?)<\/div>\s*<\/div>\s*<\/header>/)?.[1] || "";
+  assert.ok(headerTools.indexOf("prototype-badge") < headerTools.indexOf("language-switch"));
+  assert.match(css, /\.header-tools\s*\{[\s\S]*?right:\s*0;[\s\S]*?justify-content:\s*space-between;[\s\S]*?flex-wrap:\s*nowrap;/);
+  assert.match(css, /\.language-switch button\s*\{[\s\S]*?min-width:\s*3rem;[\s\S]*?min-height:\s*2\.75rem;/);
+});
+
+test("mobile typography uses readable body, supporting, and detail size floors", () => {
+  const mobileCss = css.slice(
+    css.indexOf("@media (max-width: 620px)"),
+    css.indexOf("@media (prefers-reduced-motion: reduce)"),
+  );
+  assert.match(css, /--mobile-reading-size:\s*1rem;/);
+  assert.match(css, /--mobile-secondary-size:\s*0\.95rem;/);
+  assert.match(css, /--mobile-detail-size:\s*0\.9rem;/);
+  for (const match of mobileCss.matchAll(/font-size:\s*(\d*\.?\d+)rem/g)) {
+    assert.ok(Number(match[1]) >= 0.9, `Mobile text is smaller than 0.9rem: ${match[0]}`);
+  }
+  for (const selector of [
+    ".header-copy",
+    ".intro-strip span",
+    ".mode-description",
+    ".field small",
+    ".result-hero p",
+    ".success-note",
+    ".section-copy",
+    ".coverage-row-value",
+    ".factor-band",
+    ".mix-grid dt",
+    ".budget-grid span",
+    ".boundary-card p",
+    "footer span, footer p",
+  ]) {
+    assert.ok(css.includes(selector), `Missing mobile typography coverage for ${selector}`);
+  }
+});
+
 test("English and Traditional Chinese expose the same translation keys", () => {
   const englishKeys = Object.keys(i18n.messages.en).sort();
   const chineseKeys = Object.keys(i18n.messages["zh-Hant"]).sort();
@@ -114,5 +151,5 @@ test("release candidate carries its open-source and privacy boundaries", () => {
   assert.match(license, /Copyright \(c\) 2026 Lexian/);
   assert.match(privacy, /no account system, analytics, advertising, backend, database, cookies, or network request/i);
   assert.match(privacy, /language preference/i);
-  assert.match(builtHtml, /Release candidate · v0\.3/);
+  assert.match(builtHtml, /Release candidate · v0\.3\.1/);
 });

@@ -3,7 +3,7 @@
 ## Checkpoint
 
 - Product: ELISA Pilot Dilution Planner
-- Stage: bilingual local release candidate v0.3 — automated and real-Edge checks pass; final Traditional Chinese iPhone spot check remains
+- Stage: bilingual local release candidate v0.3.1 — v0.3 iPhone functionality is accepted; mobile readability and upper-right language-switch feedback are implemented and await one focused iPhone UX check
 - Date: 2026-09-03
 - Authority boundary: prepare and verify a recoverable public-release candidate without push, deployment, DNS, payment/account changes, analytics, or external commitment.
 
@@ -20,6 +20,9 @@
 - Browser-language startup plus a locally remembered language preference, with storage failure handled as a non-blocking fallback.
 - Localized page metadata, static labels, dynamic results, warnings, validation errors, and accessibility labels.
 - Mobile log-scale rows stack factor, track, and covered interval so long factor labels no longer share a narrow fixed column with the track.
+- At 620 px and below, body copy, form labels, helper text, notices, result details, summaries, and footer copy use explicit mobile readability floors: 1rem primary copy, 0.95rem supporting copy, and 0.9rem compact detail text.
+- Mobile inputs remain at least 1rem to avoid iOS text zoom, checkboxes are enlarged, and both language buttons have a 44 px-equivalent minimum touch height.
+- The release badge now precedes the language control in the header; on mobile the badge is anchored to the left side of the top row and the non-wrapping language switch to the right. On desktop the language switch is likewise the rightmost tool.
 - Dependency-free self-contained HTML build.
 - MIT public-source license and a release-candidate privacy statement.
 - Bounded public-release checklist that keeps external actions behind a separate release gate.
@@ -41,15 +44,16 @@ Bounded browser smoke check (when the Work runtime supplies Playwright):
 ## Evidence
 
 - `npm run check`: passed.
-- `node --test tests/*.test.js`: **28 passed, 0 failed**. This retains the mathematical and boundary checks and adds locale-key parity, static/dynamic/error translation coverage, language-switch scaffolding, saved/browser-locale resolution, mobile stacked-chart structure, and release-boundary files.
+- `node --test tests/*.test.js`: **30 passed, 0 failed**. This retains all mathematical and boundary checks and adds static guards for the mobile type scale, top-row separation, rightmost language-switch order, no-wrap behavior, and 44 px-equivalent language-button height.
 - `node --check src/planner.js`, `src/i18n.js`, and `src/app.js`: passed.
-- Self-contained v0.3 build passed. Output is 75,607 bytes with SHA-256 `3f4020e9fe25a4dac6f80ccd2b63e87da1961c19e21fcea2952ae89120d82d5a`.
+- Self-contained v0.3.1 build passed. Output is 78,563 bytes with SHA-256 `53014bec44913a9eed8260fa7d23ffd3ad8ab1674e39a0b0538d55f65da06117`.
 - Static artifact checks passed: unique source IDs, all static app selectors resolved, 116 matching keys in both locales, no external dependency or network primitive, classic-script `file://` compatibility, required product/safety wording, viewport/accessibility scaffolding, and a local accessible language switch.
 - Yao's v0.1 iPhone evidence confirmed the default calculation and exposed factor labels colliding with the chart track.
 - Yao's 2026-09-03 v0.2 iPhone + Edge long screenshot accepted the English results section: the default calculation remains at 100% coverage, all four factors are correct, `396.8503×` and `7,905.6942×` are fully readable above their tracks, and no horizontal overflow or result-card clipping is visible through the footer.
+- Yao's 2026-09-03 v0.3 Chinese-locale iPhone evidence accepted automatic Traditional Chinese selection, the unchanged default 100% calculation, visible factor labels, and unclipped Chinese content. Her explicit UX feedback was that phone text remained too small and the language control should be in the upper right; that feedback is the bounded reason for v0.3.1.
 - Surface Microsoft Edge executed the self-contained artifact at desktop and responsive mobile-breakpoint widths. Default calculation, EN/繁中 translation, input/result preservation, saved-language reload, bench-friendly factors, fixed-fold factors, linked validation errors, impossible-low-range handling, header separation, and horizontal-overflow checks passed. Edge's headless mobile window reported 492 CSS px; Yao's narrower real-iPhone English evidence remains the device-level layout proof.
 - In the current iOS ChatGPT file-preview flow, the preview's **Download** command did not save reliably. **Share → Save to Files** succeeded; this is delivery friction outside the planner artifact.
-- The Work container still has no browser executable, so browser QA ran on Lexian's Surface Edge using a hash-verified transfer of the self-contained artifact with an appended test-only harness. Exact 390 px Traditional Chinese iPhone appearance remains the owner-QA gate.
+- The current Work container has no Chrome, Chromium, Firefox, WebKit, or other browser executable, so a new v0.3.1 browser smoke could not run here. The retained v0.3 real-Edge/iPhone evidence, the complete automated suite, self-contained artifact checks, and static mobile layout guards passed; the exact v0.3.1 iPhone appearance remains the owner-QA gate.
 
 ## Known limits
 
@@ -63,4 +67,4 @@ Bounded browser smoke check (when the Work runtime supplies Playwright):
 
 ## Next safe step
 
-Create the v0.3 Git/source checkpoint and hand Yao the self-contained artifact for one Traditional Chinese iPhone spot check. After that evidence, the next boundary is a separately authorized public repo/deployment/support setup.
+Hand Yao the v0.3.1 self-contained artifact for one focused iPhone check: confirm the larger copy is comfortable to read without zoom and the release badge stays left while the language switch stays independently at the upper right without wrapping, collision, or overflow. This is the only remaining iPhone acceptance point. After that evidence, the next boundary is a separately authorized public repo/deployment/support setup.

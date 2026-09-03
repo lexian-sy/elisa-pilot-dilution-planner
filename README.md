@@ -14,7 +14,7 @@ The release candidate contains an in-page `EN / 繁中` switch. It follows a sup
 
 ## Current state
 
-- Stage: local release candidate v0.3; automated checks and bounded real-Edge interaction checks pass. Yao's English iPhone result view is accepted; one Traditional Chinese iPhone spot check remains before publication.
+- Stage: local release candidate v0.3.1. Yao's v0.3 iPhone evidence accepted Traditional Chinese startup, the default 100% result, complete factor labels, and unclipped Chinese content; her readability and header-placement feedback is implemented in this mobile UX patch.
 - Active Work Mode path for this checkpoint: `/workspace/scratch/59ee1c8d5961/elisa-pilot-dilution-planner`
 - Source entry: `index.html` (serve the repository root for development).
 - Self-contained QA artifact: `dist/elisa-pilot-dilution-planner.html` (opens directly from `file://`).
@@ -44,7 +44,7 @@ The source is prepared for release under the MIT License; see `LICENSE`. The app
 - Direct preparation is calculated independently from original sample for every factor. When the needed original volume is below the user-entered pipetting minimum, the tool flags that an intermediate dilution is required but does not invent a staged protocol.
 - Auto mode uses a geometric-midpoint/log-spacing engineering heuristic and exposes gaps; it is not a vendor recommendation.
 - Lower-bound-only uncertainty cannot establish coverage below the assay lower limit.
-- Next safe step: Yao performs the single Traditional Chinese iPhone spot check in `docs/YAO_QA.md`. After that gate, use `docs/RELEASE_CHECKLIST.md` for the separately authorized public release.
+- Next safe step: Yao performs the single v0.3.1 iPhone UX check in `docs/YAO_QA.md`: confirm the larger mobile type is comfortable and the language switch stays at the upper right without crowding the release badge. After that gate, use `docs/RELEASE_CHECKLIST.md` for the separately authorized public release.
 
 ## Attribution
 

@@ -1,6 +1,6 @@
 {
   "name": "elisa-pilot-dilution-planner",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "private": true,
   "description": "Browser-only release candidate for transparent ELISA pilot dilution coverage planning.",
   "scripts": {

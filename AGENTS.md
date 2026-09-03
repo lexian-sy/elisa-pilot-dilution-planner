@@ -10,6 +10,6 @@ This repository is the public-beta source for **ELISA Pilot Dilution Planner**.
 - The interface supports English and Traditional Chinese from one shared calculation core. Keep `src/i18n.js` locale keys in parity, translate dynamic errors and results as well as static labels, and use general public-facing pronouns rather than partner-specific language.
 - Run `npm run check` after source changes. For UI changes, also run the bounded Playwright smoke check documented in `CURRENT_STATUS.md` when the browser runtime is available.
 - The offline build is `dist/elisa-pilot-dilution-planner.html`; it must remain self-contained and usable from `file://`. Hosted output is `dist/index.html` plus `dist/zh-tw/index.html`, and must preserve the same calculation core and safety boundary.
-- Do not push, deploy, change DNS, connect payment services, or make external commitments without a new explicit authorization.
+- Do not change hosting, DNS, analytics, payment services, or other external commitments without explicit authorization for that stage.
 - Record verified state, checks, limitations, and the next safe step in `CURRENT_STATUS.md`.
-- A normal handoff must state, in plain language for Yao, what works, whether she needs to act, the single next step, stop conditions, and the exact handoff artifact. Preserve deeper technical evidence for Lex in the repo status document.
+- A normal handoff must state what works, whether a reviewer needs to act, the single next step, stop conditions, and the exact handoff artifact. Preserve deeper technical evidence in the repository status document.

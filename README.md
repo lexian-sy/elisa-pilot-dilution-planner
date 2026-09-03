@@ -14,8 +14,7 @@ The public beta contains an in-page `EN / 繁中` switch. The English root follo
 
 ## Current state
 
-- Stage: public beta v0.4.0, deployed from the public repository through Cloudflare Workers Builds and accepted on an exact iPhone device.
-- Active Work Mode path for this checkpoint: `/workspace/scratch/59ee1c8d5961/elisa-pilot-dilution-planner`
+- Stage: public beta v0.4.0, deployed from the public repository through Cloudflare Workers Builds and accepted on desktop and iPhone.
 - Source entry: `index.html` (serve the repository root for development).
 - Self-contained QA artifact: `dist/elisa-pilot-dilution-planner.html` (opens directly from `file://`).
 - Public source: <https://github.com/lexian-sy/elisa-pilot-dilution-planner>
@@ -47,7 +46,7 @@ The source is released under the MIT License; see `LICENSE`. The application pri
 - Direct preparation is calculated independently from original sample for every factor. When the needed original volume is below the user-entered pipetting minimum, the tool flags that an intermediate dilution is required but does not invent a staged protocol.
 - Auto mode uses a geometric-midpoint/log-spacing engineering heuristic and exposes gaps; it is not a vendor recommendation.
 - Lower-bound-only uncertainty cannot establish coverage below the assay lower limit.
-- Next safe step: begin bounded public discovery and feedback collection from the stable `workers.dev` release. A future custom hostname under `lexiansy.space` and any payment/support destination remain separate account-owner steps.
+- Next safe step: begin bounded public discovery and feedback collection from the stable `workers.dev` release. A custom hostname and any payment/support destination remain separate future release decisions.
 
 ## Attribution
 

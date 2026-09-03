@@ -10,12 +10,12 @@ This checklist begins only after the v0.3.1 iPhone readability and header-placem
 - [x] English/Traditional Chinese state preservation and responsive layout pass in Microsoft Edge.
 - [x] MIT license and privacy boundary are present.
 - [x] Traditional Chinese iPhone startup, default 100% result, factor visibility, and unclipped content are accepted on v0.3.
-- [x] v0.3.1 larger mobile typography and upper-right language-switch placement are accepted on Yao's real iPhone.
+- [x] v0.3.1 larger mobile typography and upper-right language-switch placement are accepted on a real iPhone.
 
 ## External release gate
 
 - [x] Create the public GitHub repository and push the exact accepted commit.
-- [ ] Choose the production hostname under `lexiansy.space`.
+- [x] Use the independent stable `workers.dev` hostname for the initial public beta.
 - [x] Configure Cloudflare static hosting without analytics or a backend.
 - [x] Add indexable English `/` and Traditional Chinese `/zh-tw/` routes, canonical URLs, and `hreflang` metadata.
 - [x] Update `PRIVACY.md` with the actual hosting provider and public contact route.

@@ -3,9 +3,9 @@
 ## Checkpoint
 
 - Product: ELISA Pilot Dilution Planner
-- Stage: local-only bilingual prototype v0.2 — English mobile results accepted; bilingual interaction QA remains
+- Stage: bilingual local release candidate v0.3 — automated and real-Edge checks pass; final Traditional Chinese iPhone spot check remains
 - Date: 2026-09-03
-- Authority boundary: repair the owner-observed mobile chart collision, add English/Traditional Chinese localization, automated checks, a local Git checkpoint, and a self-contained QA artifact. No push, deployment, DNS, payment, account, or external commitment.
+- Authority boundary: prepare and verify a recoverable public-release candidate without push, deployment, DNS, payment/account changes, analytics, or external commitment.
 
 ## Implemented
 
@@ -17,9 +17,12 @@
 - Usable-range, expected-range, volume, replicate, point, and mode validation.
 - Responsive, accessible, English-first local UI with explicit scientific boundaries.
 - Complete in-page English/Traditional Chinese switch backed by one shared set of inputs, calculations, result state, and validation codes.
+- Browser-language startup plus a locally remembered language preference, with storage failure handled as a non-blocking fallback.
 - Localized page metadata, static labels, dynamic results, warnings, validation errors, and accessibility labels.
 - Mobile log-scale rows stack factor, track, and covered interval so long factor labels no longer share a narrow fixed column with the track.
 - Dependency-free self-contained HTML build.
+- MIT public-source license and a release-candidate privacy statement.
+- Bounded public-release checklist that keeps external actions behind a separate release gate.
 
 ## Required checks for this checkpoint
 
@@ -38,25 +41,26 @@ Bounded browser smoke check (when the Work runtime supplies Playwright):
 ## Evidence
 
 - `npm run check`: passed.
-- `node --test tests/*.test.js`: **26 passed, 0 failed**. This retains the 24 mathematical and boundary checks and adds locale-key parity, static/dynamic/error translation coverage, language-switch scaffolding, and the mobile stacked chart rule.
+- `node --test tests/*.test.js`: **28 passed, 0 failed**. This retains the mathematical and boundary checks and adds locale-key parity, static/dynamic/error translation coverage, language-switch scaffolding, saved/browser-locale resolution, mobile stacked-chart structure, and release-boundary files.
 - `node --check src/planner.js`, `src/i18n.js`, and `src/app.js`: passed.
-- Self-contained build passed. Output is 74,262 bytes with SHA-256 `7488da8cae698d90990b2565cb9ca162152f2fa36f05f86c85ded29687aa8471`.
+- Self-contained v0.3 build passed. Output is 75,607 bytes with SHA-256 `3f4020e9fe25a4dac6f80ccd2b63e87da1961c19e21fcea2952ae89120d82d5a`.
 - Static artifact checks passed: unique source IDs, all static app selectors resolved, 116 matching keys in both locales, no external dependency or network primitive, classic-script `file://` compatibility, required product/safety wording, viewport/accessibility scaffolding, and a local accessible language switch.
 - Yao's v0.1 iPhone evidence confirmed the default calculation and exposed factor labels colliding with the chart track.
 - Yao's 2026-09-03 v0.2 iPhone + Edge long screenshot accepted the English results section: the default calculation remains at 100% coverage, all four factors are correct, `396.8503×` and `7,905.6942×` are fully readable above their tracks, and no horizontal overflow or result-card clipping is visible through the footer.
-- The EN ↔ 繁中 state-preservation pass, Chinese result layout, upper form, and short desktop validation have not yet received owner evidence.
+- Surface Microsoft Edge executed the self-contained artifact at desktop and responsive mobile-breakpoint widths. Default calculation, EN/繁中 translation, input/result preservation, saved-language reload, bench-friendly factors, fixed-fold factors, linked validation errors, impossible-low-range handling, header separation, and horizontal-overflow checks passed. Edge's headless mobile window reported 492 CSS px; Yao's narrower real-iPhone English evidence remains the device-level layout proof.
 - In the current iOS ChatGPT file-preview flow, the preview's **Download** command did not save reliably. **Share → Save to Files** succeeded; this is delivery friction outside the planner artifact.
-- True browser automation remains unavailable in this Work runtime: the Playwright package exists, but no Chromium/Firefox/WebKit executable is installed. Desktop/mobile rendering and interaction remain an explicit owner-QA gate.
+- The Work container still has no browser executable, so browser QA ran on Lexian's Surface Edge using a hash-verified transfer of the self-contained artifact with an appended test-only harness. Exact 390 px Traditional Chinese iPhone appearance remains the owner-QA gate.
 
 ## Known limits
 
 - No staged intermediate-dilution protocol generation.
 - No unit conversion.
 - No OD/curve fitting or assay-type input.
-- No persistence, PWA, offline service worker, analytics, backend, or remote data.
-- The local language selection resets to English on reload. Separate indexable `/` and `/zh-tw/` production paths and `hreflang` remain publication work.
-- No public license or publication decision yet.
+- No scientific input/result persistence, PWA, offline service worker, analytics, backend, or remote data.
+- Separate indexable `/` and `/zh-tw/` production paths and `hreflang` remain publication work.
+- No support URL or payment provider is connected.
+- No public repo, hosted URL, analytics, backend, service worker, or PWA identity exists.
 
 ## Next safe step
 
-Finish the focused EN ↔ 繁中 state-preservation/Chinese-layout pass and the short desktop validation pass. The long-factor mobile repair is accepted; publication remains a later authorized stage.
+Create the v0.3 Git/source checkpoint and hand Yao the self-contained artifact for one Traditional Chinese iPhone spot check. After that evidence, the next boundary is a separately authorized public repo/deployment/support setup.

@@ -12,6 +12,7 @@
   const fixedFields = document.querySelector("#fixed-fields");
   const modeInputs = Array.from(document.querySelectorAll('input[name="mode"]'));
   const languageButtons = Array.from(document.querySelectorAll("[data-language]"));
+  const languageStorageKey = "elisa-pilot-dilution-planner.language";
 
   let currentLanguage = "en";
   let latestInput = null;
@@ -21,6 +22,27 @@
 
   function t(key, values) {
     return i18n.translate(currentLanguage, key, values);
+  }
+
+  function initialLanguage() {
+    let storedLanguage = null;
+    try {
+      storedLanguage = window.localStorage.getItem(languageStorageKey);
+    } catch {
+      // Some file:// and privacy modes disable storage. Browser language still provides a safe fallback.
+    }
+    const browserLanguages = Array.isArray(window.navigator.languages)
+      ? window.navigator.languages
+      : [window.navigator.language];
+    return i18n.resolveLanguage(storedLanguage, browserLanguages);
+  }
+
+  function rememberLanguage(language) {
+    try {
+      window.localStorage.setItem(languageStorageKey, language);
+    } catch {
+      // Language persistence is optional; calculation remains fully local and usable without storage.
+    }
   }
 
   function numberValue(id) {
@@ -328,9 +350,10 @@
     );
   }
 
-  function setLanguage(language) {
+  function setLanguage(language, persist = true) {
     if (!i18n.supportedLanguages.includes(language)) return;
     currentLanguage = language;
+    if (persist) rememberLanguage(language);
     applyStaticTranslations();
     syncConditionalFields();
     if (latestErrors) showErrors(latestErrors, false);
@@ -369,5 +392,5 @@
   languageButtons.forEach((button) => {
     button.addEventListener("click", () => setLanguage(button.dataset.language));
   });
-  setLanguage("en");
+  setLanguage(initialLanguage(), false);
 })();

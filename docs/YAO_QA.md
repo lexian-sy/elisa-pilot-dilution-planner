@@ -1,6 +1,6 @@
-# Yao real-device QA — v0.2
+# Yao real-device QA — v0.3 release candidate
 
-Use the new self-contained `elisa-pilot-dilution-planner.html` artifact. No account or network connection is required.
+Use the v0.3 self-contained `elisa-pilot-dilution-planner.html` artifact. No account or network connection is required.
 
 On iPhone, use **Share → Save to Files** from the preview. The preview's own **Download** command has been observed returning to the preview without reliably saving the file.
 
@@ -10,17 +10,18 @@ On iPhone, use **Share → Save to Files** from the preview. The preview's own *
 - `396.8503×` and `7,905.6942×` are fully readable above their tracks.
 - No horizontal overflow or result-card clipping is visible from the coverage summary through the footer.
 
-## Focused iPhone pass
+## Accepted on Surface Edge
 
-1. While the accepted default result is still visible, switch from **EN** to **繁中**. Confirm the entered numbers and calculated factors stay unchanged while the static page, result cards, warnings, footer, page title, and accessibility labels change to Traditional Chinese.
-2. Turn on the bench-friendly factor switch. Confirm the factors become `1 / 20 / 500 / 10000`, coverage remains continuous, and the Chinese result text remains complete.
-3. Switch to **固定倍比**, use start `1`, fold `10`, and four points. Confirm factors are `1 / 10 / 100 / 1000` and the interface describes the set as the user's chosen series rather than an optimal recommendation.
+- English/Traditional Chinese static and dynamic result text changes without losing inputs or calculated factors.
+- The selected language survives reload; a Chinese browser locale starts in Traditional Chinese when no saved choice exists.
+- Bench-friendly and fixed-fold factor sequences, linked validation errors, and the impossible-low-range stop are correct.
+- Desktop and responsive mobile-breakpoint runs report no horizontal overflow or header collision.
 
-## Short desktop pass
+## Final iPhone spot check
 
-1. Switch between **EN** and **繁中** at the top. Confirm neither language overlaps the prototype badge or header copy.
-2. Empty one required field and calculate in each language. Confirm the error summary links to the field, the message follows the selected language, and no stale result remains.
-3. Enter usable range `10–100`, known expected range `1–5`, and calculate. Confirm the tool stops and explains in the selected language that dilution cannot bring the range upward.
+1. Open v0.3. On an iPhone using a Chinese browser locale, the interface should initially select **繁中**.
+2. Leave the example values unchanged and tap **建立初次稀釋計畫**. Confirm the four factors remain `1 / 19.9211 / 396.8503 / 7905.6942`, coverage is 100%, and no Chinese text or factor label extends beyond its card.
+3. Capture one screenshot containing the language switch and any result section. Stop only if the page starts in the wrong language, a number changes, or text is clipped.
 
 ## Stop and preserve evidence if
 

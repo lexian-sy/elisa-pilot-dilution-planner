@@ -11,6 +11,8 @@ const builtHtml = fs.readFileSync(path.join(root, "dist", "elisa-pilot-dilution-
 const appJs = fs.readFileSync(path.join(root, "src", "app.js"), "utf8");
 const plannerJs = fs.readFileSync(path.join(root, "src", "planner.js"), "utf8");
 const css = fs.readFileSync(path.join(root, "styles.css"), "utf8");
+const license = fs.readFileSync(path.join(root, "LICENSE"), "utf8");
+const privacy = fs.readFileSync(path.join(root, "PRIVACY.md"), "utf8");
 const i18n = require("../src/i18n.js");
 
 test("source IDs are unique and every static app selector resolves", () => {
@@ -92,7 +94,25 @@ test("language switch is local, accessible, and available in the built artifact"
   assert.match(sourceHtml, /data-language="en"[^>]+aria-pressed="true"/);
   assert.match(sourceHtml, /data-language="zh-Hant"[^>]+aria-pressed="false"/);
   assert.match(appJs, /document\.documentElement\.lang\s*=\s*currentLanguage/);
+  assert.match(appJs, /localStorage\.getItem\(languageStorageKey\)/);
+  assert.match(appJs, /localStorage\.setItem\(languageStorageKey, language\)/);
   assert.doesNotMatch(appJs, /location\.(?:assign|replace)|window\.location\s*=/);
   assert.match(builtHtml, /window\.ELISAI18N/);
   assert.match(builtHtml, /ELISA 初次稀釋規劃器/);
+});
+
+test("language resolution respects a saved choice and otherwise follows Chinese browser locales", () => {
+  assert.equal(i18n.resolveLanguage("zh-Hant", ["en-US"]), "zh-Hant");
+  assert.equal(i18n.resolveLanguage("en", ["zh-TW"]), "en");
+  assert.equal(i18n.resolveLanguage(null, ["zh-TW", "en-US"]), "zh-Hant");
+  assert.equal(i18n.resolveLanguage("unsupported", ["zh_Hant"]), "zh-Hant");
+  assert.equal(i18n.resolveLanguage(null, ["en-US"]), "en");
+});
+
+test("release candidate carries its open-source and privacy boundaries", () => {
+  assert.match(license, /^MIT License/m);
+  assert.match(license, /Copyright \(c\) 2026 Lexian/);
+  assert.match(privacy, /no account system, analytics, advertising, backend, database, cookies, or network request/i);
+  assert.match(privacy, /language preference/i);
+  assert.match(builtHtml, /Release candidate · v0\.3/);
 });

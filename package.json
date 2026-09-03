@@ -1,8 +1,8 @@
 {
   "name": "elisa-pilot-dilution-planner",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
-  "description": "Local-only prototype for transparent ELISA pilot dilution coverage planning.",
+  "description": "Browser-only release candidate for transparent ELISA pilot dilution coverage planning.",
   "scripts": {
     "build": "node scripts/build-single-file.js",
     "test": "node --test tests/*.test.js",

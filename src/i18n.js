@@ -16,7 +16,7 @@
       "language.label": "Language",
       "header.productLabel": "Pre-run planning calculator",
       "header.copy": "Turn an assay range and a rough target-analyte estimate into a transparent pilot coverage plan—before spending wells or sample.",
-      "header.prototype": "Local prototype · v0.2",
+      "header.prototype": "Release candidate · v0.3",
       "intro.label": "Planner boundaries",
       "intro.coverage.title": "Coverage, not validation",
       "intro.coverage.body": "Shows what each dilution can mathematically cover.",
@@ -68,7 +68,7 @@
       "budget.minimumPipette.help": "Below this, the result asks for an intermediate dilution instead of presenting direct prep as reliable.",
       "actions.build": "Build pilot plan",
       "actions.reset": "Reset example",
-      "footer.local": "Local research prototype · no data leaves this page",
+      "footer.local": "Browser-based research tool · calculation inputs stay on this device",
       "footer.boundary": "For research planning only. Verify all assay-specific decisions against the kit insert or your validated method.",
       "error.summary.one": "Check this field:",
       "error.summary.many": "Check these fields:",
@@ -134,7 +134,7 @@
       "language.label": "語言",
       "header.productLabel": "實驗前稀釋規劃工具",
       "header.copy": "輸入可用分析範圍與目標分析物的概略濃度，在耗用孔位與樣本之前，先建立透明可核對的初次稀釋涵蓋計畫。",
-      "header.prototype": "本機原型 · v0.2",
+      "header.prototype": "發布候選版 · v0.3",
       "intro.label": "規劃器界線",
       "intro.coverage.title": "規劃涵蓋範圍",
       "intro.coverage.body": "顯示每個稀釋倍率在數學上可涵蓋的濃度。",
@@ -186,7 +186,7 @@
       "budget.minimumPipette.help": "低於此體積時，結果會要求使用中間稀釋，不會把直接配製標示為可靠。",
       "actions.build": "建立初次稀釋計畫",
       "actions.reset": "重設範例",
-      "footer.local": "本機研究原型 · 資料不會離開此頁面",
+      "footer.local": "瀏覽器研究工具 · 計算輸入只留在這台裝置",
       "footer.boundary": "僅供研究規劃。所有分析方法相關決定仍須依試劑盒說明書或已驗證方法確認。",
       "error.summary.one": "請檢查這個欄位：",
       "error.summary.many": "請檢查以下欄位：",
@@ -256,9 +256,20 @@
     );
   }
 
+  const supportedLanguages = Object.keys(messages);
+
+  function resolveLanguage(storedLanguage, browserLanguages = []) {
+    if (supportedLanguages.includes(storedLanguage)) return storedLanguage;
+    const candidates = Array.isArray(browserLanguages) ? browserLanguages : [browserLanguages];
+    return candidates.some((language) => /^zh(?:[-_]|$)/i.test(String(language || "")))
+      ? "zh-Hant"
+      : "en";
+  }
+
   return {
     messages,
-    supportedLanguages: Object.keys(messages),
+    supportedLanguages,
+    resolveLanguage,
     translate,
   };
 });

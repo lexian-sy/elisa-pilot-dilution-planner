@@ -3,7 +3,7 @@
 ## Checkpoint
 
 - Product: ELISA Pilot Dilution Planner
-- Stage: local-only bilingual prototype v0.2 candidate
+- Stage: local-only bilingual prototype v0.2 — English mobile results accepted; bilingual interaction QA remains
 - Date: 2026-09-03
 - Authority boundary: repair the owner-observed mobile chart collision, add English/Traditional Chinese localization, automated checks, a local Git checkpoint, and a self-contained QA artifact. No push, deployment, DNS, payment, account, or external commitment.
 
@@ -42,7 +42,10 @@ Bounded browser smoke check (when the Work runtime supplies Playwright):
 - `node --check src/planner.js`, `src/i18n.js`, and `src/app.js`: passed.
 - Self-contained build passed. Output is 74,262 bytes with SHA-256 `7488da8cae698d90990b2565cb9ca162152f2fa36f05f86c85ded29687aa8471`.
 - Static artifact checks passed: unique source IDs, all static app selectors resolved, 116 matching keys in both locales, no external dependency or network primitive, classic-script `file://` compatibility, required product/safety wording, viewport/accessibility scaffolding, and a local accessible language switch.
-- Yao's v0.1 iPhone evidence confirmed the default calculation and exposed factor labels colliding with the chart track. The v0.2 structural fix and bilingual interaction have not yet received real-device acceptance.
+- Yao's v0.1 iPhone evidence confirmed the default calculation and exposed factor labels colliding with the chart track.
+- Yao's 2026-09-03 v0.2 iPhone + Edge long screenshot accepted the English results section: the default calculation remains at 100% coverage, all four factors are correct, `396.8503×` and `7,905.6942×` are fully readable above their tracks, and no horizontal overflow or result-card clipping is visible through the footer.
+- The EN ↔ 繁中 state-preservation pass, Chinese result layout, upper form, and short desktop validation have not yet received owner evidence.
+- In the current iOS ChatGPT file-preview flow, the preview's **Download** command did not save reliably. **Share → Save to Files** succeeded; this is delivery friction outside the planner artifact.
 - True browser automation remains unavailable in this Work runtime: the Playwright package exists, but no Chromium/Firefox/WebKit executable is installed. Desktop/mobile rendering and interaction remain an explicit owner-QA gate.
 
 ## Known limits
@@ -56,4 +59,4 @@ Bounded browser smoke check (when the Work runtime supplies Playwright):
 
 ## Next safe step
 
-Create a recoverable local Git checkpoint and hand the rebuilt self-contained artifact plus `docs/YAO_QA.md` to Yao. Acceptance requires the focused iPhone bilingual/long-factor pass and short desktop validation pass; publication remains a later authorized stage.
+Finish the focused EN ↔ 繁中 state-preservation/Chinese-layout pass and the short desktop validation pass. The long-factor mobile repair is accepted; publication remains a later authorized stage.

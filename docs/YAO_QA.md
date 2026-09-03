@@ -2,13 +2,19 @@
 
 Use the new self-contained `elisa-pilot-dilution-planner.html` artifact. No account or network connection is required.
 
+On iPhone, use **Share → Save to Files** from the preview. The preview's own **Download** command has been observed returning to the preview without reliably saving the file.
+
+## Accepted on iPhone
+
+- 2026-09-03, Edge external-file view: default English result shows 100% coverage and the expected four factors.
+- `396.8503×` and `7,905.6942×` are fully readable above their tracks.
+- No horizontal overflow or result-card clipping is visible from the coverage summary through the footer.
+
 ## Focused iPhone pass
 
-1. Open the file, leave the example values unchanged, and tap **Build pilot plan**. Confirm the four factors remain near `1 / 19.9211 / 396.8503 / 7905.6942` with 100% coverage.
-2. In **Log-scale view**, confirm every factor—including `396.8503×` and `7,905.6942×`—appears on its own line above the track and is fully readable.
-3. While the result is still visible, switch from **EN** to **繁中**. Confirm the entered numbers and calculated factors stay unchanged while the static page, result cards, warnings, footer, page title, and accessibility labels change to Traditional Chinese.
-4. Turn on the bench-friendly factor switch. Confirm the factors become `1 / 20 / 500 / 10000`, coverage remains continuous, and the Chinese result text remains complete.
-5. Switch to **固定倍比**, use start `1`, fold `10`, and four points. Confirm factors are `1 / 10 / 100 / 1000` and the interface describes the set as the user's chosen series rather than an optimal recommendation.
+1. While the accepted default result is still visible, switch from **EN** to **繁中**. Confirm the entered numbers and calculated factors stay unchanged while the static page, result cards, warnings, footer, page title, and accessibility labels change to Traditional Chinese.
+2. Turn on the bench-friendly factor switch. Confirm the factors become `1 / 20 / 500 / 10000`, coverage remains continuous, and the Chinese result text remains complete.
+3. Switch to **固定倍比**, use start `1`, fold `10`, and four points. Confirm factors are `1 / 10 / 100 / 1000` and the interface describes the set as the user's chosen series rather than an optimal recommendation.
 
 ## Short desktop pass
 

@@ -537,6 +537,24 @@ footer div { display: grid; gap: 0.25rem; }
 footer strong { color: #e9f8f8; font-size: 0.84rem; }
 footer span, footer p { font-size: 0.7rem; line-height: 1.45; }
 footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
+.support-link {
+  width: fit-content;
+  min-height: 2.5rem;
+  margin-top: 0.65rem;
+  padding: 0.65rem 0.95rem;
+  color: #09233c;
+  border-radius: 999px;
+  background: #d9f6f5;
+  font-size: 0.75rem;
+  font-weight: 800;
+  line-height: 1.2;
+  text-decoration: none;
+}
+.support-link:hover { background: #bdeff1; }
+.support-link:focus-visible {
+  outline: 3px solid rgba(117, 220, 227, 0.5);
+  outline-offset: 3px;
+}
 
 .visually-hidden {
   position: absolute !important;
@@ -663,6 +681,11 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
   footer strong { font-size: var(--mobile-reading-size); }
   footer span, footer p { font-size: var(--mobile-secondary-size); line-height: 1.6; }
   footer p { text-align: left; }
+  .support-link {
+    min-height: 2.75rem;
+    padding: 0.75rem 1rem;
+    font-size: var(--mobile-reading-size);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -686,7 +709,7 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
         <p class="header-copy" data-i18n="header.copy">輸入可用分析範圍與目標分析物的概略濃度，在耗用孔位與樣本之前，先建立透明可核對的初次稀釋涵蓋計畫。</p>
       </div>
       <div class="header-tools">
-        <div class="prototype-badge" data-i18n="header.prototype">公開測試版 · v0.4.0</div>
+        <div class="prototype-badge" data-i18n="header.prototype">公開測試版 · v0.4.1</div>
         <div class="language-switch" role="group" aria-label="語言" data-i18n-aria-label="language.label">
           <button type="button" data-language="en" aria-pressed="false">EN</button>
           <button type="button" data-language="zh-Hant" aria-pressed="true">繁中</button>
@@ -833,6 +856,7 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
     <div>
       <strong>Built by Lexian</strong>
       <span data-i18n="footer.local">瀏覽器研究工具 · 計算輸入只留在這台裝置</span>
+      <a class="support-link" href="https://buymeacoffee.com/lexian" target="_blank" rel="noopener noreferrer" data-i18n="footer.support">支持這個工具</a>
     </div>
     <p data-i18n="footer.boundary">僅供研究規劃。所有分析方法相關決定仍須依試劑盒說明書或已驗證方法確認。</p>
   </footer>
@@ -1182,7 +1206,7 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
       "language.label": "Language",
       "header.productLabel": "Pre-run planning calculator",
       "header.copy": "Turn an assay range and a rough target-analyte estimate into a transparent pilot coverage plan—before spending wells or sample.",
-      "header.prototype": "Public beta · v0.4.0",
+      "header.prototype": "Public beta · v0.4.1",
       "intro.label": "Planner boundaries",
       "intro.coverage.title": "Coverage, not validation",
       "intro.coverage.body": "Shows what each dilution can mathematically cover.",
@@ -1235,6 +1259,7 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
       "actions.build": "Build pilot plan",
       "actions.reset": "Reset example",
       "footer.local": "Browser-based research tool · calculation inputs stay on this device",
+      "footer.support": "Support this tool",
       "footer.boundary": "For research planning only. Verify all assay-specific decisions against the kit insert or your validated method.",
       "error.summary.one": "Check this field:",
       "error.summary.many": "Check these fields:",
@@ -1300,7 +1325,7 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
       "language.label": "語言",
       "header.productLabel": "實驗前稀釋規劃工具",
       "header.copy": "輸入可用分析範圍與目標分析物的概略濃度，在耗用孔位與樣本之前，先建立透明可核對的初次稀釋涵蓋計畫。",
-      "header.prototype": "公開測試版 · v0.4.0",
+      "header.prototype": "公開測試版 · v0.4.1",
       "intro.label": "規劃器界線",
       "intro.coverage.title": "規劃涵蓋範圍",
       "intro.coverage.body": "顯示每個稀釋倍率在數學上可涵蓋的濃度。",
@@ -1353,6 +1378,7 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
       "actions.build": "建立初次稀釋計畫",
       "actions.reset": "重設範例",
       "footer.local": "瀏覽器研究工具 · 計算輸入只留在這台裝置",
+      "footer.support": "支持這個工具",
       "footer.boundary": "僅供研究規劃。所有分析方法相關決定仍須依試劑盒說明書或已驗證方法確認。",
       "error.summary.one": "請檢查這個欄位：",
       "error.summary.many": "請檢查以下欄位：",

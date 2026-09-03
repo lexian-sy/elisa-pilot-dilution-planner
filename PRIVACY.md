@@ -8,6 +8,6 @@ Concentration values, volume settings, and calculated plans are held only in the
 
 The public beta is available at <https://elisa-pilot-dilution-planner.lexian.workers.dev/> and is hosted using Cloudflare Workers Static Assets. Cloudflare may process ordinary request metadata such as IP address, browser information, requested URL, and request time to deliver and protect the site. See [Cloudflare's privacy policy](https://www.cloudflare.com/privacypolicy/) for its practices.
 
-No payment or support service is connected in this public beta. A future support link will lead to a separate service with its own privacy terms.
+The footer contains an optional link to Lexian's page on Buy Me a Coffee. The calculator does not send concentration inputs, results, or other application data to that service. The link opens a separate website; if you follow it, Buy Me a Coffee and its payment providers process activity under their own terms and privacy policies.
 
 Questions and bug reports can be filed through the public [GitHub issue tracker](https://github.com/lexian-sy/elisa-pilot-dilution-planner/issues).

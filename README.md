@@ -14,13 +14,13 @@ The public beta contains an in-page `EN / 繁中` switch. The English root follo
 
 ## Current state
 
-- Stage: public beta v0.4.0, deployed from the public repository through Cloudflare Workers Builds and accepted on desktop and iPhone.
+- Stage: public beta v0.4.1, deployed from the public repository through Cloudflare Workers Builds and accepted on desktop and iPhone through v0.4.0.
 - Source entry: `index.html` (serve the repository root for development).
 - Self-contained QA artifact: `dist/elisa-pilot-dilution-planner.html` (opens directly from `file://`).
 - Public source: <https://github.com/lexian-sy/elisa-pilot-dilution-planner>
 - Live tool: <https://elisa-pilot-dilution-planner.lexian.workers.dev/>
 - Traditional Chinese route: <https://elisa-pilot-dilution-planner.lexian.workers.dev/zh-tw/>
-- Payment integration, analytics, and backend do not exist in this public beta.
+- A quiet external support link opens Lexian's Buy Me a Coffee page. Payment processing stays outside the calculator; there is no embedded checkout, analytics, or backend.
 
 ## Run, test, and build
 
@@ -39,14 +39,14 @@ The public beta has no database, export schema, service worker, or PWA scope. Co
 
 ## Publication and license
 
-The source is released under the MIT License; see `LICENSE`. The application privacy boundary is documented in `PRIVACY.md`. Cloudflare Workers configuration is version-controlled in `wrangler.jsonc`; pushes to `main` build and deploy the static site. Production preview URLs are disabled. Payment and support links remain separate release actions.
+The source is released under the MIT License; see `LICENSE`. The application privacy boundary is documented in `PRIVACY.md`. Cloudflare Workers configuration is version-controlled in `wrangler.jsonc`; pushes to `main` build and deploy the static site. Production preview URLs are disabled. The optional support destination is an external link and is not part of the calculation flow.
 
 ## Known limits and next safe step
 
 - Direct preparation is calculated independently from original sample for every factor. When the needed original volume is below the user-entered pipetting minimum, the tool flags that an intermediate dilution is required but does not invent a staged protocol.
 - Auto mode uses a geometric-midpoint/log-spacing engineering heuristic and exposes gaps; it is not a vendor recommendation.
 - Lower-bound-only uncertainty cannot establish coverage below the assay lower limit.
-- Next safe step: begin bounded public discovery and feedback collection from the stable `workers.dev` release. A custom hostname and any payment/support destination remain separate future release decisions.
+- Next safe step: verify the external support destination from the deployed English and Traditional Chinese routes, then begin bounded public discovery and feedback collection. A custom hostname remains a separate future decision.
 
 ## Attribution
 

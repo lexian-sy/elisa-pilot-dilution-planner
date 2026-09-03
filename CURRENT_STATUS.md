@@ -3,7 +3,7 @@
 ## Checkpoint
 
 - Product: ELISA Pilot Dilution Planner
-- Stage: public beta v0.4.0 — deployed and accepted on desktop and iPhone
+- Stage: public beta v0.4.1 support-link release candidate — local and Surface checks passed; deployment pending
 - Date: 2026-09-03
 - Public source: <https://github.com/lexian-sy/elisa-pilot-dilution-planner>
 - Production: <https://elisa-pilot-dilution-planner.lexian.workers.dev/>
@@ -25,6 +25,7 @@
 - Canonical, `hreflang`, Open Graph, `robots.txt`, and sitemap metadata.
 - Cloudflare Workers Static Assets deployment with no Worker script, analytics, or backend.
 - MIT license, public privacy statement, and explicit scientific boundaries.
+- Optional external Buy Me a Coffee support link in both interfaces; no embedded checkout or calculator-data transfer.
 
 ## Required check
 
@@ -37,13 +38,14 @@ For UI changes, also verify the source page, self-contained artifact, and produc
 ## Evidence
 
 - `npm run check`: passed.
-- `node --test tests/*.test.js`: **33 passed, 0 failed**.
+- `node --test tests/*.test.js`: **34 passed, 0 failed**.
 - Syntax checks for `src/planner.js`, `src/i18n.js`, and `src/app.js`: passed.
-- The self-contained and hosted English outputs share SHA-256 `39088dda774cb7a02765a96fde2553dcd63e19315efaf22a9ff89e6e2b26521d`.
-- The Traditional Chinese hosted output has SHA-256 `8f2e2be50537c00ea3a112fbc72e7d04d9e5cf5c90564bf1c8f8a53fe0825000`.
+- The self-contained and hosted English outputs share SHA-256 `8be278361b6f8ce226ddc0288bf73d96590fa6c6e673f733dd8bf84c3e1e5505`.
+- The Traditional Chinese hosted output has SHA-256 `d61cce582486c1d0205b7a9e006a6a15420d910e4d573c18b98e95fd0f979ac7`.
 - Static checks confirm unique source IDs, complete selector/key parity, no external runtime dependency, classic-script `file://` compatibility, safety wording, and an accessible language switch.
 - Desktop Edge/Chrome checks passed for default calculation, locale preservation, bench-friendly factors, fixed-fold factors, validation, and horizontal overflow.
 - Real-iPhone checks passed for both public routes, the default 100% result, factor-label readability, mobile typography, header placement, and language switching.
+- Surface local-file check passed for the v0.4.1 Traditional Chinese support label and its external navigation to `buymeacoffee.com/lexian`; the destination shows Lexian's research-tool identity and one-time support by default.
 - Cloudflare Workers Builds deploys pushes from `main`; the first deployed commit was `33d97c6` and the localized public release is tagged `v0.4.0`.
 - Repository metadata links directly to the live tool and includes focused discovery topics for ELISA, dilution calculation, laboratory work, research tools, JavaScript, and open source.
 
@@ -53,9 +55,9 @@ For UI changes, also verify the source page, self-contained artifact, and produc
 - No unit conversion.
 - No OD/curve fitting or assay-type input.
 - No scientific input/result persistence, PWA, offline service worker, analytics, backend, or remote data.
-- No support URL or payment provider is connected.
+- Support is an external link; payments, supporter identity, refunds, and payout processing remain on Buy Me a Coffee and its payment providers.
 - The public beta uses the independent `workers.dev` hostname.
 
 ## Next safe step
 
-Use the stable public beta for a bounded discovery pass and collect real-user feedback before adding product scope. Keep a custom hostname, analytics, and payment/support setup as separate future decisions.
+Commit and push the exact v0.4.1 release candidate, then verify the support link from both production routes before submitting the first-payout moderation review. Keep a custom hostname and analytics as separate future decisions.

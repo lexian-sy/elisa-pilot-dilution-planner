@@ -188,5 +188,17 @@ test("public beta carries its open-source and privacy boundaries", () => {
   assert.match(license, /Copyright \(c\) 2026 Lexian/);
   assert.match(privacy, /no account system, analytics, advertising, backend, database, cookies, or network request/i);
   assert.match(privacy, /language preference/i);
-  assert.match(builtHtml, /Public beta · v0\.4\.0/);
+  assert.match(builtHtml, /Public beta · v0\.4\.1/);
+});
+
+test("support stays optional, external, localized, and separate from calculation", () => {
+  const supportUrl = "https://buymeacoffee.com/lexian";
+  for (const output of [builtHtml, hostedHtml, hostedChineseHtml]) {
+    assert.match(output, new RegExp(`href="${supportUrl}"`));
+    assert.match(output, /target="_blank" rel="noopener noreferrer"/);
+    assert.doesNotMatch(output, /<iframe\b|buymeacoffee\.com\/widget/i);
+  }
+  assert.match(hostedHtml, />Support this tool<\/a>/);
+  assert.match(hostedChineseHtml, />支持這個工具<\/a>/);
+  assert.match(privacy, /does not send concentration inputs, results, or other application data/i);
 });

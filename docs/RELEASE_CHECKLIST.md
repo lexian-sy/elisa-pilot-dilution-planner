@@ -19,7 +19,7 @@ This checklist begins only after the v0.3.1 iPhone readability and header-placem
 - [x] Configure Cloudflare static hosting without analytics or a backend.
 - [x] Add indexable English `/` and Traditional Chinese `/zh-tw/` routes, canonical URLs, and `hreflang` metadata.
 - [x] Update `PRIVACY.md` with the actual hosting provider and public contact route.
-- [ ] Create and verify the support destination; expose the support link only after it works end to end.
+- [x] Create and verify the support destination; expose it as an optional external footer link with no embedded checkout.
 - [x] Run production smoke checks on iPhone and desktop, including loading, calculation, locale, and responsive-layout behavior appropriate to the current static hosting choice.
 - [x] Publish the README, privacy statement, license, and clear scientific boundaries with the tool.
 - [x] Record initial public-beta date, production URL, and first deployed commit. (Support platform and Lexian Fund gross/fees/net remain inapplicable until support is connected.)
@@ -31,4 +31,4 @@ This checklist begins only after the v0.3.1 iPhone readability and header-placem
 - Traditional Chinese: <https://elisa-pilot-dilution-planner.lexian.workers.dev/zh-tw/>
 - First deployed commit: `33d97c6`
 - Exact-iPhone live acceptance: 2026-09-03
-- Support platform: not connected
+- Support platform: Buy Me a Coffee external link (`buymeacoffee.com/lexian`)

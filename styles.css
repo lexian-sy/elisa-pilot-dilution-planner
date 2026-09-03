@@ -517,6 +517,24 @@ footer div { display: grid; gap: 0.25rem; }
 footer strong { color: #e9f8f8; font-size: 0.84rem; }
 footer span, footer p { font-size: 0.7rem; line-height: 1.45; }
 footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
+.support-link {
+  width: fit-content;
+  min-height: 2.5rem;
+  margin-top: 0.65rem;
+  padding: 0.65rem 0.95rem;
+  color: #09233c;
+  border-radius: 999px;
+  background: #d9f6f5;
+  font-size: 0.75rem;
+  font-weight: 800;
+  line-height: 1.2;
+  text-decoration: none;
+}
+.support-link:hover { background: #bdeff1; }
+.support-link:focus-visible {
+  outline: 3px solid rgba(117, 220, 227, 0.5);
+  outline-offset: 3px;
+}
 
 .visually-hidden {
   position: absolute !important;
@@ -643,6 +661,11 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
   footer strong { font-size: var(--mobile-reading-size); }
   footer span, footer p { font-size: var(--mobile-secondary-size); line-height: 1.6; }
   footer p { text-align: left; }
+  .support-link {
+    min-height: 2.75rem;
+    padding: 0.75rem 1rem;
+    font-size: var(--mobile-reading-size);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

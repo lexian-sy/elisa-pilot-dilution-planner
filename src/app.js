@@ -2,6 +2,7 @@
   "use strict";
 
   const planner = window.ELISAPlanner;
+  const i18n = window.ELISAI18N;
   const form = document.querySelector("#planner-form");
   const results = document.querySelector("#results");
   const errorSummary = document.querySelector("#error-summary");
@@ -10,10 +11,17 @@
   const expectedSeparator = document.querySelector("#expected-separator");
   const fixedFields = document.querySelector("#fixed-fields");
   const modeInputs = Array.from(document.querySelectorAll('input[name="mode"]'));
+  const languageButtons = Array.from(document.querySelectorAll("[data-language]"));
 
+  let currentLanguage = "en";
   let latestInput = null;
   let latestPlan = null;
+  let latestErrors = null;
   let useRounded = false;
+
+  function t(key, values) {
+    return i18n.translate(currentLanguage, key, values);
+  }
 
   function numberValue(id) {
     const value = document.querySelector(`#${id}`).value.trim();
@@ -53,15 +61,36 @@
     if (absolute !== 0 && (absolute >= 1e7 || absolute < 0.001)) {
       return value.toExponential(3).replace("e+", "e");
     }
-    return new Intl.NumberFormat("en-US", {
+    return new Intl.NumberFormat(currentLanguage === "zh-Hant" ? "zh-TW" : "en-US", {
       maximumFractionDigits,
       useGrouping: true,
     }).format(value);
   }
 
   function factorLabel(factor) {
-    if (Math.abs(factor - 1) < 1e-9) return "1× (undiluted)";
+    if (Math.abs(factor - 1) < 1e-9) {
+      return `1× (${t("factor.undiluted")})`;
+    }
     return `${formatNumber(factor)}× (1:${formatNumber(factor)})`;
+  }
+
+  function errorText(error) {
+    return error.code ? t(`error.${error.code}`) : error.message;
+  }
+
+  function applyStaticTranslations() {
+    document.documentElement.lang = currentLanguage;
+    document.title = t("document.title");
+    document.querySelector('meta[name="description"]')?.setAttribute("content", t("document.description"));
+    document.querySelectorAll("[data-i18n]").forEach((node) => {
+      node.textContent = t(node.dataset.i18n);
+    });
+    document.querySelectorAll("[data-i18n-aria-label]").forEach((node) => {
+      node.setAttribute("aria-label", t(node.dataset.i18nAriaLabel));
+    });
+    languageButtons.forEach((button) => {
+      button.setAttribute("aria-pressed", String(button.dataset.language === currentLanguage));
+    });
   }
 
   function clearErrors() {
@@ -74,12 +103,13 @@
     });
   }
 
-  function showErrors(errors) {
+  function showErrors(errors, focusSummary = true) {
     clearErrors();
     const items = errors
-      .map((error) => `<li><a href="#${escapeHtml(error.field)}">${escapeHtml(error.message)}</a></li>`)
+      .map((error) => `<li><a href="#${escapeHtml(error.field)}">${escapeHtml(errorText(error))}</a></li>`)
       .join("");
-    errorSummary.innerHTML = `<strong>Check ${errors.length === 1 ? "this field" : "these fields"}:</strong><ul>${items}</ul>`;
+    const summaryKey = errors.length === 1 ? "error.summary.one" : "error.summary.many";
+    errorSummary.innerHTML = `<strong>${escapeHtml(t(summaryKey))}</strong><ul>${items}</ul>`;
     errorSummary.hidden = false;
 
     const seen = new Set();
@@ -92,12 +122,12 @@
       const message = document.createElement("p");
       message.className = "field-error";
       message.id = id;
-      message.textContent = error.message;
+      message.textContent = errorText(error);
       field.setAttribute("aria-invalid", "true");
       field.setAttribute("aria-describedby", id);
       field.closest(".field")?.appendChild(message);
     }
-    errorSummary.focus();
+    if (focusSummary) errorSummary.focus();
   }
 
   function chartStyle(lower, upper, targetLower, targetUpper) {
@@ -137,8 +167,8 @@
       <section class="result-section" aria-labelledby="coverage-title">
         <div class="section-heading-row">
           <div>
-            <p class="eyebrow">Log-scale view</p>
-            <h3 id="coverage-title">Expected-range coverage</h3>
+            <p class="eyebrow">${escapeHtml(t("coverage.eyebrow"))}</p>
+            <h3 id="coverage-title">${escapeHtml(t("coverage.title"))}</h3>
           </div>
           <span class="coverage-percent">${formatNumber(coverage.coveragePercent, 1)}%</span>
         </div>
@@ -153,54 +183,62 @@
 
   function renderGaps(coverage, input) {
     if (coverage.full) {
-      return `<p class="success-note">The selected points cover the entered expected range without log-scale gaps.</p>`;
+      return `<p class="success-note">${escapeHtml(t("gaps.success"))}</p>`;
     }
     const gaps = coverage.gaps.map((gap) =>
       `<li>${escapeHtml(formatNumber(gap.lower))}–${escapeHtml(formatNumber(gap.upper))} ${escapeHtml(input.unit)}</li>`,
     ).join("");
+    const gapKey = coverage.gaps.length === 1 ? "gaps.one" : "gaps.many";
     return `
       <div class="warning-note">
-        <strong>Uncovered concentration ${coverage.gaps.length === 1 ? "gap" : "gaps"}</strong>
+        <strong>${escapeHtml(t(gapKey))}</strong>
         <ul>${gaps}</ul>
       </div>
     `;
   }
 
   function renderFactorTable(planSet, input) {
-    const unit = escapeHtml(input.unit);
-    const rows = planSet.liquid.rows.map((row, index) => `
-      <article class="factor-row ${row.directPreparationReliable ? "" : "factor-warning"}">
-        <div class="factor-index">${index + 1}</div>
-        <div>
-          <p class="factor-main">${escapeHtml(factorLabel(row.factor))}</p>
-          <p class="factor-band">Covers ${escapeHtml(formatNumber(row.coverage.lower))}–${escapeHtml(formatNumber(row.coverage.upper))} ${unit} in the original sample</p>
-        </div>
-        <dl class="mix-grid">
-          <div><dt>Original sample</dt><dd>${escapeHtml(formatNumber(row.originalSample))} µL</dd></div>
-          <div><dt>Diluent</dt><dd>${escapeHtml(formatNumber(row.diluent))} µL</dd></div>
-          <div><dt>Prepare</dt><dd>${escapeHtml(formatNumber(row.preparedVolume))} µL</dd></div>
-        </dl>
-        <div class="factor-status ${row.directPreparationReliable ? "status-ok" : "status-warn"}">
-          ${row.directPreparationReliable ? "Direct prep clears minimum" : "Intermediate dilution required"}
-        </div>
-      </article>
-    `).join("");
+    const unit = input.unit;
+    const rows = planSet.liquid.rows.map((row, index) => {
+      const coverageText = t("factor.covers", {
+        lower: formatNumber(row.coverage.lower),
+        upper: formatNumber(row.coverage.upper),
+        unit,
+      });
+      return `
+        <article class="factor-row ${row.directPreparationReliable ? "" : "factor-warning"}">
+          <div class="factor-index">${index + 1}</div>
+          <div>
+            <p class="factor-main">${escapeHtml(factorLabel(row.factor))}</p>
+            <p class="factor-band">${escapeHtml(coverageText)}</p>
+          </div>
+          <dl class="mix-grid">
+            <div><dt>${escapeHtml(t("factor.original"))}</dt><dd>${escapeHtml(formatNumber(row.originalSample))} µL</dd></div>
+            <div><dt>${escapeHtml(t("factor.diluent"))}</dt><dd>${escapeHtml(formatNumber(row.diluent))} µL</dd></div>
+            <div><dt>${escapeHtml(t("factor.prepare"))}</dt><dd>${escapeHtml(formatNumber(row.preparedVolume))} µL</dd></div>
+          </dl>
+          <div class="factor-status ${row.directPreparationReliable ? "status-ok" : "status-warn"}">
+            ${escapeHtml(t(row.directPreparationReliable ? "factor.status.ok" : "factor.status.warn"))}
+          </div>
+        </article>
+      `;
+    }).join("");
     return `<div class="factor-list">${rows}</div>`;
   }
 
-  function renderPlan() {
+  function renderPlan(focusResult = true) {
     if (!latestPlan || !latestInput) return;
     if (latestPlan.status === "impossible") {
       results.innerHTML = `
         <section class="result-hero result-impossible" tabindex="-1">
-          <p class="eyebrow">Pilot coverage plan</p>
-          <h2>Dilution cannot solve this range mismatch</h2>
-          <p>${escapeHtml(latestPlan.reason)}</p>
-          <p>Check the concentration units, expected target-analyte estimate, and the usable range from the kit insert or validated method.</p>
+          <p class="eyebrow">${escapeHtml(t("result.eyebrow"))}</p>
+          <h2>${escapeHtml(t("result.impossible.title"))}</h2>
+          <p>${escapeHtml(t("result.impossible.reason"))}</p>
+          <p>${escapeHtml(t("result.impossible.check"))}</p>
         </section>
       `;
       results.hidden = false;
-      results.querySelector(".result-hero")?.focus();
+      if (focusResult) results.querySelector(".result-hero")?.focus();
       return;
     }
 
@@ -208,36 +246,38 @@
     const coverage = planSet.coverage;
     const liquid = planSet.liquid;
     const statusClass = coverage.full ? "result-covered" : "result-gaps";
-    const statusTitle = coverage.full ? "Coverage is continuous" : "Coverage gaps remain";
+    const statusTitle = t(coverage.full ? "result.covered" : "result.gaps");
     const roundingControl = latestPlan.rounded ? `
       <div class="rounding-control">
         <label class="switch-line">
           <input id="use-rounded" type="checkbox" ${useRounded ? "checked" : ""}>
-          <span>Use bench-friendly factors that preserve full coverage</span>
+          <span>${escapeHtml(t("rounding.label"))}</span>
         </label>
-        <p>Raw mathematical factors remain the source calculation. Simplified factors are shown only after a fresh gap check.</p>
+        <p>${escapeHtml(t("rounding.help"))}</p>
       </div>
     ` : "";
     const pointNotice = !coverage.full && latestPlan.minimumPoints
-      ? `<p class="point-notice">At least <strong>${latestPlan.minimumPoints} points</strong> are needed for gap-free centered coverage with this assay span.</p>`
+      ? `<p class="point-notice">${t("notice.minimumPoints", { count: latestPlan.minimumPoints })}</p>`
       : "";
     const unknownNotice = latestPlan.lowerUnknown
-      ? `<p class="info-note">Lower bound is unknown. Auto mode starts coverage at the assay lower bound; concentrations below it cannot be assessed from the entered information.</p>`
+      ? `<p class="info-note">${escapeHtml(t("notice.unknownLower"))}</p>`
       : "";
     const unreachableNotice = latestPlan.unreachableLow
-      ? `<p class="warning-note">Part of the entered expected range is below the usable assay lower bound. Dilution only lowers concentration, so that segment cannot be brought upward into range.</p>`
+      ? `<p class="warning-note">${escapeHtml(t("notice.unreachableLow"))}</p>`
       : "";
+    const modeDescription = t(latestInput.mode === "auto" ? "result.description.auto" : "result.description.fixed");
+    const planCopy = t("plan.copy", { overage: formatNumber(latestInput.overage) });
 
     results.innerHTML = `
       <section class="result-hero ${statusClass}" tabindex="-1">
         <div>
-          <p class="eyebrow">Pilot coverage plan</p>
-          <h2>${statusTitle}</h2>
-          <p>${latestInput.mode === "auto" ? "Auto mode uses a transparent log-scale centering heuristic." : "Fixed-fold mode evaluates the dilution series you specified."}</p>
+          <p class="eyebrow">${escapeHtml(t("result.eyebrow"))}</p>
+          <h2>${escapeHtml(statusTitle)}</h2>
+          <p>${escapeHtml(modeDescription)}</p>
         </div>
         <div class="hero-metric">
           <strong>${formatNumber(coverage.coveragePercent, 1)}%</strong>
-          <span>log-range covered</span>
+          <span>${escapeHtml(t("result.metric"))}</span>
         </div>
       </section>
       ${roundingControl}
@@ -247,21 +287,21 @@
       ${pointNotice}
       ${renderCoverageMap(planSet, latestInput)}
       <section class="result-section" aria-labelledby="plan-title">
-        <p class="eyebrow">Direct-preparation check</p>
-        <h3 id="plan-title">Dilution points and liquid volumes</h3>
-        <p class="section-copy">Each point is independently prepared from the original sample. Volumes include ${escapeHtml(formatNumber(latestInput.overage))}% overage.</p>
+        <p class="eyebrow">${escapeHtml(t("plan.eyebrow"))}</p>
+        <h3 id="plan-title">${escapeHtml(t("plan.title"))}</h3>
+        <p class="section-copy">${escapeHtml(planCopy)}</p>
         ${renderFactorTable(planSet, latestInput)}
       </section>
-      <section class="budget-grid" aria-label="Pilot budget summary">
-        <div><span>Plate wells</span><strong>${liquid.wells}</strong></div>
-        <div><span>Diluted sample prepared</span><strong>${escapeHtml(formatNumber(liquid.preparedTotal))} µL</strong></div>
-        <div><span>Original sample, direct-prep total</span><strong>${escapeHtml(formatNumber(liquid.originalSampleTotal))} µL</strong></div>
-        <div><span>Intermediate-dilution warnings</span><strong>${liquid.warningCount}</strong></div>
+      <section class="budget-grid" aria-label="${escapeHtml(t("summary.label"))}">
+        <div><span>${escapeHtml(t("summary.wells"))}</span><strong>${liquid.wells}</strong></div>
+        <div><span>${escapeHtml(t("summary.prepared"))}</span><strong>${escapeHtml(formatNumber(liquid.preparedTotal))} µL</strong></div>
+        <div><span>${escapeHtml(t("summary.original"))}</span><strong>${escapeHtml(formatNumber(liquid.originalSampleTotal))} µL</strong></div>
+        <div><span>${escapeHtml(t("summary.warnings"))}</span><strong>${liquid.warningCount}</strong></div>
       </section>
       <section class="boundary-card">
-        <h3>What this result means</h3>
-        <p>This calculator plans concentration coverage and liquid volumes. It does not validate matrix effects, dilutional linearity, recovery, hook effect, assay performance, or biological suitability.</p>
-        <p>Follow the kit insert or your validated method when they specify sample handling or dilution.</p>
+        <h3>${escapeHtml(t("boundary.title"))}</h3>
+        <p>${escapeHtml(t("boundary.body"))}</p>
+        <p>${escapeHtml(t("boundary.follow"))}</p>
       </section>
     `;
     results.hidden = false;
@@ -269,23 +309,32 @@
     const roundedCheckbox = document.querySelector("#use-rounded");
     roundedCheckbox?.addEventListener("change", () => {
       useRounded = roundedCheckbox.checked;
-      renderPlan();
+      renderPlan(false);
     });
-    results.querySelector(".result-hero")?.focus();
+    if (focusResult) results.querySelector(".result-hero")?.focus();
   }
 
   function syncConditionalFields() {
     expectedLowerWrap.hidden = lowerUnknown.checked;
-    expectedSeparator.textContent = lowerUnknown.checked ? "up to" : "to";
+    expectedSeparator.textContent = t(lowerUnknown.checked ? "separator.upTo" : "separator.to");
     document.querySelector("#expectedLower").disabled = lowerUnknown.checked;
     const mode = document.querySelector('input[name="mode"]:checked').value;
     fixedFields.hidden = mode !== "fixed";
     fixedFields.querySelectorAll("input").forEach((field) => {
       field.disabled = mode !== "fixed";
     });
-    document.querySelector("#mode-description").textContent = mode === "auto"
-      ? "Centers pilot points across the expected range on a log scale, then reports any gaps."
-      : "Evaluates your chosen starting factor and constant fold step without calling it optimal.";
+    document.querySelector("#mode-description").textContent = t(
+      mode === "auto" ? "mode.description.auto" : "mode.description.fixed",
+    );
+  }
+
+  function setLanguage(language) {
+    if (!i18n.supportedLanguages.includes(language)) return;
+    currentLanguage = language;
+    applyStaticTranslations();
+    syncConditionalFields();
+    if (latestErrors) showErrors(latestErrors, false);
+    if (latestPlan?.ok) renderPlan(false);
   }
 
   form.addEventListener("submit", (event) => {
@@ -293,6 +342,7 @@
     clearErrors();
     latestInput = readInput();
     latestPlan = planner.calculate(latestInput);
+    latestErrors = latestPlan.ok ? null : latestPlan.errors;
     useRounded = false;
     if (!latestPlan.ok) {
       results.hidden = true;
@@ -309,11 +359,15 @@
       results.hidden = true;
       latestInput = null;
       latestPlan = null;
+      latestErrors = null;
       useRounded = false;
     }, 0);
   });
 
   lowerUnknown.addEventListener("change", syncConditionalFields);
   modeInputs.forEach((input) => input.addEventListener("change", syncConditionalFields));
-  syncConditionalFields();
+  languageButtons.forEach((button) => {
+    button.addEventListener("click", () => setLanguage(button.dataset.language));
+  });
+  setLanguage("en");
 })();

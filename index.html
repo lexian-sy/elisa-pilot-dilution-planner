@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <a class="skip-link" href="#planner-form">Skip to planner</a>
+  <a class="skip-link" href="#planner-form" data-i18n="skip.planner">Skip to planner</a>
   <header class="site-header">
     <div class="header-glow" aria-hidden="true"></div>
     <div class="header-inner">
@@ -17,19 +17,25 @@
         <span></span><span></span><span></span>
       </div>
       <div>
-        <p class="product-label">Pre-run planning calculator</p>
+        <p class="product-label" data-i18n="header.productLabel">Pre-run planning calculator</p>
         <h1>ELISA Pilot<br>Dilution Planner</h1>
-        <p class="header-copy">Turn an assay range and a rough target-analyte estimate into a transparent pilot coverage plan—before spending wells or sample.</p>
+        <p class="header-copy" data-i18n="header.copy">Turn an assay range and a rough target-analyte estimate into a transparent pilot coverage plan—before spending wells or sample.</p>
       </div>
-      <div class="prototype-badge">Local prototype · v0.1</div>
+      <div class="header-tools">
+        <div class="language-switch" role="group" aria-label="Language" data-i18n-aria-label="language.label">
+          <button type="button" data-language="en" aria-pressed="true">EN</button>
+          <button type="button" data-language="zh-Hant" aria-pressed="false">繁中</button>
+        </div>
+        <div class="prototype-badge" data-i18n="header.prototype">Local prototype · v0.2</div>
+      </div>
     </div>
   </header>
 
   <main>
-    <section class="intro-strip" aria-label="Planner boundaries">
-      <div><strong>Coverage, not validation</strong><span>Shows what each dilution can mathematically cover.</span></div>
-      <div><strong>Local and private</strong><span>Inputs stay in this browser page.</span></div>
-      <div><strong>Direct-prep check</strong><span>Flags volumes below your reliable pipetting minimum.</span></div>
+    <section class="intro-strip" aria-label="Planner boundaries" data-i18n-aria-label="intro.label">
+      <div><strong data-i18n="intro.coverage.title">Coverage, not validation</strong><span data-i18n="intro.coverage.body">Shows what each dilution can mathematically cover.</span></div>
+      <div><strong data-i18n="intro.local.title">Local and private</strong><span data-i18n="intro.local.body">Inputs stay in this browser page.</span></div>
+      <div><strong data-i18n="intro.prep.title">Direct-prep check</strong><span data-i18n="intro.prep.body">Flags volumes below your reliable pipetting minimum.</span></div>
     </section>
 
     <form id="planner-form" novalidate>
@@ -39,32 +45,32 @@
         <div class="card-heading">
           <span class="step-number">01</span>
           <div>
-            <p class="eyebrow">Planning method</p>
-            <h2 id="mode-title">Choose how factors are generated</h2>
+            <p class="eyebrow" data-i18n="mode.eyebrow">Planning method</p>
+            <h2 id="mode-title" data-i18n="mode.title">Choose how factors are generated</h2>
           </div>
         </div>
         <fieldset class="mode-picker">
-          <legend class="visually-hidden">Planning method</legend>
+          <legend class="visually-hidden" data-i18n="mode.legend">Planning method</legend>
           <label>
             <input type="radio" name="mode" value="auto" checked>
-            <span><strong>Auto coverage</strong><small>Log-centered factors</small></span>
+            <span><strong data-i18n="mode.auto">Auto coverage</strong><small data-i18n="mode.auto.short">Log-centered factors</small></span>
           </label>
           <label>
             <input type="radio" name="mode" value="fixed">
-            <span><strong>Fixed-fold</strong><small>Your own series</small></span>
+            <span><strong data-i18n="mode.fixed">Fixed-fold</strong><small data-i18n="mode.fixed.short">Your own series</small></span>
           </label>
         </fieldset>
         <p id="mode-description" class="mode-description"></p>
         <div id="fixed-fields" class="field-grid compact-grid" hidden>
           <label class="field" for="startFactor">
-            <span>Starting factor</span>
+            <span data-i18n="mode.start.label">Starting factor</span>
             <input id="startFactor" name="startFactor" type="number" inputmode="decimal" min="1" step="any" value="1">
-            <small>1 means undiluted; 10 means 1:10.</small>
+            <small data-i18n="mode.start.help">1 means undiluted; 10 means 1:10.</small>
           </label>
           <label class="field" for="fold">
-            <span>Fold step</span>
+            <span data-i18n="mode.fold.label">Fold step</span>
             <input id="fold" name="fold" type="number" inputmode="decimal" min="1.0001" step="any" value="10">
-            <small>For example: 2, 5, or 10.</small>
+            <small data-i18n="mode.fold.help">For example: 2, 5, or 10.</small>
           </label>
         </div>
       </section>
@@ -73,43 +79,43 @@
         <div class="card-heading">
           <span class="step-number">02</span>
           <div>
-            <p class="eyebrow">Concentration ranges</p>
-            <h2 id="range-title">Define the interval to cover</h2>
+            <p class="eyebrow" data-i18n="range.eyebrow">Concentration ranges</p>
+            <h2 id="range-title" data-i18n="range.title">Define the interval to cover</h2>
           </div>
         </div>
 
         <div class="field full-field" id="usable-range-group">
           <div class="field-label-row">
-            <span>Usable assay range</span>
-            <span class="required-label">Required</span>
+            <span data-i18n="range.usable.label">Usable assay range</span>
+            <span class="required-label" data-i18n="range.required">Required</span>
           </div>
           <div class="range-inputs">
-            <label for="assayLower"><span class="visually-hidden">Usable assay range lower bound</span><input id="assayLower" name="assayLower" type="number" inputmode="decimal" min="0" step="any" value="1.6" aria-label="Usable assay range lower bound"></label>
-            <span aria-hidden="true">to</span>
-            <label for="assayUpper"><span class="visually-hidden">Usable assay range upper bound</span><input id="assayUpper" name="assayUpper" type="number" inputmode="decimal" min="0" step="any" value="100" aria-label="Usable assay range upper bound"></label>
-            <label class="unit-field" for="unit"><span class="visually-hidden">Concentration unit</span><input id="unit" name="unit" type="text" value="ng/mL" maxlength="30" aria-label="Concentration unit"></label>
+            <label for="assayLower"><span class="visually-hidden" data-i18n="range.assayLower.aria">Usable assay range lower bound</span><input id="assayLower" name="assayLower" type="number" inputmode="decimal" min="0" step="any" value="1.6" aria-label="Usable assay range lower bound" data-i18n-aria-label="range.assayLower.aria"></label>
+            <span aria-hidden="true" data-i18n="separator.to">to</span>
+            <label for="assayUpper"><span class="visually-hidden" data-i18n="range.assayUpper.aria">Usable assay range upper bound</span><input id="assayUpper" name="assayUpper" type="number" inputmode="decimal" min="0" step="any" value="100" aria-label="Usable assay range upper bound" data-i18n-aria-label="range.assayUpper.aria"></label>
+            <label class="unit-field" for="unit"><span class="visually-hidden" data-i18n="range.unit.aria">Concentration unit</span><input id="unit" name="unit" type="text" value="ng/mL" maxlength="30" aria-label="Concentration unit" data-i18n-aria-label="range.unit.aria"></label>
           </div>
-          <small>Enter the interval your kit, validated method, or lab-defined procedure says you can use for quantitative interpretation. It may be narrower than the full standard or detection range.</small>
+          <small data-i18n="range.usable.help">Enter the interval your kit, validated method, or lab-defined procedure says you can use for quantitative interpretation. It may be narrower than the full standard or detection range.</small>
         </div>
 
         <div class="divider"></div>
 
         <div class="field full-field">
           <div class="field-label-row">
-            <span>Expected original target-analyte concentration</span>
-            <span class="required-label">Rough estimate</span>
+            <span data-i18n="range.expected.label">Expected original target-analyte concentration</span>
+            <span class="required-label" data-i18n="range.rough">Rough estimate</span>
           </div>
           <label class="check-line" for="lowerUnknown">
             <input id="lowerUnknown" name="lowerUnknown" type="checkbox" checked>
-            <span>I only know an upper bound</span>
+            <span data-i18n="range.lowerUnknown">I only know an upper bound</span>
           </label>
           <div class="range-inputs expected-inputs">
-            <label id="expected-lower-wrap" for="expectedLower" hidden><span class="visually-hidden">Expected original concentration lower bound</span><input id="expectedLower" name="expectedLower" type="number" inputmode="decimal" min="0" step="any" value="1000" aria-label="Expected original concentration lower bound"></label>
-            <span id="expected-separator" aria-hidden="true">up to</span>
-            <label for="expectedUpper"><span class="visually-hidden">Expected original concentration upper bound</span><input id="expectedUpper" name="expectedUpper" type="number" inputmode="decimal" min="0" step="any" value="100000" aria-label="Expected original concentration upper bound"></label>
-            <span class="unit-display" aria-hidden="true">same unit</span>
+            <label id="expected-lower-wrap" for="expectedLower" hidden><span class="visually-hidden" data-i18n="range.expectedLower.aria">Expected original concentration lower bound</span><input id="expectedLower" name="expectedLower" type="number" inputmode="decimal" min="0" step="any" value="1000" aria-label="Expected original concentration lower bound" data-i18n-aria-label="range.expectedLower.aria"></label>
+            <span id="expected-separator" aria-hidden="true" data-i18n="separator.upTo">up to</span>
+            <label for="expectedUpper"><span class="visually-hidden" data-i18n="range.expectedUpper.aria">Expected original concentration upper bound</span><input id="expectedUpper" name="expectedUpper" type="number" inputmode="decimal" min="0" step="any" value="100000" aria-label="Expected original concentration upper bound" data-i18n-aria-label="range.expectedUpper.aria"></label>
+            <span class="unit-display" aria-hidden="true" data-i18n="range.sameUnit">same unit</span>
           </div>
-          <small>Use a broad range if uncertain. Do not substitute total protein concentration unless it truly represents the target analyte.</small>
+          <small data-i18n="range.expected.help">Use a broad range if uncertain. Do not substitute total protein concentration unless it truly represents the target analyte.</small>
         </div>
       </section>
 
@@ -117,42 +123,42 @@
         <div class="card-heading">
           <span class="step-number">03</span>
           <div>
-            <p class="eyebrow">Pilot budget</p>
-            <h2 id="run-title">Set wells and preparation limits</h2>
+            <p class="eyebrow" data-i18n="budget.eyebrow">Pilot budget</p>
+            <h2 id="run-title" data-i18n="budget.title">Set wells and preparation limits</h2>
           </div>
         </div>
         <div class="field-grid">
           <label class="field" for="points">
-            <span>Pilot dilution points</span>
+            <span data-i18n="budget.points.label">Pilot dilution points</span>
             <input id="points" name="points" type="number" inputmode="numeric" min="1" max="12" step="1" value="4">
-            <small>1–12 distinct concentrations.</small>
+            <small data-i18n="budget.points.help">1–12 distinct concentrations.</small>
           </label>
           <label class="field" for="sampleVolume">
-            <span>Sample volume per well</span>
+            <span data-i18n="budget.sampleVolume.label">Sample volume per well</span>
             <div class="suffix-input"><input id="sampleVolume" name="sampleVolume" type="number" inputmode="decimal" min="0" step="any" value="50"><span>µL</span></div>
-            <small>Sample or diluted sample added per well.</small>
+            <small data-i18n="budget.sampleVolume.help">Sample or diluted sample added per well.</small>
           </label>
           <label class="field" for="replicates">
-            <span>Replicates per point</span>
+            <span data-i18n="budget.replicates.label">Replicates per point</span>
             <input id="replicates" name="replicates" type="number" inputmode="numeric" min="1" max="12" step="1" value="2">
-            <small>Duplicates = 2; triplicates = 3.</small>
+            <small data-i18n="budget.replicates.help">Duplicates = 2; triplicates = 3.</small>
           </label>
           <label class="field" for="overage">
-            <span>Preparation overage</span>
+            <span data-i18n="budget.overage.label">Preparation overage</span>
             <div class="suffix-input"><input id="overage" name="overage" type="number" inputmode="decimal" min="0" max="500" step="any" value="10"><span>%</span></div>
-            <small>Extra volume for pipetting loss.</small>
+            <small data-i18n="budget.overage.help">Extra volume for pipetting loss.</small>
           </label>
           <label class="field full-on-desktop" for="minimumPipette">
-            <span>Minimum reliable pipetting volume</span>
+            <span data-i18n="budget.minimumPipette.label">Minimum reliable pipetting volume</span>
             <div class="suffix-input"><input id="minimumPipette" name="minimumPipette" type="number" inputmode="decimal" min="0" step="any" value="2"><span>µL</span></div>
-            <small>Below this, the result asks for an intermediate dilution instead of presenting direct prep as reliable.</small>
+            <small data-i18n="budget.minimumPipette.help">Below this, the result asks for an intermediate dilution instead of presenting direct prep as reliable.</small>
           </label>
         </div>
       </section>
 
       <div class="form-actions">
-        <button class="primary-button" type="submit"><span>Build pilot plan</span><span aria-hidden="true">→</span></button>
-        <button class="secondary-button" type="reset">Reset example</button>
+        <button class="primary-button" type="submit"><span data-i18n="actions.build">Build pilot plan</span><span aria-hidden="true">→</span></button>
+        <button class="secondary-button" type="reset" data-i18n="actions.reset">Reset example</button>
       </div>
     </form>
 
@@ -162,12 +168,13 @@
   <footer>
     <div>
       <strong>Built by Lexian</strong>
-      <span>Local research prototype · no data leaves this page</span>
+      <span data-i18n="footer.local">Local research prototype · no data leaves this page</span>
     </div>
-    <p>For research planning only. Verify all assay-specific decisions against the kit insert or your validated method.</p>
+    <p data-i18n="footer.boundary">For research planning only. Verify all assay-specific decisions against the kit insert or your validated method.</p>
   </footer>
 
   <script src="src/planner.js"></script>
+  <script src="src/i18n.js"></script>
   <script src="src/app.js"></script>
 </body>
 </html>

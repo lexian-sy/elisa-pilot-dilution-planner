@@ -20,62 +20,62 @@
 
   function validate(input) {
     const errors = [];
-    const add = (field, message) => errors.push({ field, message });
+    const add = (field, code, message) => errors.push({ field, code, message });
 
     if (!isFiniteNumber(input.assayLower) || input.assayLower <= 0) {
-      add("assayLower", "Enter a usable-range lower bound greater than 0.");
+      add("assayLower", "assay_lower_invalid", "Enter a usable-range lower bound greater than 0.");
     }
     if (!isFiniteNumber(input.assayUpper) || input.assayUpper <= 0) {
-      add("assayUpper", "Enter a usable-range upper bound greater than 0.");
+      add("assayUpper", "assay_upper_invalid", "Enter a usable-range upper bound greater than 0.");
     } else if (isFiniteNumber(input.assayLower) && input.assayUpper <= input.assayLower) {
-      add("assayUpper", "The upper bound must be greater than the lower bound.");
+      add("assayUpper", "assay_upper_order", "The upper bound must be greater than the lower bound.");
     }
 
     if (!isFiniteNumber(input.expectedUpper) || input.expectedUpper <= 0) {
-      add("expectedUpper", "Enter an expected upper concentration greater than 0.");
+      add("expectedUpper", "expected_upper_invalid", "Enter an expected upper concentration greater than 0.");
     }
     if (!input.lowerUnknown) {
       if (!isFiniteNumber(input.expectedLower) || input.expectedLower <= 0) {
-        add("expectedLower", "Enter an expected lower concentration greater than 0.");
+        add("expectedLower", "expected_lower_invalid", "Enter an expected lower concentration greater than 0.");
       } else if (
         isFiniteNumber(input.expectedUpper) &&
         input.expectedUpper < input.expectedLower
       ) {
-        add("expectedUpper", "The expected upper concentration cannot be below the lower concentration.");
+        add("expectedUpper", "expected_upper_order", "The expected upper concentration cannot be below the lower concentration.");
       }
     }
 
     if (!Number.isInteger(input.points) || input.points < 1 || input.points > 12) {
-      add("points", "Pilot points must be a whole number from 1 to 12.");
+      add("points", "points_invalid", "Pilot points must be a whole number from 1 to 12.");
     }
     if (!isFiniteNumber(input.sampleVolume) || input.sampleVolume <= 0) {
-      add("sampleVolume", "Enter a sample volume per well greater than 0.");
+      add("sampleVolume", "sample_volume_invalid", "Enter a sample volume per well greater than 0.");
     }
     if (!Number.isInteger(input.replicates) || input.replicates < 1 || input.replicates > 12) {
-      add("replicates", "Replicates must be a whole number from 1 to 12.");
+      add("replicates", "replicates_invalid", "Replicates must be a whole number from 1 to 12.");
     }
     if (!isFiniteNumber(input.overage) || input.overage < 0 || input.overage > 500) {
-      add("overage", "Overage must be between 0% and 500%.");
+      add("overage", "overage_invalid", "Overage must be between 0% and 500%.");
     }
     if (!isFiniteNumber(input.minimumPipette) || input.minimumPipette <= 0) {
-      add("minimumPipette", "Enter a reliable pipetting volume greater than 0.");
+      add("minimumPipette", "minimum_pipette_invalid", "Enter a reliable pipetting volume greater than 0.");
     }
 
     if (!input.unit || input.unit.trim().length === 0) {
-      add("unit", "Enter the concentration unit used for both ranges.");
+      add("unit", "unit_required", "Enter the concentration unit used for both ranges.");
     } else if (input.unit.trim().length > 30) {
-      add("unit", "Keep the unit label to 30 characters or fewer.");
+      add("unit", "unit_too_long", "Keep the unit label to 30 characters or fewer.");
     }
 
     if (!['auto', 'fixed'].includes(input.mode)) {
-      add("mode", "Choose Auto coverage or Fixed-fold mode.");
+      add("mode", "mode_invalid", "Choose Auto coverage or Fixed-fold mode.");
     }
     if (input.mode === "fixed") {
       if (!isFiniteNumber(input.startFactor) || input.startFactor < 1) {
-        add("startFactor", "The starting dilution factor must be at least 1.");
+        add("startFactor", "start_factor_invalid", "The starting dilution factor must be at least 1.");
       }
       if (!isFiniteNumber(input.fold) || input.fold <= 1) {
-        add("fold", "The fold step must be greater than 1.");
+        add("fold", "fold_invalid", "The fold step must be greater than 1.");
       }
     }
 
@@ -291,6 +291,7 @@
         ok: false,
         errors: [{
           field: input.mode === "fixed" ? "fold" : "expectedUpper",
+          code: "numeric_range",
           message: "These values produce dilution factors outside the calculator's numeric range.",
         }],
       };

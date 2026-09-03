@@ -3,9 +3,9 @@
 ## Checkpoint
 
 - Product: ELISA Pilot Dilution Planner
-- Stage: local-only prototype v0.1
-- Date: 2026-09-02
-- Authority boundary: implementation, automated checks, local browser validation, local Git checkpoint, and a self-contained QA artifact. No push, deployment, DNS, payment, account, or external commitment.
+- Stage: local-only bilingual prototype v0.2 candidate
+- Date: 2026-09-03
+- Authority boundary: repair the owner-observed mobile chart collision, add English/Traditional Chinese localization, automated checks, a local Git checkpoint, and a self-contained QA artifact. No push, deployment, DNS, payment, account, or external commitment.
 
 ## Implemented
 
@@ -16,6 +16,9 @@
 - Direct-preparation sample/diluent math, well budget, and minimum-pipette warnings.
 - Usable-range, expected-range, volume, replicate, point, and mode validation.
 - Responsive, accessible, English-first local UI with explicit scientific boundaries.
+- Complete in-page English/Traditional Chinese switch backed by one shared set of inputs, calculations, result state, and validation codes.
+- Localized page metadata, static labels, dynamic results, warnings, validation errors, and accessibility labels.
+- Mobile log-scale rows stack factor, track, and covered interval so long factor labels no longer share a narrow fixed column with the track.
 - Dependency-free self-contained HTML build.
 
 ## Required checks for this checkpoint
@@ -34,12 +37,13 @@ Bounded browser smoke check (when the Work runtime supplies Playwright):
 
 ## Evidence
 
-- `node --test tests/*.test.js`: **24 passed, 0 failed**. This includes research cases T1–T8 plus fixed-fold generation, one-point centering, rounding safety, unreachable-low-range handling, and numeric overflow rejection.
-- `node --check src/planner.js` and `node --check src/app.js`: passed.
-- `node scripts/build-single-file.js`: passed. Output is 51,836 bytes with SHA-256 `1c725c44e010181a433fee17d87061f7f18a589f874fa657246aa26bc2e9956a`.
-- Static artifact checks passed: unique source IDs, all static app selectors resolved, no external script/style dependency, no network primitive, classic-script `file://` compatibility, required product/safety wording, viewport/accessibility scaffolding, and 620 px responsive breakpoint.
-- Local HTTP readback: `/` = 200 and `/src/planner.js` = 200 from an isolated `127.0.0.1:4173` server; server stopped after the check.
-- True browser automation was not available in this Work runtime: the Playwright package exists, but no Chromium/Firefox/WebKit executable is installed. Desktop/mobile rendering and interaction therefore remain an explicit owner-QA gate rather than an inferred pass.
+- `npm run check`: passed.
+- `node --test tests/*.test.js`: **26 passed, 0 failed**. This retains the 24 mathematical and boundary checks and adds locale-key parity, static/dynamic/error translation coverage, language-switch scaffolding, and the mobile stacked chart rule.
+- `node --check src/planner.js`, `src/i18n.js`, and `src/app.js`: passed.
+- Self-contained build passed. Output is 74,262 bytes with SHA-256 `7488da8cae698d90990b2565cb9ca162152f2fa36f05f86c85ded29687aa8471`.
+- Static artifact checks passed: unique source IDs, all static app selectors resolved, 116 matching keys in both locales, no external dependency or network primitive, classic-script `file://` compatibility, required product/safety wording, viewport/accessibility scaffolding, and a local accessible language switch.
+- Yao's v0.1 iPhone evidence confirmed the default calculation and exposed factor labels colliding with the chart track. The v0.2 structural fix and bilingual interaction have not yet received real-device acceptance.
+- True browser automation remains unavailable in this Work runtime: the Playwright package exists, but no Chromium/Firefox/WebKit executable is installed. Desktop/mobile rendering and interaction remain an explicit owner-QA gate.
 
 ## Known limits
 
@@ -47,8 +51,9 @@ Bounded browser smoke check (when the Work runtime supplies Playwright):
 - No unit conversion.
 - No OD/curve fitting or assay-type input.
 - No persistence, PWA, offline service worker, analytics, backend, or remote data.
+- The local language selection resets to English on reload. Separate indexable `/` and `/zh-tw/` production paths and `hreflang` remain publication work.
 - No public license or publication decision yet.
 
 ## Next safe step
 
-After automated and bounded browser checks pass, create a recoverable local Git checkpoint, preserve the self-contained QA artifact, and hand `docs/YAO_QA.md` to Yao for iPhone and desktop owner QA.
+Create a recoverable local Git checkpoint and hand the rebuilt self-contained artifact plus `docs/YAO_QA.md` to Yao. Acceptance requires the focused iPhone bilingual/long-factor pass and short desktop validation pass; publication remains a later authorized stage.

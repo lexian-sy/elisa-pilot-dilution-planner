@@ -156,10 +156,46 @@ h1 {
   line-height: 1.65;
 }
 
-.prototype-badge {
+.header-tools {
   position: absolute;
   right: 0;
-  top: 2rem;
+  top: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.language-switch {
+  display: flex;
+  padding: 0.2rem;
+  border: 1px solid rgba(94, 230, 239, 0.25);
+  border-radius: 999px;
+  background: rgba(7, 30, 51, 0.42);
+}
+
+.language-switch button {
+  min-width: 2.8rem;
+  min-height: 2rem;
+  padding: 0 0.62rem;
+  color: #bdeff1;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  font-size: 0.68rem;
+  font-weight: 760;
+}
+
+.language-switch button[aria-pressed="true"] {
+  color: #09233c;
+  background: #d9f6f5;
+}
+
+.language-switch button:focus-visible {
+  outline: 3px solid rgba(117, 220, 227, 0.38);
+  outline-offset: 2px;
+}
+
+.prototype-badge {
   padding: 0.55rem 0.8rem;
   color: #bdeff1;
   border: 1px solid rgba(94, 230, 239, 0.25);
@@ -520,7 +556,8 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
   .header-inner { min-height: 390px; padding: 4.8rem 0 3.8rem; align-items: flex-end; }
   h1 { font-size: clamp(3.05rem, 16vw, 4.4rem); }
   .header-copy { font-size: 0.9rem; }
-  .prototype-badge { top: 1rem; left: 0; right: auto; }
+  .header-tools { top: 0.85rem; left: 0; right: auto; max-width: 100%; flex-wrap: wrap; }
+  .prototype-badge { padding: 0.5rem 0.7rem; }
   .intro-strip { grid-template-columns: 1fr; margin-top: -1rem; }
   .intro-strip div { padding: 0.9rem 1rem; }
   .intro-strip div + div { border-left: 0; border-top: 1px solid var(--line); }
@@ -536,8 +573,10 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
   .result-hero { align-items: flex-start; }
   .hero-metric strong { font-size: 2rem; }
   .coverage-axis { margin-left: 0; }
-  .coverage-row { grid-template-columns: 3.2rem minmax(0, 1fr); gap: 0.55rem; }
-  .coverage-row-value { grid-column: 2; text-align: left; }
+  .coverage-row { grid-template-columns: minmax(0, 1fr); gap: 0.3rem; }
+  .coverage-row-label { text-align: left; overflow-wrap: anywhere; }
+  .coverage-track { width: 100%; }
+  .coverage-row-value { grid-column: 1; text-align: left; overflow-wrap: anywhere; }
   .factor-row { grid-template-columns: 1.7rem minmax(0, 1fr); padding: 0.75rem; }
   .mix-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .mix-grid div:last-child { grid-column: 1 / -1; }
@@ -555,7 +594,7 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
 </style>
 </head>
 <body>
-  <a class="skip-link" href="#planner-form">Skip to planner</a>
+  <a class="skip-link" href="#planner-form" data-i18n="skip.planner">Skip to planner</a>
   <header class="site-header">
     <div class="header-glow" aria-hidden="true"></div>
     <div class="header-inner">
@@ -563,19 +602,25 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
         <span></span><span></span><span></span>
       </div>
       <div>
-        <p class="product-label">Pre-run planning calculator</p>
+        <p class="product-label" data-i18n="header.productLabel">Pre-run planning calculator</p>
         <h1>ELISA Pilot<br>Dilution Planner</h1>
-        <p class="header-copy">Turn an assay range and a rough target-analyte estimate into a transparent pilot coverage plan—before spending wells or sample.</p>
+        <p class="header-copy" data-i18n="header.copy">Turn an assay range and a rough target-analyte estimate into a transparent pilot coverage plan—before spending wells or sample.</p>
       </div>
-      <div class="prototype-badge">Local prototype · v0.1</div>
+      <div class="header-tools">
+        <div class="language-switch" role="group" aria-label="Language" data-i18n-aria-label="language.label">
+          <button type="button" data-language="en" aria-pressed="true">EN</button>
+          <button type="button" data-language="zh-Hant" aria-pressed="false">繁中</button>
+        </div>
+        <div class="prototype-badge" data-i18n="header.prototype">Local prototype · v0.2</div>
+      </div>
     </div>
   </header>
 
   <main>
-    <section class="intro-strip" aria-label="Planner boundaries">
-      <div><strong>Coverage, not validation</strong><span>Shows what each dilution can mathematically cover.</span></div>
-      <div><strong>Local and private</strong><span>Inputs stay in this browser page.</span></div>
-      <div><strong>Direct-prep check</strong><span>Flags volumes below your reliable pipetting minimum.</span></div>
+    <section class="intro-strip" aria-label="Planner boundaries" data-i18n-aria-label="intro.label">
+      <div><strong data-i18n="intro.coverage.title">Coverage, not validation</strong><span data-i18n="intro.coverage.body">Shows what each dilution can mathematically cover.</span></div>
+      <div><strong data-i18n="intro.local.title">Local and private</strong><span data-i18n="intro.local.body">Inputs stay in this browser page.</span></div>
+      <div><strong data-i18n="intro.prep.title">Direct-prep check</strong><span data-i18n="intro.prep.body">Flags volumes below your reliable pipetting minimum.</span></div>
     </section>
 
     <form id="planner-form" novalidate>
@@ -585,32 +630,32 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
         <div class="card-heading">
           <span class="step-number">01</span>
           <div>
-            <p class="eyebrow">Planning method</p>
-            <h2 id="mode-title">Choose how factors are generated</h2>
+            <p class="eyebrow" data-i18n="mode.eyebrow">Planning method</p>
+            <h2 id="mode-title" data-i18n="mode.title">Choose how factors are generated</h2>
           </div>
         </div>
         <fieldset class="mode-picker">
-          <legend class="visually-hidden">Planning method</legend>
+          <legend class="visually-hidden" data-i18n="mode.legend">Planning method</legend>
           <label>
             <input type="radio" name="mode" value="auto" checked>
-            <span><strong>Auto coverage</strong><small>Log-centered factors</small></span>
+            <span><strong data-i18n="mode.auto">Auto coverage</strong><small data-i18n="mode.auto.short">Log-centered factors</small></span>
           </label>
           <label>
             <input type="radio" name="mode" value="fixed">
-            <span><strong>Fixed-fold</strong><small>Your own series</small></span>
+            <span><strong data-i18n="mode.fixed">Fixed-fold</strong><small data-i18n="mode.fixed.short">Your own series</small></span>
           </label>
         </fieldset>
         <p id="mode-description" class="mode-description"></p>
         <div id="fixed-fields" class="field-grid compact-grid" hidden>
           <label class="field" for="startFactor">
-            <span>Starting factor</span>
+            <span data-i18n="mode.start.label">Starting factor</span>
             <input id="startFactor" name="startFactor" type="number" inputmode="decimal" min="1" step="any" value="1">
-            <small>1 means undiluted; 10 means 1:10.</small>
+            <small data-i18n="mode.start.help">1 means undiluted; 10 means 1:10.</small>
           </label>
           <label class="field" for="fold">
-            <span>Fold step</span>
+            <span data-i18n="mode.fold.label">Fold step</span>
             <input id="fold" name="fold" type="number" inputmode="decimal" min="1.0001" step="any" value="10">
-            <small>For example: 2, 5, or 10.</small>
+            <small data-i18n="mode.fold.help">For example: 2, 5, or 10.</small>
           </label>
         </div>
       </section>
@@ -619,43 +664,43 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
         <div class="card-heading">
           <span class="step-number">02</span>
           <div>
-            <p class="eyebrow">Concentration ranges</p>
-            <h2 id="range-title">Define the interval to cover</h2>
+            <p class="eyebrow" data-i18n="range.eyebrow">Concentration ranges</p>
+            <h2 id="range-title" data-i18n="range.title">Define the interval to cover</h2>
           </div>
         </div>
 
         <div class="field full-field" id="usable-range-group">
           <div class="field-label-row">
-            <span>Usable assay range</span>
-            <span class="required-label">Required</span>
+            <span data-i18n="range.usable.label">Usable assay range</span>
+            <span class="required-label" data-i18n="range.required">Required</span>
           </div>
           <div class="range-inputs">
-            <label for="assayLower"><span class="visually-hidden">Usable assay range lower bound</span><input id="assayLower" name="assayLower" type="number" inputmode="decimal" min="0" step="any" value="1.6" aria-label="Usable assay range lower bound"></label>
-            <span aria-hidden="true">to</span>
-            <label for="assayUpper"><span class="visually-hidden">Usable assay range upper bound</span><input id="assayUpper" name="assayUpper" type="number" inputmode="decimal" min="0" step="any" value="100" aria-label="Usable assay range upper bound"></label>
-            <label class="unit-field" for="unit"><span class="visually-hidden">Concentration unit</span><input id="unit" name="unit" type="text" value="ng/mL" maxlength="30" aria-label="Concentration unit"></label>
+            <label for="assayLower"><span class="visually-hidden" data-i18n="range.assayLower.aria">Usable assay range lower bound</span><input id="assayLower" name="assayLower" type="number" inputmode="decimal" min="0" step="any" value="1.6" aria-label="Usable assay range lower bound" data-i18n-aria-label="range.assayLower.aria"></label>
+            <span aria-hidden="true" data-i18n="separator.to">to</span>
+            <label for="assayUpper"><span class="visually-hidden" data-i18n="range.assayUpper.aria">Usable assay range upper bound</span><input id="assayUpper" name="assayUpper" type="number" inputmode="decimal" min="0" step="any" value="100" aria-label="Usable assay range upper bound" data-i18n-aria-label="range.assayUpper.aria"></label>
+            <label class="unit-field" for="unit"><span class="visually-hidden" data-i18n="range.unit.aria">Concentration unit</span><input id="unit" name="unit" type="text" value="ng/mL" maxlength="30" aria-label="Concentration unit" data-i18n-aria-label="range.unit.aria"></label>
           </div>
-          <small>Enter the interval your kit, validated method, or lab-defined procedure says you can use for quantitative interpretation. It may be narrower than the full standard or detection range.</small>
+          <small data-i18n="range.usable.help">Enter the interval your kit, validated method, or lab-defined procedure says you can use for quantitative interpretation. It may be narrower than the full standard or detection range.</small>
         </div>
 
         <div class="divider"></div>
 
         <div class="field full-field">
           <div class="field-label-row">
-            <span>Expected original target-analyte concentration</span>
-            <span class="required-label">Rough estimate</span>
+            <span data-i18n="range.expected.label">Expected original target-analyte concentration</span>
+            <span class="required-label" data-i18n="range.rough">Rough estimate</span>
           </div>
           <label class="check-line" for="lowerUnknown">
             <input id="lowerUnknown" name="lowerUnknown" type="checkbox" checked>
-            <span>I only know an upper bound</span>
+            <span data-i18n="range.lowerUnknown">I only know an upper bound</span>
           </label>
           <div class="range-inputs expected-inputs">
-            <label id="expected-lower-wrap" for="expectedLower" hidden><span class="visually-hidden">Expected original concentration lower bound</span><input id="expectedLower" name="expectedLower" type="number" inputmode="decimal" min="0" step="any" value="1000" aria-label="Expected original concentration lower bound"></label>
-            <span id="expected-separator" aria-hidden="true">up to</span>
-            <label for="expectedUpper"><span class="visually-hidden">Expected original concentration upper bound</span><input id="expectedUpper" name="expectedUpper" type="number" inputmode="decimal" min="0" step="any" value="100000" aria-label="Expected original concentration upper bound"></label>
-            <span class="unit-display" aria-hidden="true">same unit</span>
+            <label id="expected-lower-wrap" for="expectedLower" hidden><span class="visually-hidden" data-i18n="range.expectedLower.aria">Expected original concentration lower bound</span><input id="expectedLower" name="expectedLower" type="number" inputmode="decimal" min="0" step="any" value="1000" aria-label="Expected original concentration lower bound" data-i18n-aria-label="range.expectedLower.aria"></label>
+            <span id="expected-separator" aria-hidden="true" data-i18n="separator.upTo">up to</span>
+            <label for="expectedUpper"><span class="visually-hidden" data-i18n="range.expectedUpper.aria">Expected original concentration upper bound</span><input id="expectedUpper" name="expectedUpper" type="number" inputmode="decimal" min="0" step="any" value="100000" aria-label="Expected original concentration upper bound" data-i18n-aria-label="range.expectedUpper.aria"></label>
+            <span class="unit-display" aria-hidden="true" data-i18n="range.sameUnit">same unit</span>
           </div>
-          <small>Use a broad range if uncertain. Do not substitute total protein concentration unless it truly represents the target analyte.</small>
+          <small data-i18n="range.expected.help">Use a broad range if uncertain. Do not substitute total protein concentration unless it truly represents the target analyte.</small>
         </div>
       </section>
 
@@ -663,42 +708,42 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
         <div class="card-heading">
           <span class="step-number">03</span>
           <div>
-            <p class="eyebrow">Pilot budget</p>
-            <h2 id="run-title">Set wells and preparation limits</h2>
+            <p class="eyebrow" data-i18n="budget.eyebrow">Pilot budget</p>
+            <h2 id="run-title" data-i18n="budget.title">Set wells and preparation limits</h2>
           </div>
         </div>
         <div class="field-grid">
           <label class="field" for="points">
-            <span>Pilot dilution points</span>
+            <span data-i18n="budget.points.label">Pilot dilution points</span>
             <input id="points" name="points" type="number" inputmode="numeric" min="1" max="12" step="1" value="4">
-            <small>1–12 distinct concentrations.</small>
+            <small data-i18n="budget.points.help">1–12 distinct concentrations.</small>
           </label>
           <label class="field" for="sampleVolume">
-            <span>Sample volume per well</span>
+            <span data-i18n="budget.sampleVolume.label">Sample volume per well</span>
             <div class="suffix-input"><input id="sampleVolume" name="sampleVolume" type="number" inputmode="decimal" min="0" step="any" value="50"><span>µL</span></div>
-            <small>Sample or diluted sample added per well.</small>
+            <small data-i18n="budget.sampleVolume.help">Sample or diluted sample added per well.</small>
           </label>
           <label class="field" for="replicates">
-            <span>Replicates per point</span>
+            <span data-i18n="budget.replicates.label">Replicates per point</span>
             <input id="replicates" name="replicates" type="number" inputmode="numeric" min="1" max="12" step="1" value="2">
-            <small>Duplicates = 2; triplicates = 3.</small>
+            <small data-i18n="budget.replicates.help">Duplicates = 2; triplicates = 3.</small>
           </label>
           <label class="field" for="overage">
-            <span>Preparation overage</span>
+            <span data-i18n="budget.overage.label">Preparation overage</span>
             <div class="suffix-input"><input id="overage" name="overage" type="number" inputmode="decimal" min="0" max="500" step="any" value="10"><span>%</span></div>
-            <small>Extra volume for pipetting loss.</small>
+            <small data-i18n="budget.overage.help">Extra volume for pipetting loss.</small>
           </label>
           <label class="field full-on-desktop" for="minimumPipette">
-            <span>Minimum reliable pipetting volume</span>
+            <span data-i18n="budget.minimumPipette.label">Minimum reliable pipetting volume</span>
             <div class="suffix-input"><input id="minimumPipette" name="minimumPipette" type="number" inputmode="decimal" min="0" step="any" value="2"><span>µL</span></div>
-            <small>Below this, the result asks for an intermediate dilution instead of presenting direct prep as reliable.</small>
+            <small data-i18n="budget.minimumPipette.help">Below this, the result asks for an intermediate dilution instead of presenting direct prep as reliable.</small>
           </label>
         </div>
       </section>
 
       <div class="form-actions">
-        <button class="primary-button" type="submit"><span>Build pilot plan</span><span aria-hidden="true">→</span></button>
-        <button class="secondary-button" type="reset">Reset example</button>
+        <button class="primary-button" type="submit"><span data-i18n="actions.build">Build pilot plan</span><span aria-hidden="true">→</span></button>
+        <button class="secondary-button" type="reset" data-i18n="actions.reset">Reset example</button>
       </div>
     </form>
 
@@ -708,9 +753,9 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
   <footer>
     <div>
       <strong>Built by Lexian</strong>
-      <span>Local research prototype · no data leaves this page</span>
+      <span data-i18n="footer.local">Local research prototype · no data leaves this page</span>
     </div>
-    <p>For research planning only. Verify all assay-specific decisions against the kit insert or your validated method.</p>
+    <p data-i18n="footer.boundary">For research planning only. Verify all assay-specific decisions against the kit insert or your validated method.</p>
   </footer>
 
   <script>
@@ -736,62 +781,62 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
 
   function validate(input) {
     const errors = [];
-    const add = (field, message) => errors.push({ field, message });
+    const add = (field, code, message) => errors.push({ field, code, message });
 
     if (!isFiniteNumber(input.assayLower) || input.assayLower <= 0) {
-      add("assayLower", "Enter a usable-range lower bound greater than 0.");
+      add("assayLower", "assay_lower_invalid", "Enter a usable-range lower bound greater than 0.");
     }
     if (!isFiniteNumber(input.assayUpper) || input.assayUpper <= 0) {
-      add("assayUpper", "Enter a usable-range upper bound greater than 0.");
+      add("assayUpper", "assay_upper_invalid", "Enter a usable-range upper bound greater than 0.");
     } else if (isFiniteNumber(input.assayLower) && input.assayUpper <= input.assayLower) {
-      add("assayUpper", "The upper bound must be greater than the lower bound.");
+      add("assayUpper", "assay_upper_order", "The upper bound must be greater than the lower bound.");
     }
 
     if (!isFiniteNumber(input.expectedUpper) || input.expectedUpper <= 0) {
-      add("expectedUpper", "Enter an expected upper concentration greater than 0.");
+      add("expectedUpper", "expected_upper_invalid", "Enter an expected upper concentration greater than 0.");
     }
     if (!input.lowerUnknown) {
       if (!isFiniteNumber(input.expectedLower) || input.expectedLower <= 0) {
-        add("expectedLower", "Enter an expected lower concentration greater than 0.");
+        add("expectedLower", "expected_lower_invalid", "Enter an expected lower concentration greater than 0.");
       } else if (
         isFiniteNumber(input.expectedUpper) &&
         input.expectedUpper < input.expectedLower
       ) {
-        add("expectedUpper", "The expected upper concentration cannot be below the lower concentration.");
+        add("expectedUpper", "expected_upper_order", "The expected upper concentration cannot be below the lower concentration.");
       }
     }
 
     if (!Number.isInteger(input.points) || input.points < 1 || input.points > 12) {
-      add("points", "Pilot points must be a whole number from 1 to 12.");
+      add("points", "points_invalid", "Pilot points must be a whole number from 1 to 12.");
     }
     if (!isFiniteNumber(input.sampleVolume) || input.sampleVolume <= 0) {
-      add("sampleVolume", "Enter a sample volume per well greater than 0.");
+      add("sampleVolume", "sample_volume_invalid", "Enter a sample volume per well greater than 0.");
     }
     if (!Number.isInteger(input.replicates) || input.replicates < 1 || input.replicates > 12) {
-      add("replicates", "Replicates must be a whole number from 1 to 12.");
+      add("replicates", "replicates_invalid", "Replicates must be a whole number from 1 to 12.");
     }
     if (!isFiniteNumber(input.overage) || input.overage < 0 || input.overage > 500) {
-      add("overage", "Overage must be between 0% and 500%.");
+      add("overage", "overage_invalid", "Overage must be between 0% and 500%.");
     }
     if (!isFiniteNumber(input.minimumPipette) || input.minimumPipette <= 0) {
-      add("minimumPipette", "Enter a reliable pipetting volume greater than 0.");
+      add("minimumPipette", "minimum_pipette_invalid", "Enter a reliable pipetting volume greater than 0.");
     }
 
     if (!input.unit || input.unit.trim().length === 0) {
-      add("unit", "Enter the concentration unit used for both ranges.");
+      add("unit", "unit_required", "Enter the concentration unit used for both ranges.");
     } else if (input.unit.trim().length > 30) {
-      add("unit", "Keep the unit label to 30 characters or fewer.");
+      add("unit", "unit_too_long", "Keep the unit label to 30 characters or fewer.");
     }
 
     if (!['auto', 'fixed'].includes(input.mode)) {
-      add("mode", "Choose Auto coverage or Fixed-fold mode.");
+      add("mode", "mode_invalid", "Choose Auto coverage or Fixed-fold mode.");
     }
     if (input.mode === "fixed") {
       if (!isFiniteNumber(input.startFactor) || input.startFactor < 1) {
-        add("startFactor", "The starting dilution factor must be at least 1.");
+        add("startFactor", "start_factor_invalid", "The starting dilution factor must be at least 1.");
       }
       if (!isFiniteNumber(input.fold) || input.fold <= 1) {
-        add("fold", "The fold step must be greater than 1.");
+        add("fold", "fold_invalid", "The fold step must be greater than 1.");
       }
     }
 
@@ -1007,6 +1052,7 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
         ok: false,
         errors: [{
           field: input.mode === "fixed" ? "fold" : "expectedUpper",
+          code: "numeric_range",
           message: "These values produce dilution factors outside the calculator's numeric range.",
         }],
       };
@@ -1039,10 +1085,278 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
 
 </script>
   <script>
+(function attachI18n(root, factory) {
+  const api = factory();
+  if (typeof module === "object" && module.exports) {
+    module.exports = api;
+  } else {
+    root.ELISAI18N = api;
+  }
+})(typeof globalThis !== "undefined" ? globalThis : this, function createI18n() {
+  "use strict";
+
+  const messages = {
+    en: {
+      "document.title": "ELISA Pilot Dilution Planner",
+      "document.description": "Plan ELISA pilot dilution coverage, sample volume, well usage, and direct-pipetting limits before a run.",
+      "skip.planner": "Skip to planner",
+      "language.label": "Language",
+      "header.productLabel": "Pre-run planning calculator",
+      "header.copy": "Turn an assay range and a rough target-analyte estimate into a transparent pilot coverage plan—before spending wells or sample.",
+      "header.prototype": "Local prototype · v0.2",
+      "intro.label": "Planner boundaries",
+      "intro.coverage.title": "Coverage, not validation",
+      "intro.coverage.body": "Shows what each dilution can mathematically cover.",
+      "intro.local.title": "Local and private",
+      "intro.local.body": "Inputs stay in this browser page.",
+      "intro.prep.title": "Direct-prep check",
+      "intro.prep.body": "Flags volumes below your reliable pipetting minimum.",
+      "mode.eyebrow": "Planning method",
+      "mode.title": "Choose how factors are generated",
+      "mode.legend": "Planning method",
+      "mode.auto": "Auto coverage",
+      "mode.auto.short": "Log-centered factors",
+      "mode.fixed": "Fixed-fold",
+      "mode.fixed.short": "Your own series",
+      "mode.start.label": "Starting factor",
+      "mode.start.help": "1 means undiluted; 10 means 1:10.",
+      "mode.fold.label": "Fold step",
+      "mode.fold.help": "For example: 2, 5, or 10.",
+      "mode.description.auto": "Centers pilot points across the expected range on a log scale, then reports any gaps.",
+      "mode.description.fixed": "Evaluates your chosen starting factor and constant fold step without calling it optimal.",
+      "range.eyebrow": "Concentration ranges",
+      "range.title": "Define the interval to cover",
+      "range.usable.label": "Usable assay range",
+      "range.required": "Required",
+      "range.assayLower.aria": "Usable assay range lower bound",
+      "range.assayUpper.aria": "Usable assay range upper bound",
+      "range.unit.aria": "Concentration unit",
+      "range.usable.help": "Enter the interval your kit, validated method, or lab-defined procedure says you can use for quantitative interpretation. It may be narrower than the full standard or detection range.",
+      "range.expected.label": "Expected original target-analyte concentration",
+      "range.rough": "Rough estimate",
+      "range.lowerUnknown": "I only know an upper bound",
+      "range.expectedLower.aria": "Expected original concentration lower bound",
+      "range.expectedUpper.aria": "Expected original concentration upper bound",
+      "range.sameUnit": "same unit",
+      "range.expected.help": "Use a broad range if uncertain. Do not substitute total protein concentration unless it truly represents the target analyte.",
+      "separator.to": "to",
+      "separator.upTo": "up to",
+      "budget.eyebrow": "Pilot budget",
+      "budget.title": "Set wells and preparation limits",
+      "budget.points.label": "Pilot dilution points",
+      "budget.points.help": "1–12 distinct concentrations.",
+      "budget.sampleVolume.label": "Sample volume per well",
+      "budget.sampleVolume.help": "Sample or diluted sample added per well.",
+      "budget.replicates.label": "Replicates per point",
+      "budget.replicates.help": "Duplicates = 2; triplicates = 3.",
+      "budget.overage.label": "Preparation overage",
+      "budget.overage.help": "Extra volume for pipetting loss.",
+      "budget.minimumPipette.label": "Minimum reliable pipetting volume",
+      "budget.minimumPipette.help": "Below this, the result asks for an intermediate dilution instead of presenting direct prep as reliable.",
+      "actions.build": "Build pilot plan",
+      "actions.reset": "Reset example",
+      "footer.local": "Local research prototype · no data leaves this page",
+      "footer.boundary": "For research planning only. Verify all assay-specific decisions against the kit insert or your validated method.",
+      "error.summary.one": "Check this field:",
+      "error.summary.many": "Check these fields:",
+      "error.assay_lower_invalid": "Enter a usable-range lower bound greater than 0.",
+      "error.assay_upper_invalid": "Enter a usable-range upper bound greater than 0.",
+      "error.assay_upper_order": "The upper bound must be greater than the lower bound.",
+      "error.expected_upper_invalid": "Enter an expected upper concentration greater than 0.",
+      "error.expected_lower_invalid": "Enter an expected lower concentration greater than 0.",
+      "error.expected_upper_order": "The expected upper concentration cannot be below the lower concentration.",
+      "error.points_invalid": "Pilot points must be a whole number from 1 to 12.",
+      "error.sample_volume_invalid": "Enter a sample volume per well greater than 0.",
+      "error.replicates_invalid": "Replicates must be a whole number from 1 to 12.",
+      "error.overage_invalid": "Overage must be between 0% and 500%.",
+      "error.minimum_pipette_invalid": "Enter a reliable pipetting volume greater than 0.",
+      "error.unit_required": "Enter the concentration unit used for both ranges.",
+      "error.unit_too_long": "Keep the unit label to 30 characters or fewer.",
+      "error.mode_invalid": "Choose Auto coverage or Fixed-fold mode.",
+      "error.start_factor_invalid": "The starting dilution factor must be at least 1.",
+      "error.fold_invalid": "The fold step must be greater than 1.",
+      "error.numeric_range": "These values produce dilution factors outside the calculator's numeric range.",
+      "result.eyebrow": "Pilot coverage plan",
+      "result.impossible.title": "Dilution cannot solve this range mismatch",
+      "result.impossible.reason": "Dilution cannot bring an expected concentration upward into the usable assay range.",
+      "result.impossible.check": "Check the concentration units, expected target-analyte estimate, and the usable range from the kit insert or validated method.",
+      "result.covered": "Coverage is continuous",
+      "result.gaps": "Coverage gaps remain",
+      "result.description.auto": "Auto mode uses a transparent log-scale centering heuristic.",
+      "result.description.fixed": "Fixed-fold mode evaluates the dilution series you specified.",
+      "result.metric": "log-range covered",
+      "rounding.label": "Use bench-friendly factors that preserve full coverage",
+      "rounding.help": "Raw mathematical factors remain the source calculation. Simplified factors are shown only after a fresh gap check.",
+      "notice.minimumPoints": "At least <strong>{count} points</strong> are needed for gap-free centered coverage with this assay span.",
+      "notice.unknownLower": "Lower bound is unknown. Auto mode starts coverage at the assay lower bound; concentrations below it cannot be assessed from the entered information.",
+      "notice.unreachableLow": "Part of the entered expected range is below the usable assay lower bound. Dilution only lowers concentration, so that segment cannot be brought upward into range.",
+      "gaps.success": "The selected points cover the entered expected range without log-scale gaps.",
+      "gaps.one": "Uncovered concentration gap",
+      "gaps.many": "Uncovered concentration gaps",
+      "coverage.eyebrow": "Log-scale view",
+      "coverage.title": "Expected-range coverage",
+      "factor.undiluted": "undiluted",
+      "factor.covers": "Covers {lower}–{upper} {unit} in the original sample",
+      "factor.original": "Original sample",
+      "factor.diluent": "Diluent",
+      "factor.prepare": "Prepare",
+      "factor.status.ok": "Direct prep clears minimum",
+      "factor.status.warn": "Intermediate dilution required",
+      "plan.eyebrow": "Direct-preparation check",
+      "plan.title": "Dilution points and liquid volumes",
+      "plan.copy": "Each point is independently prepared from the original sample. Volumes include {overage}% overage.",
+      "summary.label": "Pilot budget summary",
+      "summary.wells": "Plate wells",
+      "summary.prepared": "Diluted sample prepared",
+      "summary.original": "Original sample, direct-prep total",
+      "summary.warnings": "Intermediate-dilution warnings",
+      "boundary.title": "What this result means",
+      "boundary.body": "This calculator plans concentration coverage and liquid volumes. It does not validate matrix effects, dilutional linearity, recovery, hook effect, assay performance, or biological suitability.",
+      "boundary.follow": "Follow the kit insert or your validated method when they specify sample handling or dilution.",
+    },
+    "zh-Hant": {
+      "document.title": "ELISA 初次稀釋規劃器",
+      "document.description": "在實驗前規劃 ELISA 初次稀釋的濃度涵蓋、樣本用量、孔數與直接移液限制。",
+      "skip.planner": "跳至規劃器",
+      "language.label": "語言",
+      "header.productLabel": "實驗前稀釋規劃工具",
+      "header.copy": "輸入可用分析範圍與目標分析物的概略濃度，在耗用孔位與樣本之前，先建立透明可核對的初次稀釋涵蓋計畫。",
+      "header.prototype": "本機原型 · v0.2",
+      "intro.label": "規劃器界線",
+      "intro.coverage.title": "規劃涵蓋範圍",
+      "intro.coverage.body": "顯示每個稀釋倍率在數學上可涵蓋的濃度。",
+      "intro.local.title": "資料留在本機",
+      "intro.local.body": "輸入內容只存在目前的瀏覽器頁面。",
+      "intro.prep.title": "直接配製檢查",
+      "intro.prep.body": "標示低於可靠移液下限的體積。",
+      "mode.eyebrow": "規劃方式",
+      "mode.title": "選擇稀釋倍率的產生方式",
+      "mode.legend": "規劃方式",
+      "mode.auto": "自動涵蓋",
+      "mode.auto.short": "依對數尺度置中產生倍率",
+      "mode.fixed": "固定倍比",
+      "mode.fixed.short": "使用自己指定的系列",
+      "mode.start.label": "起始稀釋倍率",
+      "mode.start.help": "1 代表未稀釋；10 代表 1:10。",
+      "mode.fold.label": "倍比間距",
+      "mode.fold.help": "例如：2、5 或 10。",
+      "mode.description.auto": "在對數尺度上將初次測試點置中分布於預期範圍，再列出可能的缺口。",
+      "mode.description.fixed": "評估你指定的起始倍率與固定倍比，不把這組系列稱為最佳建議。",
+      "range.eyebrow": "濃度範圍",
+      "range.title": "設定需要涵蓋的區間",
+      "range.usable.label": "可用分析範圍",
+      "range.required": "必填",
+      "range.assayLower.aria": "可用分析範圍下限",
+      "range.assayUpper.aria": "可用分析範圍上限",
+      "range.unit.aria": "濃度單位",
+      "range.usable.help": "填入試劑盒、已驗證方法或實驗室程序中，可用於定量判讀的區間。這個區間可能比完整標準範圍或偵測範圍更窄。",
+      "range.expected.label": "原始樣本中目標分析物的預期濃度",
+      "range.rough": "概略估計",
+      "range.lowerUnknown": "我只知道濃度上限",
+      "range.expectedLower.aria": "原始樣本預期濃度下限",
+      "range.expectedUpper.aria": "原始樣本預期濃度上限",
+      "range.sameUnit": "使用相同單位",
+      "range.expected.help": "不確定時可填入較寬的範圍。總蛋白濃度只有在確實代表目標分析物時才適用。",
+      "separator.to": "至",
+      "separator.upTo": "最高",
+      "budget.eyebrow": "初次測試用量",
+      "budget.title": "設定孔位與配製限制",
+      "budget.points.label": "稀釋測試點數",
+      "budget.points.help": "1–12 個不同濃度。",
+      "budget.sampleVolume.label": "每孔樣本體積",
+      "budget.sampleVolume.help": "每孔加入的原始或已稀釋樣本體積。",
+      "budget.replicates.label": "每個測試點的重複孔數",
+      "budget.replicates.help": "雙重複為 2；三重複為 3。",
+      "budget.overage.label": "配製預留量",
+      "budget.overage.help": "補足移液損耗的額外體積。",
+      "budget.minimumPipette.label": "最低可靠移液體積",
+      "budget.minimumPipette.help": "低於此體積時，結果會要求使用中間稀釋，不會把直接配製標示為可靠。",
+      "actions.build": "建立初次稀釋計畫",
+      "actions.reset": "重設範例",
+      "footer.local": "本機研究原型 · 資料不會離開此頁面",
+      "footer.boundary": "僅供研究規劃。所有分析方法相關決定仍須依試劑盒說明書或已驗證方法確認。",
+      "error.summary.one": "請檢查這個欄位：",
+      "error.summary.many": "請檢查以下欄位：",
+      "error.assay_lower_invalid": "請輸入大於 0 的可用分析範圍下限。",
+      "error.assay_upper_invalid": "請輸入大於 0 的可用分析範圍上限。",
+      "error.assay_upper_order": "上限必須大於下限。",
+      "error.expected_upper_invalid": "請輸入大於 0 的預期濃度上限。",
+      "error.expected_lower_invalid": "請輸入大於 0 的預期濃度下限。",
+      "error.expected_upper_order": "預期濃度上限不得低於下限。",
+      "error.points_invalid": "稀釋測試點數須為 1 到 12 之間的整數。",
+      "error.sample_volume_invalid": "請輸入大於 0 的每孔樣本體積。",
+      "error.replicates_invalid": "重複孔數須為 1 到 12 之間的整數。",
+      "error.overage_invalid": "配製預留量須介於 0% 到 500%。",
+      "error.minimum_pipette_invalid": "請輸入大於 0 的可靠移液體積。",
+      "error.unit_required": "請輸入兩個濃度範圍共用的單位。",
+      "error.unit_too_long": "單位名稱請控制在 30 個字元以內。",
+      "error.mode_invalid": "請選擇自動涵蓋或固定倍比模式。",
+      "error.start_factor_invalid": "起始稀釋倍率至少須為 1。",
+      "error.fold_invalid": "倍比間距必須大於 1。",
+      "error.numeric_range": "這組數值產生的稀釋倍率超出計算器可處理的數值範圍。",
+      "result.eyebrow": "初次稀釋涵蓋計畫",
+      "result.impossible.title": "稀釋無法解決這組範圍差異",
+      "result.impossible.reason": "稀釋只能降低濃度，無法把預期濃度提高至可用分析範圍。",
+      "result.impossible.check": "請檢查濃度單位、目標分析物的預期濃度，以及試劑盒說明書或已驗證方法中的可用分析範圍。",
+      "result.covered": "涵蓋範圍連續",
+      "result.gaps": "涵蓋範圍仍有缺口",
+      "result.description.auto": "自動模式使用透明的對數尺度置中方法。",
+      "result.description.fixed": "固定倍比模式會評估你指定的稀釋系列。",
+      "result.metric": "對數範圍涵蓋率",
+      "rounding.label": "使用仍可維持完整涵蓋的實驗桌友善倍率",
+      "rounding.help": "原始數學倍率仍是計算來源。簡化倍率只有在重新檢查後仍無缺口時才會顯示。",
+      "notice.minimumPoints": "依目前的分析跨度，至少需要 <strong>{count} 個測試點</strong>，才能以置中方式連續涵蓋。",
+      "notice.unknownLower": "濃度下限未知。自動模式會從可用分析範圍下限開始規劃；依目前輸入資訊，無法評估更低的濃度。",
+      "notice.unreachableLow": "部分預期濃度低於可用分析範圍下限。稀釋只會降低濃度，因此無法把這段範圍往上帶入可用區間。",
+      "gaps.success": "所選測試點可連續涵蓋輸入的預期範圍，對數尺度上沒有缺口。",
+      "gaps.one": "未涵蓋的濃度缺口",
+      "gaps.many": "未涵蓋的濃度缺口",
+      "coverage.eyebrow": "對數尺度檢視",
+      "coverage.title": "預期範圍涵蓋情形",
+      "factor.undiluted": "未稀釋",
+      "factor.covers": "涵蓋原始樣本中的 {lower}–{upper} {unit}",
+      "factor.original": "原始樣本",
+      "factor.diluent": "稀釋液",
+      "factor.prepare": "配製總量",
+      "factor.status.ok": "可直接配製，移液量足夠",
+      "factor.status.warn": "需要中間稀釋",
+      "plan.eyebrow": "直接配製檢查",
+      "plan.title": "稀釋測試點與液體體積",
+      "plan.copy": "每個測試點均由原始樣本獨立配製。體積已包含 {overage}% 預留量。",
+      "summary.label": "初次測試用量摘要",
+      "summary.wells": "使用孔數",
+      "summary.prepared": "已配製稀釋樣本總量",
+      "summary.original": "直接配製所需原始樣本總量",
+      "summary.warnings": "中間稀釋警告數",
+      "boundary.title": "這份結果代表什麼",
+      "boundary.body": "此計算器只規劃濃度涵蓋範圍與液體體積，不會驗證基質效應、稀釋線性、回收率、高劑量鉤狀效應、分析效能或生物適用性。",
+      "boundary.follow": "試劑盒說明書或已驗證方法若指定樣本處理或稀釋方式，請依其規定執行。",
+    },
+  };
+
+  function translate(language, key, values = {}) {
+    const locale = messages[language] ? language : "en";
+    const template = messages[locale][key] ?? messages.en[key] ?? key;
+    return Object.entries(values).reduce(
+      (text, [name, value]) => text.replaceAll(`{${name}}`, String(value)),
+      template,
+    );
+  }
+
+  return {
+    messages,
+    supportedLanguages: Object.keys(messages),
+    translate,
+  };
+});
+
+</script>
+  <script>
 (function startApp() {
   "use strict";
 
   const planner = window.ELISAPlanner;
+  const i18n = window.ELISAI18N;
   const form = document.querySelector("#planner-form");
   const results = document.querySelector("#results");
   const errorSummary = document.querySelector("#error-summary");
@@ -1051,10 +1365,17 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
   const expectedSeparator = document.querySelector("#expected-separator");
   const fixedFields = document.querySelector("#fixed-fields");
   const modeInputs = Array.from(document.querySelectorAll('input[name="mode"]'));
+  const languageButtons = Array.from(document.querySelectorAll("[data-language]"));
 
+  let currentLanguage = "en";
   let latestInput = null;
   let latestPlan = null;
+  let latestErrors = null;
   let useRounded = false;
+
+  function t(key, values) {
+    return i18n.translate(currentLanguage, key, values);
+  }
 
   function numberValue(id) {
     const value = document.querySelector(`#${id}`).value.trim();
@@ -1094,15 +1415,36 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
     if (absolute !== 0 && (absolute >= 1e7 || absolute < 0.001)) {
       return value.toExponential(3).replace("e+", "e");
     }
-    return new Intl.NumberFormat("en-US", {
+    return new Intl.NumberFormat(currentLanguage === "zh-Hant" ? "zh-TW" : "en-US", {
       maximumFractionDigits,
       useGrouping: true,
     }).format(value);
   }
 
   function factorLabel(factor) {
-    if (Math.abs(factor - 1) < 1e-9) return "1× (undiluted)";
+    if (Math.abs(factor - 1) < 1e-9) {
+      return `1× (${t("factor.undiluted")})`;
+    }
     return `${formatNumber(factor)}× (1:${formatNumber(factor)})`;
+  }
+
+  function errorText(error) {
+    return error.code ? t(`error.${error.code}`) : error.message;
+  }
+
+  function applyStaticTranslations() {
+    document.documentElement.lang = currentLanguage;
+    document.title = t("document.title");
+    document.querySelector('meta[name="description"]')?.setAttribute("content", t("document.description"));
+    document.querySelectorAll("[data-i18n]").forEach((node) => {
+      node.textContent = t(node.dataset.i18n);
+    });
+    document.querySelectorAll("[data-i18n-aria-label]").forEach((node) => {
+      node.setAttribute("aria-label", t(node.dataset.i18nAriaLabel));
+    });
+    languageButtons.forEach((button) => {
+      button.setAttribute("aria-pressed", String(button.dataset.language === currentLanguage));
+    });
   }
 
   function clearErrors() {
@@ -1115,12 +1457,13 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
     });
   }
 
-  function showErrors(errors) {
+  function showErrors(errors, focusSummary = true) {
     clearErrors();
     const items = errors
-      .map((error) => `<li><a href="#${escapeHtml(error.field)}">${escapeHtml(error.message)}</a></li>`)
+      .map((error) => `<li><a href="#${escapeHtml(error.field)}">${escapeHtml(errorText(error))}</a></li>`)
       .join("");
-    errorSummary.innerHTML = `<strong>Check ${errors.length === 1 ? "this field" : "these fields"}:</strong><ul>${items}</ul>`;
+    const summaryKey = errors.length === 1 ? "error.summary.one" : "error.summary.many";
+    errorSummary.innerHTML = `<strong>${escapeHtml(t(summaryKey))}</strong><ul>${items}</ul>`;
     errorSummary.hidden = false;
 
     const seen = new Set();
@@ -1133,12 +1476,12 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
       const message = document.createElement("p");
       message.className = "field-error";
       message.id = id;
-      message.textContent = error.message;
+      message.textContent = errorText(error);
       field.setAttribute("aria-invalid", "true");
       field.setAttribute("aria-describedby", id);
       field.closest(".field")?.appendChild(message);
     }
-    errorSummary.focus();
+    if (focusSummary) errorSummary.focus();
   }
 
   function chartStyle(lower, upper, targetLower, targetUpper) {
@@ -1178,8 +1521,8 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
       <section class="result-section" aria-labelledby="coverage-title">
         <div class="section-heading-row">
           <div>
-            <p class="eyebrow">Log-scale view</p>
-            <h3 id="coverage-title">Expected-range coverage</h3>
+            <p class="eyebrow">${escapeHtml(t("coverage.eyebrow"))}</p>
+            <h3 id="coverage-title">${escapeHtml(t("coverage.title"))}</h3>
           </div>
           <span class="coverage-percent">${formatNumber(coverage.coveragePercent, 1)}%</span>
         </div>
@@ -1194,54 +1537,62 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
 
   function renderGaps(coverage, input) {
     if (coverage.full) {
-      return `<p class="success-note">The selected points cover the entered expected range without log-scale gaps.</p>`;
+      return `<p class="success-note">${escapeHtml(t("gaps.success"))}</p>`;
     }
     const gaps = coverage.gaps.map((gap) =>
       `<li>${escapeHtml(formatNumber(gap.lower))}–${escapeHtml(formatNumber(gap.upper))} ${escapeHtml(input.unit)}</li>`,
     ).join("");
+    const gapKey = coverage.gaps.length === 1 ? "gaps.one" : "gaps.many";
     return `
       <div class="warning-note">
-        <strong>Uncovered concentration ${coverage.gaps.length === 1 ? "gap" : "gaps"}</strong>
+        <strong>${escapeHtml(t(gapKey))}</strong>
         <ul>${gaps}</ul>
       </div>
     `;
   }
 
   function renderFactorTable(planSet, input) {
-    const unit = escapeHtml(input.unit);
-    const rows = planSet.liquid.rows.map((row, index) => `
-      <article class="factor-row ${row.directPreparationReliable ? "" : "factor-warning"}">
-        <div class="factor-index">${index + 1}</div>
-        <div>
-          <p class="factor-main">${escapeHtml(factorLabel(row.factor))}</p>
-          <p class="factor-band">Covers ${escapeHtml(formatNumber(row.coverage.lower))}–${escapeHtml(formatNumber(row.coverage.upper))} ${unit} in the original sample</p>
-        </div>
-        <dl class="mix-grid">
-          <div><dt>Original sample</dt><dd>${escapeHtml(formatNumber(row.originalSample))} µL</dd></div>
-          <div><dt>Diluent</dt><dd>${escapeHtml(formatNumber(row.diluent))} µL</dd></div>
-          <div><dt>Prepare</dt><dd>${escapeHtml(formatNumber(row.preparedVolume))} µL</dd></div>
-        </dl>
-        <div class="factor-status ${row.directPreparationReliable ? "status-ok" : "status-warn"}">
-          ${row.directPreparationReliable ? "Direct prep clears minimum" : "Intermediate dilution required"}
-        </div>
-      </article>
-    `).join("");
+    const unit = input.unit;
+    const rows = planSet.liquid.rows.map((row, index) => {
+      const coverageText = t("factor.covers", {
+        lower: formatNumber(row.coverage.lower),
+        upper: formatNumber(row.coverage.upper),
+        unit,
+      });
+      return `
+        <article class="factor-row ${row.directPreparationReliable ? "" : "factor-warning"}">
+          <div class="factor-index">${index + 1}</div>
+          <div>
+            <p class="factor-main">${escapeHtml(factorLabel(row.factor))}</p>
+            <p class="factor-band">${escapeHtml(coverageText)}</p>
+          </div>
+          <dl class="mix-grid">
+            <div><dt>${escapeHtml(t("factor.original"))}</dt><dd>${escapeHtml(formatNumber(row.originalSample))} µL</dd></div>
+            <div><dt>${escapeHtml(t("factor.diluent"))}</dt><dd>${escapeHtml(formatNumber(row.diluent))} µL</dd></div>
+            <div><dt>${escapeHtml(t("factor.prepare"))}</dt><dd>${escapeHtml(formatNumber(row.preparedVolume))} µL</dd></div>
+          </dl>
+          <div class="factor-status ${row.directPreparationReliable ? "status-ok" : "status-warn"}">
+            ${escapeHtml(t(row.directPreparationReliable ? "factor.status.ok" : "factor.status.warn"))}
+          </div>
+        </article>
+      `;
+    }).join("");
     return `<div class="factor-list">${rows}</div>`;
   }
 
-  function renderPlan() {
+  function renderPlan(focusResult = true) {
     if (!latestPlan || !latestInput) return;
     if (latestPlan.status === "impossible") {
       results.innerHTML = `
         <section class="result-hero result-impossible" tabindex="-1">
-          <p class="eyebrow">Pilot coverage plan</p>
-          <h2>Dilution cannot solve this range mismatch</h2>
-          <p>${escapeHtml(latestPlan.reason)}</p>
-          <p>Check the concentration units, expected target-analyte estimate, and the usable range from the kit insert or validated method.</p>
+          <p class="eyebrow">${escapeHtml(t("result.eyebrow"))}</p>
+          <h2>${escapeHtml(t("result.impossible.title"))}</h2>
+          <p>${escapeHtml(t("result.impossible.reason"))}</p>
+          <p>${escapeHtml(t("result.impossible.check"))}</p>
         </section>
       `;
       results.hidden = false;
-      results.querySelector(".result-hero")?.focus();
+      if (focusResult) results.querySelector(".result-hero")?.focus();
       return;
     }
 
@@ -1249,36 +1600,38 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
     const coverage = planSet.coverage;
     const liquid = planSet.liquid;
     const statusClass = coverage.full ? "result-covered" : "result-gaps";
-    const statusTitle = coverage.full ? "Coverage is continuous" : "Coverage gaps remain";
+    const statusTitle = t(coverage.full ? "result.covered" : "result.gaps");
     const roundingControl = latestPlan.rounded ? `
       <div class="rounding-control">
         <label class="switch-line">
           <input id="use-rounded" type="checkbox" ${useRounded ? "checked" : ""}>
-          <span>Use bench-friendly factors that preserve full coverage</span>
+          <span>${escapeHtml(t("rounding.label"))}</span>
         </label>
-        <p>Raw mathematical factors remain the source calculation. Simplified factors are shown only after a fresh gap check.</p>
+        <p>${escapeHtml(t("rounding.help"))}</p>
       </div>
     ` : "";
     const pointNotice = !coverage.full && latestPlan.minimumPoints
-      ? `<p class="point-notice">At least <strong>${latestPlan.minimumPoints} points</strong> are needed for gap-free centered coverage with this assay span.</p>`
+      ? `<p class="point-notice">${t("notice.minimumPoints", { count: latestPlan.minimumPoints })}</p>`
       : "";
     const unknownNotice = latestPlan.lowerUnknown
-      ? `<p class="info-note">Lower bound is unknown. Auto mode starts coverage at the assay lower bound; concentrations below it cannot be assessed from the entered information.</p>`
+      ? `<p class="info-note">${escapeHtml(t("notice.unknownLower"))}</p>`
       : "";
     const unreachableNotice = latestPlan.unreachableLow
-      ? `<p class="warning-note">Part of the entered expected range is below the usable assay lower bound. Dilution only lowers concentration, so that segment cannot be brought upward into range.</p>`
+      ? `<p class="warning-note">${escapeHtml(t("notice.unreachableLow"))}</p>`
       : "";
+    const modeDescription = t(latestInput.mode === "auto" ? "result.description.auto" : "result.description.fixed");
+    const planCopy = t("plan.copy", { overage: formatNumber(latestInput.overage) });
 
     results.innerHTML = `
       <section class="result-hero ${statusClass}" tabindex="-1">
         <div>
-          <p class="eyebrow">Pilot coverage plan</p>
-          <h2>${statusTitle}</h2>
-          <p>${latestInput.mode === "auto" ? "Auto mode uses a transparent log-scale centering heuristic." : "Fixed-fold mode evaluates the dilution series you specified."}</p>
+          <p class="eyebrow">${escapeHtml(t("result.eyebrow"))}</p>
+          <h2>${escapeHtml(statusTitle)}</h2>
+          <p>${escapeHtml(modeDescription)}</p>
         </div>
         <div class="hero-metric">
           <strong>${formatNumber(coverage.coveragePercent, 1)}%</strong>
-          <span>log-range covered</span>
+          <span>${escapeHtml(t("result.metric"))}</span>
         </div>
       </section>
       ${roundingControl}
@@ -1288,21 +1641,21 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
       ${pointNotice}
       ${renderCoverageMap(planSet, latestInput)}
       <section class="result-section" aria-labelledby="plan-title">
-        <p class="eyebrow">Direct-preparation check</p>
-        <h3 id="plan-title">Dilution points and liquid volumes</h3>
-        <p class="section-copy">Each point is independently prepared from the original sample. Volumes include ${escapeHtml(formatNumber(latestInput.overage))}% overage.</p>
+        <p class="eyebrow">${escapeHtml(t("plan.eyebrow"))}</p>
+        <h3 id="plan-title">${escapeHtml(t("plan.title"))}</h3>
+        <p class="section-copy">${escapeHtml(planCopy)}</p>
         ${renderFactorTable(planSet, latestInput)}
       </section>
-      <section class="budget-grid" aria-label="Pilot budget summary">
-        <div><span>Plate wells</span><strong>${liquid.wells}</strong></div>
-        <div><span>Diluted sample prepared</span><strong>${escapeHtml(formatNumber(liquid.preparedTotal))} µL</strong></div>
-        <div><span>Original sample, direct-prep total</span><strong>${escapeHtml(formatNumber(liquid.originalSampleTotal))} µL</strong></div>
-        <div><span>Intermediate-dilution warnings</span><strong>${liquid.warningCount}</strong></div>
+      <section class="budget-grid" aria-label="${escapeHtml(t("summary.label"))}">
+        <div><span>${escapeHtml(t("summary.wells"))}</span><strong>${liquid.wells}</strong></div>
+        <div><span>${escapeHtml(t("summary.prepared"))}</span><strong>${escapeHtml(formatNumber(liquid.preparedTotal))} µL</strong></div>
+        <div><span>${escapeHtml(t("summary.original"))}</span><strong>${escapeHtml(formatNumber(liquid.originalSampleTotal))} µL</strong></div>
+        <div><span>${escapeHtml(t("summary.warnings"))}</span><strong>${liquid.warningCount}</strong></div>
       </section>
       <section class="boundary-card">
-        <h3>What this result means</h3>
-        <p>This calculator plans concentration coverage and liquid volumes. It does not validate matrix effects, dilutional linearity, recovery, hook effect, assay performance, or biological suitability.</p>
-        <p>Follow the kit insert or your validated method when they specify sample handling or dilution.</p>
+        <h3>${escapeHtml(t("boundary.title"))}</h3>
+        <p>${escapeHtml(t("boundary.body"))}</p>
+        <p>${escapeHtml(t("boundary.follow"))}</p>
       </section>
     `;
     results.hidden = false;
@@ -1310,23 +1663,32 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
     const roundedCheckbox = document.querySelector("#use-rounded");
     roundedCheckbox?.addEventListener("change", () => {
       useRounded = roundedCheckbox.checked;
-      renderPlan();
+      renderPlan(false);
     });
-    results.querySelector(".result-hero")?.focus();
+    if (focusResult) results.querySelector(".result-hero")?.focus();
   }
 
   function syncConditionalFields() {
     expectedLowerWrap.hidden = lowerUnknown.checked;
-    expectedSeparator.textContent = lowerUnknown.checked ? "up to" : "to";
+    expectedSeparator.textContent = t(lowerUnknown.checked ? "separator.upTo" : "separator.to");
     document.querySelector("#expectedLower").disabled = lowerUnknown.checked;
     const mode = document.querySelector('input[name="mode"]:checked').value;
     fixedFields.hidden = mode !== "fixed";
     fixedFields.querySelectorAll("input").forEach((field) => {
       field.disabled = mode !== "fixed";
     });
-    document.querySelector("#mode-description").textContent = mode === "auto"
-      ? "Centers pilot points across the expected range on a log scale, then reports any gaps."
-      : "Evaluates your chosen starting factor and constant fold step without calling it optimal.";
+    document.querySelector("#mode-description").textContent = t(
+      mode === "auto" ? "mode.description.auto" : "mode.description.fixed",
+    );
+  }
+
+  function setLanguage(language) {
+    if (!i18n.supportedLanguages.includes(language)) return;
+    currentLanguage = language;
+    applyStaticTranslations();
+    syncConditionalFields();
+    if (latestErrors) showErrors(latestErrors, false);
+    if (latestPlan?.ok) renderPlan(false);
   }
 
   form.addEventListener("submit", (event) => {
@@ -1334,6 +1696,7 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
     clearErrors();
     latestInput = readInput();
     latestPlan = planner.calculate(latestInput);
+    latestErrors = latestPlan.ok ? null : latestPlan.errors;
     useRounded = false;
     if (!latestPlan.ok) {
       results.hidden = true;
@@ -1350,13 +1713,17 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
       results.hidden = true;
       latestInput = null;
       latestPlan = null;
+      latestErrors = null;
       useRounded = false;
     }, 0);
   });
 
   lowerUnknown.addEventListener("change", syncConditionalFields);
   modeInputs.forEach((input) => input.addEventListener("change", syncConditionalFields));
-  syncConditionalFields();
+  languageButtons.forEach((button) => {
+    button.addEventListener("click", () => setLanguage(button.dataset.language));
+  });
+  setLanguage("en");
 })();
 
 </script>

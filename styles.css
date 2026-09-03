@@ -147,10 +147,46 @@ h1 {
   line-height: 1.65;
 }
 
-.prototype-badge {
+.header-tools {
   position: absolute;
   right: 0;
-  top: 2rem;
+  top: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.language-switch {
+  display: flex;
+  padding: 0.2rem;
+  border: 1px solid rgba(94, 230, 239, 0.25);
+  border-radius: 999px;
+  background: rgba(7, 30, 51, 0.42);
+}
+
+.language-switch button {
+  min-width: 2.8rem;
+  min-height: 2rem;
+  padding: 0 0.62rem;
+  color: #bdeff1;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  font-size: 0.68rem;
+  font-weight: 760;
+}
+
+.language-switch button[aria-pressed="true"] {
+  color: #09233c;
+  background: #d9f6f5;
+}
+
+.language-switch button:focus-visible {
+  outline: 3px solid rgba(117, 220, 227, 0.38);
+  outline-offset: 2px;
+}
+
+.prototype-badge {
   padding: 0.55rem 0.8rem;
   color: #bdeff1;
   border: 1px solid rgba(94, 230, 239, 0.25);
@@ -511,7 +547,8 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
   .header-inner { min-height: 390px; padding: 4.8rem 0 3.8rem; align-items: flex-end; }
   h1 { font-size: clamp(3.05rem, 16vw, 4.4rem); }
   .header-copy { font-size: 0.9rem; }
-  .prototype-badge { top: 1rem; left: 0; right: auto; }
+  .header-tools { top: 0.85rem; left: 0; right: auto; max-width: 100%; flex-wrap: wrap; }
+  .prototype-badge { padding: 0.5rem 0.7rem; }
   .intro-strip { grid-template-columns: 1fr; margin-top: -1rem; }
   .intro-strip div { padding: 0.9rem 1rem; }
   .intro-strip div + div { border-left: 0; border-top: 1px solid var(--line); }
@@ -527,8 +564,10 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
   .result-hero { align-items: flex-start; }
   .hero-metric strong { font-size: 2rem; }
   .coverage-axis { margin-left: 0; }
-  .coverage-row { grid-template-columns: 3.2rem minmax(0, 1fr); gap: 0.55rem; }
-  .coverage-row-value { grid-column: 2; text-align: left; }
+  .coverage-row { grid-template-columns: minmax(0, 1fr); gap: 0.3rem; }
+  .coverage-row-label { text-align: left; overflow-wrap: anywhere; }
+  .coverage-track { width: 100%; }
+  .coverage-row-value { grid-column: 1; text-align: left; overflow-wrap: anywhere; }
   .factor-row { grid-template-columns: 1.7rem minmax(0, 1fr); padding: 0.75rem; }
   .mix-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .mix-grid div:last-child { grid-column: 1 / -1; }

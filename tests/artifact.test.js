@@ -9,7 +9,9 @@ const root = path.resolve(__dirname, "..");
 const sourceHtml = fs.readFileSync(path.join(root, "index.html"), "utf8");
 const builtHtml = fs.readFileSync(path.join(root, "dist", "elisa-pilot-dilution-planner.html"), "utf8");
 const appJs = fs.readFileSync(path.join(root, "src", "app.js"), "utf8");
+const plannerJs = fs.readFileSync(path.join(root, "src", "planner.js"), "utf8");
 const css = fs.readFileSync(path.join(root, "styles.css"), "utf8");
+const i18n = require("../src/i18n.js");
 
 test("source IDs are unique and every static app selector resolves", () => {
   const ids = Array.from(sourceHtml.matchAll(/\sid="([^"]+)"/g), (match) => match[1]);
@@ -51,5 +53,46 @@ test("mobile layout and accessibility scaffolding are present", () => {
   assert.match(sourceHtml, /aria-live="polite"/i);
   assert.match(sourceHtml, /class="skip-link"/i);
   assert.match(css, /@media \(max-width: 620px\)/);
+  assert.match(css, /\.coverage-row\s*\{\s*grid-template-columns:\s*minmax\(0, 1fr\)/);
   assert.doesNotMatch(css, /min-width:\s*(?:[4-9]\d{2}|\d{4,})px/);
+});
+
+test("English and Traditional Chinese expose the same translation keys", () => {
+  const englishKeys = Object.keys(i18n.messages.en).sort();
+  const chineseKeys = Object.keys(i18n.messages["zh-Hant"]).sort();
+  assert.deepEqual(chineseKeys, englishKeys);
+
+  const referencedKeys = [
+    ...Array.from(sourceHtml.matchAll(/data-i18n="([^"]+)"/g), (match) => match[1]),
+    ...Array.from(sourceHtml.matchAll(/data-i18n-aria-label="([^"]+)"/g), (match) => match[1]),
+  ];
+  for (const key of referencedKeys) {
+    assert.ok(englishKeys.includes(key), `Missing translation key: ${key}`);
+  }
+
+  const dynamicKeys = Array.from(appJs.matchAll(/\bt\("([^"]+)"/g), (match) => match[1]);
+  for (const key of dynamicKeys) {
+    assert.ok(englishKeys.includes(key), `Missing dynamic translation key: ${key}`);
+  }
+
+  const errorCodes = Array.from(plannerJs.matchAll(/(?:add\("[^"]+",\s*"|code:\s*")([a-z_]+)"/g), (match) => match[1]);
+  for (const code of errorCodes) {
+    assert.ok(englishKeys.includes(`error.${code}`), `Missing error translation: ${code}`);
+  }
+
+  for (const language of i18n.supportedLanguages) {
+    for (const key of englishKeys) {
+      assert.ok(i18n.messages[language][key].trim().length > 0, `Blank ${language} translation: ${key}`);
+    }
+  }
+  assert.doesNotMatch(i18n.messages["zh-Hant"]["mode.description.fixed"], /妳/);
+});
+
+test("language switch is local, accessible, and available in the built artifact", () => {
+  assert.match(sourceHtml, /data-language="en"[^>]+aria-pressed="true"/);
+  assert.match(sourceHtml, /data-language="zh-Hant"[^>]+aria-pressed="false"/);
+  assert.match(appJs, /document\.documentElement\.lang\s*=\s*currentLanguage/);
+  assert.doesNotMatch(appJs, /location\.(?:assign|replace)|window\.location\s*=/);
+  assert.match(builtHtml, /window\.ELISAI18N/);
+  assert.match(builtHtml, /ELISA 初次稀釋規劃器/);
 });

@@ -10,6 +10,8 @@ const sourceHtml = fs.readFileSync(path.join(root, "index.html"), "utf8");
 const builtHtml = fs.readFileSync(path.join(root, "dist", "elisa-pilot-dilution-planner.html"), "utf8");
 const hostedHtml = fs.readFileSync(path.join(root, "dist", "index.html"), "utf8");
 const hostedChineseHtml = fs.readFileSync(path.join(root, "dist", "zh-tw", "index.html"), "utf8");
+const robots = fs.readFileSync(path.join(root, "dist", "robots.txt"), "utf8");
+const sitemap = fs.readFileSync(path.join(root, "dist", "sitemap.xml"), "utf8");
 const appJs = fs.readFileSync(path.join(root, "src", "app.js"), "utf8");
 const plannerJs = fs.readFileSync(path.join(root, "src", "planner.js"), "utf8");
 const css = fs.readFileSync(path.join(root, "styles.css"), "utf8");
@@ -29,7 +31,8 @@ test("source IDs are unique and every static app selector resolves", () => {
 });
 
 test("self-contained artifact has no external dependency or network primitive", () => {
-  assert.doesNotMatch(builtHtml, /<(?:script|link)\b[^>]+(?:src|href)="(?:src\/|styles\.css|https?:\/\/)/i);
+  assert.doesNotMatch(builtHtml, /<script\b[^>]+src="(?:src\/|https?:\/\/)/i);
+  assert.doesNotMatch(builtHtml, /<link\b[^>]+rel="stylesheet"[^>]+href="(?:styles\.css|https?:\/\/)/i);
   assert.doesNotMatch(builtHtml, /\b(?:fetch\s*\(|XMLHttpRequest|WebSocket|EventSource)\b/);
   assert.doesNotMatch(builtHtml, /<script\b[^>]*type="module"/i);
   assert.match(builtHtml, /<style>[\s\S]+<\/style>/);
@@ -40,13 +43,32 @@ test("hosted outputs preserve the accepted artifact and expose a Chinese route",
   assert.equal(hostedHtml, builtHtml);
   assert.match(hostedHtml, /<html lang="en" data-default-language="auto">/);
   assert.match(hostedChineseHtml, /<html lang="zh-Hant" data-default-language="zh-Hant">/);
-  assert.equal(
-    hostedChineseHtml.replace(
-      '<html lang="zh-Hant" data-default-language="zh-Hant">',
-      '<html lang="en" data-default-language="auto">',
-    ),
-    hostedHtml,
-  );
+  assert.match(hostedChineseHtml, /<title>ELISA 初次稀釋規劃器<\/title>/);
+  assert.match(hostedChineseHtml, />規劃涵蓋範圍<\/strong>/);
+  assert.match(hostedChineseHtml, /data-language="zh-Hant" aria-pressed="true"/);
+  assert.match(hostedChineseHtml, /window\.ELISAPlanner/);
+  assert.doesNotMatch(hostedChineseHtml, /\b(?:fetch\s*\(|XMLHttpRequest|WebSocket|EventSource)\b/);
+});
+
+test("hosted outputs publish canonical and alternate locale URLs", () => {
+  const origin = "https://elisa-pilot-dilution-planner.lexian.workers.dev";
+  assert.match(hostedHtml, new RegExp(`<link rel="canonical" href="${origin}/">`));
+  assert.match(hostedChineseHtml, new RegExp(`<link rel="canonical" href="${origin}/zh-tw/">`));
+  for (const output of [hostedHtml, hostedChineseHtml]) {
+    assert.match(output, new RegExp(`hreflang="en" href="${origin}/">`));
+    assert.match(output, new RegExp(`hreflang="zh-Hant" href="${origin}/zh-tw/">`));
+    assert.match(output, new RegExp(`hreflang="x-default" href="${origin}/">`));
+  }
+});
+
+test("public discovery files point only to the production locale URLs", () => {
+  const origin = "https://elisa-pilot-dilution-planner.lexian.workers.dev";
+  assert.match(robots, new RegExp(`Sitemap: ${origin}/sitemap\\.xml`));
+  assert.match(sitemap, new RegExp(`<loc>${origin}/</loc>`));
+  assert.match(sitemap, new RegExp(`<loc>${origin}/zh-tw/</loc>`));
+  assert.match(sitemap, /hreflang="en"/);
+  assert.match(sitemap, /hreflang="zh-Hant"/);
+  assert.doesNotMatch(`${robots}\n${sitemap}`, /localhost|127\.0\.0\.1/);
 });
 
 test("artifact preserves required product and safety wording", () => {

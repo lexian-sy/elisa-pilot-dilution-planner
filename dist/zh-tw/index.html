@@ -4,8 +4,19 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="light">
-  <meta name="description" content="Plan ELISA pilot dilution coverage, sample volume, well usage, and direct-pipetting limits before a run.">
-  <title>ELISA Pilot Dilution Planner</title>
+  <meta name="robots" content="index,follow">
+  <meta name="description" content="在實驗前規劃 ELISA 初次稀釋的濃度涵蓋、樣本用量、孔數與直接移液限制。">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ELISA 初次稀釋規劃器">
+  <meta property="og:description" content="在實驗前規劃 ELISA 初次稀釋的濃度涵蓋、樣本用量、孔數與直接移液限制。">
+  <meta property="og:url" content="https://elisa-pilot-dilution-planner.lexian.workers.dev/zh-tw/">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:locale:alternate" content="en_US">
+  <link rel="canonical" href="https://elisa-pilot-dilution-planner.lexian.workers.dev/zh-tw/">
+  <link rel="alternate" hreflang="en" href="https://elisa-pilot-dilution-planner.lexian.workers.dev/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://elisa-pilot-dilution-planner.lexian.workers.dev/zh-tw/">
+  <link rel="alternate" hreflang="x-default" href="https://elisa-pilot-dilution-planner.lexian.workers.dev/">
+  <title>ELISA 初次稀釋規劃器</title>
   <style>
 :root {
   --ink: #132238;
@@ -662,7 +673,7 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
 </style>
 </head>
 <body>
-  <a class="skip-link" href="#planner-form" data-i18n="skip.planner">Skip to planner</a>
+  <a class="skip-link" href="#planner-form" data-i18n="skip.planner">跳至規劃器</a>
   <header class="site-header">
     <div class="header-glow" aria-hidden="true"></div>
     <div class="header-inner">
@@ -670,25 +681,25 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
         <span></span><span></span><span></span>
       </div>
       <div>
-        <p class="product-label" data-i18n="header.productLabel">Pre-run planning calculator</p>
+        <p class="product-label" data-i18n="header.productLabel">實驗前稀釋規劃工具</p>
         <h1>ELISA Pilot<br>Dilution Planner</h1>
-        <p class="header-copy" data-i18n="header.copy">Turn an assay range and a rough target-analyte estimate into a transparent pilot coverage plan—before spending wells or sample.</p>
+        <p class="header-copy" data-i18n="header.copy">輸入可用分析範圍與目標分析物的概略濃度，在耗用孔位與樣本之前，先建立透明可核對的初次稀釋涵蓋計畫。</p>
       </div>
       <div class="header-tools">
-        <div class="prototype-badge" data-i18n="header.prototype">Public beta · v0.4.0</div>
-        <div class="language-switch" role="group" aria-label="Language" data-i18n-aria-label="language.label">
-          <button type="button" data-language="en" aria-pressed="true">EN</button>
-          <button type="button" data-language="zh-Hant" aria-pressed="false">繁中</button>
+        <div class="prototype-badge" data-i18n="header.prototype">公開測試版 · v0.4.0</div>
+        <div class="language-switch" role="group" aria-label="語言" data-i18n-aria-label="language.label">
+          <button type="button" data-language="en" aria-pressed="false">EN</button>
+          <button type="button" data-language="zh-Hant" aria-pressed="true">繁中</button>
         </div>
       </div>
     </div>
   </header>
 
   <main>
-    <section class="intro-strip" aria-label="Planner boundaries" data-i18n-aria-label="intro.label">
-      <div><strong data-i18n="intro.coverage.title">Coverage, not validation</strong><span data-i18n="intro.coverage.body">Shows what each dilution can mathematically cover.</span></div>
-      <div><strong data-i18n="intro.local.title">Local and private</strong><span data-i18n="intro.local.body">Inputs stay in this browser page.</span></div>
-      <div><strong data-i18n="intro.prep.title">Direct-prep check</strong><span data-i18n="intro.prep.body">Flags volumes below your reliable pipetting minimum.</span></div>
+    <section class="intro-strip" aria-label="規劃器界線" data-i18n-aria-label="intro.label">
+      <div><strong data-i18n="intro.coverage.title">規劃涵蓋範圍</strong><span data-i18n="intro.coverage.body">顯示每個稀釋倍率在數學上可涵蓋的濃度。</span></div>
+      <div><strong data-i18n="intro.local.title">資料留在本機</strong><span data-i18n="intro.local.body">輸入內容只存在目前的瀏覽器頁面。</span></div>
+      <div><strong data-i18n="intro.prep.title">直接配製檢查</strong><span data-i18n="intro.prep.body">標示低於可靠移液下限的體積。</span></div>
     </section>
 
     <form id="planner-form" novalidate>
@@ -698,32 +709,32 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
         <div class="card-heading">
           <span class="step-number">01</span>
           <div>
-            <p class="eyebrow" data-i18n="mode.eyebrow">Planning method</p>
-            <h2 id="mode-title" data-i18n="mode.title">Choose how factors are generated</h2>
+            <p class="eyebrow" data-i18n="mode.eyebrow">規劃方式</p>
+            <h2 id="mode-title" data-i18n="mode.title">選擇稀釋倍率的產生方式</h2>
           </div>
         </div>
         <fieldset class="mode-picker">
-          <legend class="visually-hidden" data-i18n="mode.legend">Planning method</legend>
+          <legend class="visually-hidden" data-i18n="mode.legend">規劃方式</legend>
           <label>
             <input type="radio" name="mode" value="auto" checked>
-            <span><strong data-i18n="mode.auto">Auto coverage</strong><small data-i18n="mode.auto.short">Log-centered factors</small></span>
+            <span><strong data-i18n="mode.auto">自動涵蓋</strong><small data-i18n="mode.auto.short">依對數尺度置中產生倍率</small></span>
           </label>
           <label>
             <input type="radio" name="mode" value="fixed">
-            <span><strong data-i18n="mode.fixed">Fixed-fold</strong><small data-i18n="mode.fixed.short">Your own series</small></span>
+            <span><strong data-i18n="mode.fixed">固定倍比</strong><small data-i18n="mode.fixed.short">使用自己指定的系列</small></span>
           </label>
         </fieldset>
         <p id="mode-description" class="mode-description"></p>
         <div id="fixed-fields" class="field-grid compact-grid" hidden>
           <label class="field" for="startFactor">
-            <span data-i18n="mode.start.label">Starting factor</span>
+            <span data-i18n="mode.start.label">起始稀釋倍率</span>
             <input id="startFactor" name="startFactor" type="number" inputmode="decimal" min="1" step="any" value="1">
-            <small data-i18n="mode.start.help">1 means undiluted; 10 means 1:10.</small>
+            <small data-i18n="mode.start.help">1 代表未稀釋；10 代表 1:10。</small>
           </label>
           <label class="field" for="fold">
-            <span data-i18n="mode.fold.label">Fold step</span>
+            <span data-i18n="mode.fold.label">倍比間距</span>
             <input id="fold" name="fold" type="number" inputmode="decimal" min="1.0001" step="any" value="10">
-            <small data-i18n="mode.fold.help">For example: 2, 5, or 10.</small>
+            <small data-i18n="mode.fold.help">例如：2、5 或 10。</small>
           </label>
         </div>
       </section>
@@ -732,43 +743,43 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
         <div class="card-heading">
           <span class="step-number">02</span>
           <div>
-            <p class="eyebrow" data-i18n="range.eyebrow">Concentration ranges</p>
-            <h2 id="range-title" data-i18n="range.title">Define the interval to cover</h2>
+            <p class="eyebrow" data-i18n="range.eyebrow">濃度範圍</p>
+            <h2 id="range-title" data-i18n="range.title">設定需要涵蓋的區間</h2>
           </div>
         </div>
 
         <div class="field full-field" id="usable-range-group">
           <div class="field-label-row">
-            <span data-i18n="range.usable.label">Usable assay range</span>
-            <span class="required-label" data-i18n="range.required">Required</span>
+            <span data-i18n="range.usable.label">可用分析範圍</span>
+            <span class="required-label" data-i18n="range.required">必填</span>
           </div>
           <div class="range-inputs">
-            <label for="assayLower"><span class="visually-hidden" data-i18n="range.assayLower.aria">Usable assay range lower bound</span><input id="assayLower" name="assayLower" type="number" inputmode="decimal" min="0" step="any" value="1.6" aria-label="Usable assay range lower bound" data-i18n-aria-label="range.assayLower.aria"></label>
-            <span aria-hidden="true" data-i18n="separator.to">to</span>
-            <label for="assayUpper"><span class="visually-hidden" data-i18n="range.assayUpper.aria">Usable assay range upper bound</span><input id="assayUpper" name="assayUpper" type="number" inputmode="decimal" min="0" step="any" value="100" aria-label="Usable assay range upper bound" data-i18n-aria-label="range.assayUpper.aria"></label>
-            <label class="unit-field" for="unit"><span class="visually-hidden" data-i18n="range.unit.aria">Concentration unit</span><input id="unit" name="unit" type="text" value="ng/mL" maxlength="30" aria-label="Concentration unit" data-i18n-aria-label="range.unit.aria"></label>
+            <label for="assayLower"><span class="visually-hidden" data-i18n="range.assayLower.aria">可用分析範圍下限</span><input id="assayLower" name="assayLower" type="number" inputmode="decimal" min="0" step="any" value="1.6" aria-label="可用分析範圍下限" data-i18n-aria-label="range.assayLower.aria"></label>
+            <span aria-hidden="true" data-i18n="separator.to">至</span>
+            <label for="assayUpper"><span class="visually-hidden" data-i18n="range.assayUpper.aria">可用分析範圍上限</span><input id="assayUpper" name="assayUpper" type="number" inputmode="decimal" min="0" step="any" value="100" aria-label="可用分析範圍上限" data-i18n-aria-label="range.assayUpper.aria"></label>
+            <label class="unit-field" for="unit"><span class="visually-hidden" data-i18n="range.unit.aria">濃度單位</span><input id="unit" name="unit" type="text" value="ng/mL" maxlength="30" aria-label="濃度單位" data-i18n-aria-label="range.unit.aria"></label>
           </div>
-          <small data-i18n="range.usable.help">Enter the interval your kit, validated method, or lab-defined procedure says you can use for quantitative interpretation. It may be narrower than the full standard or detection range.</small>
+          <small data-i18n="range.usable.help">填入試劑盒、已驗證方法或實驗室程序中，可用於定量判讀的區間。這個區間可能比完整標準範圍或偵測範圍更窄。</small>
         </div>
 
         <div class="divider"></div>
 
         <div class="field full-field">
           <div class="field-label-row">
-            <span data-i18n="range.expected.label">Expected original target-analyte concentration</span>
-            <span class="required-label" data-i18n="range.rough">Rough estimate</span>
+            <span data-i18n="range.expected.label">原始樣本中目標分析物的預期濃度</span>
+            <span class="required-label" data-i18n="range.rough">概略估計</span>
           </div>
           <label class="check-line" for="lowerUnknown">
             <input id="lowerUnknown" name="lowerUnknown" type="checkbox" checked>
-            <span data-i18n="range.lowerUnknown">I only know an upper bound</span>
+            <span data-i18n="range.lowerUnknown">我只知道濃度上限</span>
           </label>
           <div class="range-inputs expected-inputs">
-            <label id="expected-lower-wrap" for="expectedLower" hidden><span class="visually-hidden" data-i18n="range.expectedLower.aria">Expected original concentration lower bound</span><input id="expectedLower" name="expectedLower" type="number" inputmode="decimal" min="0" step="any" value="1000" aria-label="Expected original concentration lower bound" data-i18n-aria-label="range.expectedLower.aria"></label>
-            <span id="expected-separator" aria-hidden="true" data-i18n="separator.upTo">up to</span>
-            <label for="expectedUpper"><span class="visually-hidden" data-i18n="range.expectedUpper.aria">Expected original concentration upper bound</span><input id="expectedUpper" name="expectedUpper" type="number" inputmode="decimal" min="0" step="any" value="100000" aria-label="Expected original concentration upper bound" data-i18n-aria-label="range.expectedUpper.aria"></label>
-            <span class="unit-display" aria-hidden="true" data-i18n="range.sameUnit">same unit</span>
+            <label id="expected-lower-wrap" for="expectedLower" hidden><span class="visually-hidden" data-i18n="range.expectedLower.aria">原始樣本預期濃度下限</span><input id="expectedLower" name="expectedLower" type="number" inputmode="decimal" min="0" step="any" value="1000" aria-label="原始樣本預期濃度下限" data-i18n-aria-label="range.expectedLower.aria"></label>
+            <span id="expected-separator" aria-hidden="true" data-i18n="separator.upTo">最高</span>
+            <label for="expectedUpper"><span class="visually-hidden" data-i18n="range.expectedUpper.aria">原始樣本預期濃度上限</span><input id="expectedUpper" name="expectedUpper" type="number" inputmode="decimal" min="0" step="any" value="100000" aria-label="原始樣本預期濃度上限" data-i18n-aria-label="range.expectedUpper.aria"></label>
+            <span class="unit-display" aria-hidden="true" data-i18n="range.sameUnit">使用相同單位</span>
           </div>
-          <small data-i18n="range.expected.help">Use a broad range if uncertain. Do not substitute total protein concentration unless it truly represents the target analyte.</small>
+          <small data-i18n="range.expected.help">不確定時可填入較寬的範圍。總蛋白濃度只有在確實代表目標分析物時才適用。</small>
         </div>
       </section>
 
@@ -776,42 +787,42 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
         <div class="card-heading">
           <span class="step-number">03</span>
           <div>
-            <p class="eyebrow" data-i18n="budget.eyebrow">Pilot budget</p>
-            <h2 id="run-title" data-i18n="budget.title">Set wells and preparation limits</h2>
+            <p class="eyebrow" data-i18n="budget.eyebrow">初次測試用量</p>
+            <h2 id="run-title" data-i18n="budget.title">設定孔位與配製限制</h2>
           </div>
         </div>
         <div class="field-grid">
           <label class="field" for="points">
-            <span data-i18n="budget.points.label">Pilot dilution points</span>
+            <span data-i18n="budget.points.label">稀釋測試點數</span>
             <input id="points" name="points" type="number" inputmode="numeric" min="1" max="12" step="1" value="4">
-            <small data-i18n="budget.points.help">1–12 distinct concentrations.</small>
+            <small data-i18n="budget.points.help">1–12 個不同濃度。</small>
           </label>
           <label class="field" for="sampleVolume">
-            <span data-i18n="budget.sampleVolume.label">Sample volume per well</span>
+            <span data-i18n="budget.sampleVolume.label">每孔樣本體積</span>
             <div class="suffix-input"><input id="sampleVolume" name="sampleVolume" type="number" inputmode="decimal" min="0" step="any" value="50"><span>µL</span></div>
-            <small data-i18n="budget.sampleVolume.help">Sample or diluted sample added per well.</small>
+            <small data-i18n="budget.sampleVolume.help">每孔加入的原始或已稀釋樣本體積。</small>
           </label>
           <label class="field" for="replicates">
-            <span data-i18n="budget.replicates.label">Replicates per point</span>
+            <span data-i18n="budget.replicates.label">每個測試點的重複孔數</span>
             <input id="replicates" name="replicates" type="number" inputmode="numeric" min="1" max="12" step="1" value="2">
-            <small data-i18n="budget.replicates.help">Duplicates = 2; triplicates = 3.</small>
+            <small data-i18n="budget.replicates.help">雙重複為 2；三重複為 3。</small>
           </label>
           <label class="field" for="overage">
-            <span data-i18n="budget.overage.label">Preparation overage</span>
+            <span data-i18n="budget.overage.label">配製預留量</span>
             <div class="suffix-input"><input id="overage" name="overage" type="number" inputmode="decimal" min="0" max="500" step="any" value="10"><span>%</span></div>
-            <small data-i18n="budget.overage.help">Extra volume for pipetting loss.</small>
+            <small data-i18n="budget.overage.help">補足移液損耗的額外體積。</small>
           </label>
           <label class="field full-on-desktop" for="minimumPipette">
-            <span data-i18n="budget.minimumPipette.label">Minimum reliable pipetting volume</span>
+            <span data-i18n="budget.minimumPipette.label">最低可靠移液體積</span>
             <div class="suffix-input"><input id="minimumPipette" name="minimumPipette" type="number" inputmode="decimal" min="0" step="any" value="2"><span>µL</span></div>
-            <small data-i18n="budget.minimumPipette.help">Below this, the result asks for an intermediate dilution instead of presenting direct prep as reliable.</small>
+            <small data-i18n="budget.minimumPipette.help">低於此體積時，結果會要求使用中間稀釋，不會把直接配製標示為可靠。</small>
           </label>
         </div>
       </section>
 
       <div class="form-actions">
-        <button class="primary-button" type="submit"><span data-i18n="actions.build">Build pilot plan</span><span aria-hidden="true">→</span></button>
-        <button class="secondary-button" type="reset" data-i18n="actions.reset">Reset example</button>
+        <button class="primary-button" type="submit"><span data-i18n="actions.build">建立初次稀釋計畫</span><span aria-hidden="true">→</span></button>
+        <button class="secondary-button" type="reset" data-i18n="actions.reset">重設範例</button>
       </div>
     </form>
 
@@ -821,9 +832,9 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
   <footer>
     <div>
       <strong>Built by Lexian</strong>
-      <span data-i18n="footer.local">Browser-based research tool · calculation inputs stay on this device</span>
+      <span data-i18n="footer.local">瀏覽器研究工具 · 計算輸入只留在這台裝置</span>
     </div>
-    <p data-i18n="footer.boundary">For research planning only. Verify all assay-specific decisions against the kit insert or your validated method.</p>
+    <p data-i18n="footer.boundary">僅供研究規劃。所有分析方法相關決定仍須依試劑盒說明書或已驗證方法確認。</p>
   </footer>
 
   <script>

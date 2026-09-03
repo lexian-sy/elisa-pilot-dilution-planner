@@ -14,12 +14,14 @@ The public beta contains an in-page `EN / 繁中` switch. The English root follo
 
 ## Current state
 
-- Stage: public-beta packaging v0.4.0. The accepted v0.3.1 calculation and iPhone UX are unchanged; deployment metadata and indexable hosted outputs have been added.
+- Stage: public beta v0.4.0, deployed from the public repository through Cloudflare Workers Builds. The accepted v0.3.1 calculation and iPhone UX remain unchanged.
 - Active Work Mode path for this checkpoint: `/workspace/scratch/59ee1c8d5961/elisa-pilot-dilution-planner`
 - Source entry: `index.html` (serve the repository root for development).
 - Self-contained QA artifact: `dist/elisa-pilot-dilution-planner.html` (opens directly from `file://`).
 - Public source: <https://github.com/lexian-sy/elisa-pilot-dilution-planner>
-- Production URL, payment integration, analytics, and backend do not yet exist at this checkpoint.
+- Live tool: <https://elisa-pilot-dilution-planner.lexian.workers.dev/>
+- Traditional Chinese route: <https://elisa-pilot-dilution-planner.lexian.workers.dev/zh-tw/>
+- Payment integration, analytics, and backend do not exist in this public beta.
 
 ## Run, test, and build
 
@@ -38,14 +40,14 @@ The public beta has no database, export schema, service worker, or PWA scope. Co
 
 ## Publication and license
 
-The source is released under the MIT License; see `LICENSE`. The application privacy boundary is documented in `PRIVACY.md`. Cloudflare Workers configuration is version-controlled in `wrangler.jsonc`; payment and support links remain separate release actions.
+The source is released under the MIT License; see `LICENSE`. The application privacy boundary is documented in `PRIVACY.md`. Cloudflare Workers configuration is version-controlled in `wrangler.jsonc`; pushes to `main` build and deploy the static site. Production preview URLs are disabled. Payment and support links remain separate release actions.
 
 ## Known limits and next safe step
 
 - Direct preparation is calculated independently from original sample for every factor. When the needed original volume is below the user-entered pipetting minimum, the tool flags that an intermediate dilution is required but does not invent a staged protocol.
 - Auto mode uses a geometric-midpoint/log-spacing engineering heuristic and exposes gaps; it is not a vendor recommendation.
 - Lower-bound-only uncertainty cannot establish coverage below the assay lower limit.
-- Next safe step: begin the external release gate in `docs/RELEASE_CHECKLIST.md` only after separate authorization for public-repository, hosting, locale-route, support, and production-verification work.
+- Next safe step: verify the live URL once on an exact iPhone device. A future custom hostname under `lexiansy.space` and any payment/support destination remain separate account-owner steps.
 
 ## Attribution
 

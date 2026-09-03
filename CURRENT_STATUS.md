@@ -3,7 +3,7 @@
 ## Checkpoint
 
 - Product: ELISA Pilot Dilution Planner
-- Stage: public-beta packaging v0.4.0 — the accepted v0.3.1 interface is preserved and the public repository exists
+- Stage: public beta v0.4.0 — deployed publicly from Lexian's GitHub repository through Lexian's Cloudflare account
 - Date: 2026-09-03
 - Authority boundary: Yao authorized Lexian to create and use independent GitHub and Cloudflare accounts, publish the repository, and continue through hosting. Do not change Yao's `lexiansy.space` DNS zone or connect payments without the separately required owner/financial step.
 
@@ -25,7 +25,9 @@
 - The release badge now precedes the language control in the header; on mobile the badge is anchored to the left side of the top row and the non-wrapping language switch to the right. On desktop the language switch is likewise the rightmost tool.
 - Dependency-free self-contained HTML build.
 - Hosted build outputs for English `/` and Traditional Chinese `/zh-tw/` routes.
+- Canonical, `hreflang`, Open Graph, `robots.txt`, and sitemap metadata for the two public language routes.
 - Cloudflare Workers Static Assets configuration limited to `dist/`, with no Worker script, analytics, or backend.
+- GitHub-connected Cloudflare Workers Builds for `main`, with the stable `workers.dev` URL enabled and deployment preview URLs disabled.
 - MIT public-source license and a public-beta privacy statement.
 - Bounded public-release checklist that keeps external actions behind a separate release gate.
 
@@ -46,9 +48,9 @@ Bounded browser smoke check (when the Work runtime supplies Playwright):
 ## Evidence
 
 - `npm run check`: passed.
-- `node --test tests/*.test.js`: **31 passed, 0 failed**. This retains all mathematical and boundary checks and adds hosted-output parity plus the Traditional Chinese route guard.
+- `node --test tests/*.test.js`: **33 passed, 0 failed**. This retains all mathematical and boundary checks and adds hosted-output parity, Traditional Chinese static-route, canonical/alternate URL, and public-discovery guards.
 - `node --check src/planner.js`, `src/i18n.js`, and `src/app.js`: passed.
-- Self-contained v0.4.0 build passed. The offline and hosted English outputs share SHA-256 `6c98714ccf0cd946f90cafd07d68f1b20359ed33098e52a507b7747f02bdc4d5`; the Traditional Chinese route output has SHA-256 `7d8d2b27653312a5f0cd50abd7b5b2f0d7bb1c7cebfc898fe8650c227ae632ba`.
+- Self-contained v0.4.0 build passed. The offline and hosted English outputs share SHA-256 `39088dda774cb7a02765a96fde2553dcd63e19315efaf22a9ff89e6e2b26521d`; the Traditional Chinese route output has SHA-256 `8f2e2be50537c00ea3a112fbc72e7d04d9e5cf5c90564bf1c8f8a53fe0825000`.
 - Static artifact checks passed: unique source IDs, all static app selectors resolved, 116 matching keys in both locales, no external dependency or network primitive, classic-script `file://` compatibility, required product/safety wording, viewport/accessibility scaffolding, and a local accessible language switch.
 - Yao's v0.1 iPhone evidence confirmed the default calculation and exposed factor labels colliding with the chart track.
 - Yao's 2026-09-03 v0.2 iPhone + Edge long screenshot accepted the English results section: the default calculation remains at 100% coverage, all four factors are correct, `396.8503×` and `7,905.6942×` are fully readable above their tracks, and no horizontal overflow or result-card clipping is visible through the footer.
@@ -59,6 +61,9 @@ Bounded browser smoke check (when the Work runtime supplies Playwright):
 - Yao then opened v0.3.1 on her real iPhone and explicitly accepted both focused UX points on 2026-09-03: the text size is comfortable and the language-switch position is correct (`「我看了，我覺得這樣大小跟位置都可以了」`). This closes the final subjective readability and exact-device header-placement gate.
 - In the current iOS ChatGPT file-preview flow, the preview's **Download** command did not save reliably. **Share → Save to Files** succeeded; this is delivery friction outside the planner artifact.
 - The Work container itself had no browser executable, but the hash-matched artifact completed the bounded v0.3.1 Surface Edge smoke described above. Edge enforces a 492 px minimum inner width in this headless setup; the previously outstanding exact-device fit and subjective comfort questions are now resolved by Yao's real-iPhone acceptance.
+- Lexian created the public repository at `https://github.com/lexian-sy/elisa-pilot-dilution-planner`, transferred the full local Git history to the Surface, and pushed it using a device-local SSH key. The key remains on the Surface and was not copied into the repository or Work container.
+- The first production deployment was built from commit `33d97c6` by Cloudflare Workers Builds. Both `https://elisa-pilot-dilution-planner.lexian.workers.dev/` and `/zh-tw/` returned HTTP 200 from the Surface; the live HTML identified the English auto-locale route and the forced Traditional Chinese route correctly.
+- Surface Chrome completed the live default-plan smoke: 100% continuous coverage with `1×`, `19.9211×`, `396.8503×`, and `7,905.6942×`. Switching to English preserved the computed results, and direct navigation to `/zh-tw/` overrode the saved English preference as intended.
 
 ## Known limits
 
@@ -66,10 +71,10 @@ Bounded browser smoke check (when the Work runtime supplies Playwright):
 - No unit conversion.
 - No OD/curve fitting or assay-type input.
 - No scientific input/result persistence, PWA, offline service worker, analytics, backend, or remote data.
-- Separate indexable `/` and `/zh-tw/` production paths and `hreflang` remain publication work.
 - No support URL or payment provider is connected.
-- The public repo exists at `https://github.com/lexian-sy/elisa-pilot-dilution-planner`; a hosted URL, analytics, backend, service worker, and PWA identity do not yet exist.
+- The stable public beta uses the independent `workers.dev` hostname. A custom `lexiansy.space` hostname has not been requested from or configured in Yao's Cloudflare zone.
+- Analytics, backend, service worker, and PWA identity do not exist.
 
 ## Next safe step
 
-Push the verified v0.4.0 publication commit to the existing public repository, connect that repository to Lexian's Cloudflare account, deploy to `workers.dev`, and run production smoke checks. Stop before `lexiansy.space` DNS or payment setup, which still depends on Yao's separate account boundary.
+Run one exact-iPhone smoke check against the live `workers.dev` URL. After that, choose whether the independent hostname is sufficient for launch or whether to request the separate owner action needed for a `lexiansy.space` hostname. Payment/support setup remains a later financial-identity boundary.

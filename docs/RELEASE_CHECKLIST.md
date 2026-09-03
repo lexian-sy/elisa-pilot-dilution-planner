@@ -14,11 +14,11 @@ This checklist begins only after the v0.3.1 iPhone readability and header-placem
 
 ## External release gate
 
-- [ ] Create the public GitHub repository and push the exact accepted commit.
+- [x] Create the public GitHub repository and push the exact accepted commit.
 - [ ] Choose the production hostname under `lexiansy.space`.
 - [ ] Configure Cloudflare static hosting without analytics or a backend.
-- [ ] Add indexable English `/` and Traditional Chinese `/zh-tw/` routes, canonical URLs, and `hreflang` metadata.
-- [ ] Update `PRIVACY.md` with the actual host and public contact route.
+- [ ] Add indexable English `/` and Traditional Chinese `/zh-tw/` routes, canonical URLs, and `hreflang` metadata. (The route outputs exist; production URLs remain pending.)
+- [x] Update `PRIVACY.md` with the actual hosting provider and public contact route.
 - [ ] Create and verify the support destination; expose the support link only after it works end to end.
 - [ ] Run production smoke checks on iPhone and desktop, including offline/error behavior appropriate to the final hosting choice.
 - [ ] Publish the README, privacy statement, license, and clear scientific boundaries with the tool.

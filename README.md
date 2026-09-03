@@ -1,6 +1,6 @@
 # ELISA Pilot Dilution Planner
 
-A local-only prototype that turns a user-defined usable assay range and a rough original target-analyte concentration range into a transparent pilot dilution coverage plan.
+A browser-only public beta that turns a user-defined usable assay range and a rough original target-analyte concentration range into a transparent pilot dilution coverage plan.
 
 ## Purpose and user
 
@@ -10,15 +10,16 @@ The tool is for researchers planning a first ELISA dilution scan before spending
 
 The product direction is global and English-first, with a complete Traditional Chinese interface for Taiwan and other Chinese-reading lab users. Both languages use the same inputs, calculation core, result model, and safety boundary.
 
-The release candidate contains an in-page `EN / 繁中` switch. It follows a supported saved preference first, then the browser language, and remembers later language choices locally. Search-indexable production paths such as `/` and `/zh-tw/`, plus `hreflang`, remain publication work and are not implemented in this checkpoint.
+The public beta contains an in-page `EN / 繁中` switch. The English root follows a supported saved preference first, then the browser language, and remembers later language choices locally. The `/zh-tw/` route opens in Traditional Chinese while preserving the same calculator and safety boundary.
 
 ## Current state
 
-- Stage: accepted local release candidate v0.3.1. Yao accepted the larger mobile type and upper-right language-switch placement on her real iPhone; the local release gate is closed.
+- Stage: public-beta packaging v0.4.0. The accepted v0.3.1 calculation and iPhone UX are unchanged; deployment metadata and indexable hosted outputs have been added.
 - Active Work Mode path for this checkpoint: `/workspace/scratch/59ee1c8d5961/elisa-pilot-dilution-planner`
 - Source entry: `index.html` (serve the repository root for development).
 - Self-contained QA artifact: `dist/elisa-pilot-dilution-planner.html` (opens directly from `file://`).
-- No remote, production URL, payment integration, analytics, or backend exists.
+- Public source: <https://github.com/lexian-sy/elisa-pilot-dilution-planner>
+- Production URL, payment integration, analytics, and backend do not yet exist at this checkpoint.
 
 ## Run, test, and build
 
@@ -33,11 +34,11 @@ Open `http://127.0.0.1:4173/` for source-mode browser testing. The built file in
 
 ## Data and compatibility boundary
 
-The release candidate has no database, export schema, service worker, or PWA scope. Concentration inputs and results exist only in the current page state. The only application preference stored in the browser is the selected language; storage failures are tolerated. There is no scientific-data migration or backup format.
+The public beta has no database, export schema, service worker, or PWA scope. Concentration inputs and results exist only in the current page state. The only application preference stored in the browser is the selected language; storage failures are tolerated. There is no scientific-data migration or backup format.
 
 ## Publication and license
 
-The source is prepared for release under the MIT License; see `LICENSE`. The application privacy boundary is documented in `PRIVACY.md`. This checkpoint is not published. A public repo, hosting, locale URLs, PWA identity, and support link remain separate release actions.
+The source is released under the MIT License; see `LICENSE`. The application privacy boundary is documented in `PRIVACY.md`. Cloudflare Workers configuration is version-controlled in `wrangler.jsonc`; payment and support links remain separate release actions.
 
 ## Known limits and next safe step
 

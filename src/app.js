@@ -25,6 +25,9 @@
   }
 
   function initialLanguage() {
+    const routeLanguage = document.documentElement.dataset.defaultLanguage;
+    if (i18n.supportedLanguages.includes(routeLanguage)) return routeLanguage;
+
     let storedLanguage = null;
     try {
       storedLanguage = window.localStorage.getItem(languageStorageKey);

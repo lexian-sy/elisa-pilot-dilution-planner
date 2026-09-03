@@ -9,7 +9,10 @@ const stylePath = path.join(root, "styles.css");
 const plannerPath = path.join(root, "src", "planner.js");
 const i18nPath = path.join(root, "src", "i18n.js");
 const appPath = path.join(root, "src", "app.js");
-const outputPath = path.join(root, "dist", "elisa-pilot-dilution-planner.html");
+const distPath = path.join(root, "dist");
+const offlineOutputPath = path.join(distPath, "elisa-pilot-dilution-planner.html");
+const rootOutputPath = path.join(distPath, "index.html");
+const chineseOutputPath = path.join(distPath, "zh-tw", "index.html");
 
 let html = fs.readFileSync(indexPath, "utf8");
 const styles = fs.readFileSync(stylePath, "utf8");
@@ -26,6 +29,13 @@ if (/\b(?:href|src)="(?:styles\.css|src\/)/.test(html)) {
   throw new Error("The single-file build still contains a local source dependency.");
 }
 
-fs.mkdirSync(path.dirname(outputPath), { recursive: true });
-fs.writeFileSync(outputPath, html, "utf8");
-process.stdout.write(`${outputPath}\n`);
+const chineseHtml = html.replace(
+  '<html lang="en" data-default-language="auto">',
+  '<html lang="zh-Hant" data-default-language="zh-Hant">',
+);
+
+fs.mkdirSync(path.dirname(chineseOutputPath), { recursive: true });
+fs.writeFileSync(offlineOutputPath, html, "utf8");
+fs.writeFileSync(rootOutputPath, html, "utf8");
+fs.writeFileSync(chineseOutputPath, chineseHtml, "utf8");
+process.stdout.write(`${offlineOutputPath}\n${rootOutputPath}\n${chineseOutputPath}\n`);

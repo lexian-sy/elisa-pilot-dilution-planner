@@ -8,6 +8,8 @@ const path = require("node:path");
 const root = path.resolve(__dirname, "..");
 const sourceHtml = fs.readFileSync(path.join(root, "index.html"), "utf8");
 const builtHtml = fs.readFileSync(path.join(root, "dist", "elisa-pilot-dilution-planner.html"), "utf8");
+const hostedHtml = fs.readFileSync(path.join(root, "dist", "index.html"), "utf8");
+const hostedChineseHtml = fs.readFileSync(path.join(root, "dist", "zh-tw", "index.html"), "utf8");
 const appJs = fs.readFileSync(path.join(root, "src", "app.js"), "utf8");
 const plannerJs = fs.readFileSync(path.join(root, "src", "planner.js"), "utf8");
 const css = fs.readFileSync(path.join(root, "styles.css"), "utf8");
@@ -32,6 +34,19 @@ test("self-contained artifact has no external dependency or network primitive", 
   assert.doesNotMatch(builtHtml, /<script\b[^>]*type="module"/i);
   assert.match(builtHtml, /<style>[\s\S]+<\/style>/);
   assert.match(builtHtml, /window\.ELISAPlanner/);
+});
+
+test("hosted outputs preserve the accepted artifact and expose a Chinese route", () => {
+  assert.equal(hostedHtml, builtHtml);
+  assert.match(hostedHtml, /<html lang="en" data-default-language="auto">/);
+  assert.match(hostedChineseHtml, /<html lang="zh-Hant" data-default-language="zh-Hant">/);
+  assert.equal(
+    hostedChineseHtml.replace(
+      '<html lang="zh-Hant" data-default-language="zh-Hant">',
+      '<html lang="en" data-default-language="auto">',
+    ),
+    hostedHtml,
+  );
 });
 
 test("artifact preserves required product and safety wording", () => {
@@ -146,10 +161,10 @@ test("language resolution respects a saved choice and otherwise follows Chinese 
   assert.equal(i18n.resolveLanguage(null, ["en-US"]), "en");
 });
 
-test("release candidate carries its open-source and privacy boundaries", () => {
+test("public beta carries its open-source and privacy boundaries", () => {
   assert.match(license, /^MIT License/m);
   assert.match(license, /Copyright \(c\) 2026 Lexian/);
   assert.match(privacy, /no account system, analytics, advertising, backend, database, cookies, or network request/i);
   assert.match(privacy, /language preference/i);
-  assert.match(builtHtml, /Release candidate · v0\.3\.1/);
+  assert.match(builtHtml, /Public beta · v0\.4\.0/);
 });

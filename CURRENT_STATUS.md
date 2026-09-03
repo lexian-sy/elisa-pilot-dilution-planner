@@ -3,9 +3,9 @@
 ## Checkpoint
 
 - Product: ELISA Pilot Dilution Planner
-- Stage: bilingual local release candidate v0.3.1 — accepted on Yao's real iPhone; the local release gate is fully closed
+- Stage: public-beta packaging v0.4.0 — the accepted v0.3.1 interface is preserved and the public repository exists
 - Date: 2026-09-03
-- Authority boundary: prepare and verify a recoverable public-release candidate without push, deployment, DNS, payment/account changes, analytics, or external commitment.
+- Authority boundary: Yao authorized Lexian to create and use independent GitHub and Cloudflare accounts, publish the repository, and continue through hosting. Do not change Yao's `lexiansy.space` DNS zone or connect payments without the separately required owner/financial step.
 
 ## Implemented
 
@@ -24,7 +24,9 @@
 - Mobile inputs remain at least 1rem to avoid iOS text zoom, checkboxes are enlarged, and both language buttons have a 44 px-equivalent minimum touch height.
 - The release badge now precedes the language control in the header; on mobile the badge is anchored to the left side of the top row and the non-wrapping language switch to the right. On desktop the language switch is likewise the rightmost tool.
 - Dependency-free self-contained HTML build.
-- MIT public-source license and a release-candidate privacy statement.
+- Hosted build outputs for English `/` and Traditional Chinese `/zh-tw/` routes.
+- Cloudflare Workers Static Assets configuration limited to `dist/`, with no Worker script, analytics, or backend.
+- MIT public-source license and a public-beta privacy statement.
 - Bounded public-release checklist that keeps external actions behind a separate release gate.
 
 ## Required checks for this checkpoint
@@ -44,9 +46,9 @@ Bounded browser smoke check (when the Work runtime supplies Playwright):
 ## Evidence
 
 - `npm run check`: passed.
-- `node --test tests/*.test.js`: **30 passed, 0 failed**. This retains all mathematical and boundary checks and adds static guards for the mobile type scale, top-row separation, rightmost language-switch order, no-wrap behavior, and 44 px-equivalent language-button height.
+- `node --test tests/*.test.js`: **31 passed, 0 failed**. This retains all mathematical and boundary checks and adds hosted-output parity plus the Traditional Chinese route guard.
 - `node --check src/planner.js`, `src/i18n.js`, and `src/app.js`: passed.
-- Self-contained v0.3.1 build passed. Output is 78,563 bytes with SHA-256 `53014bec44913a9eed8260fa7d23ffd3ad8ab1674e39a0b0538d55f65da06117`.
+- Self-contained v0.4.0 build passed. The offline and hosted English outputs share SHA-256 `6c98714ccf0cd946f90cafd07d68f1b20359ed33098e52a507b7747f02bdc4d5`; the Traditional Chinese route output has SHA-256 `7d8d2b27653312a5f0cd50abd7b5b2f0d7bb1c7cebfc898fe8650c227ae632ba`.
 - Static artifact checks passed: unique source IDs, all static app selectors resolved, 116 matching keys in both locales, no external dependency or network primitive, classic-script `file://` compatibility, required product/safety wording, viewport/accessibility scaffolding, and a local accessible language switch.
 - Yao's v0.1 iPhone evidence confirmed the default calculation and exposed factor labels colliding with the chart track.
 - Yao's 2026-09-03 v0.2 iPhone + Edge long screenshot accepted the English results section: the default calculation remains at 100% coverage, all four factors are correct, `396.8503×` and `7,905.6942×` are fully readable above their tracks, and no horizontal overflow or result-card clipping is visible through the footer.
@@ -66,8 +68,8 @@ Bounded browser smoke check (when the Work runtime supplies Playwright):
 - No scientific input/result persistence, PWA, offline service worker, analytics, backend, or remote data.
 - Separate indexable `/` and `/zh-tw/` production paths and `hreflang` remain publication work.
 - No support URL or payment provider is connected.
-- No public repo, hosted URL, analytics, backend, service worker, or PWA identity exists.
+- The public repo exists at `https://github.com/lexian-sy/elisa-pilot-dilution-planner`; a hosted URL, analytics, backend, service worker, and PWA identity do not yet exist.
 
 ## Next safe step
 
-The local v0.3.1 release gate is complete. The next boundary is separately authorized public-release work: public repository/push, production hosting and DNS, indexable locale routes, support setup, privacy-host update, and production smoke checks. None of those external actions is authorized by this acceptance checkpoint.
+Push the verified v0.4.0 publication commit to the existing public repository, connect that repository to Lexian's Cloudflare account, deploy to `workers.dev`, and run production smoke checks. Stop before `lexiansy.space` DNS or payment setup, which still depends on Yao's separate account boundary.

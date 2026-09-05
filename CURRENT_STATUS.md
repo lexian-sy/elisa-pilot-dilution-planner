@@ -3,13 +3,14 @@
 ## Checkpoint
 
 - Product: ELISA Pilot Dilution Planner
-- Stage: public beta v0.4.1 — bilingual pilot-dilution guide deployed and verified
+- Stage: public beta v0.4.1 — Google Search Console verification artifact deployed and verified
 - Date: 2026-09-06
 - Public source: <https://github.com/lexian-sy/elisa-pilot-dilution-planner>
 - Production: <https://elisa-planner.lexiansy.space/>
 - Traditional Chinese: <https://elisa-planner.lexiansy.space/zh-tw/>
 - English guide: <https://elisa-planner.lexiansy.space/guides/choosing-elisa-pilot-dilutions/>
 - Traditional Chinese guide: <https://elisa-planner.lexiansy.space/zh-tw/guides/choosing-elisa-pilot-dilutions/>
+- Google verification: <https://elisa-planner.lexiansy.space/google15c6b5cc59503001.html>
 
 ## Implemented
 
@@ -30,6 +31,7 @@
 - Optional external Buy Me a Coffee support link in both interfaces; no embedded checkout or calculator-data transfer.
 - Canonical custom hostname elisa-planner.lexiansy.space is fronted by a thin Cloudflare Worker bridge; the calculator itself remains static and backend-free.
 - Static English and Traditional Chinese guides explain how to choose pilot dilution points from a user-supplied usable assay range without extending the calculator's scientific claims.
+- Root and hosted-build copies of the owner-supplied Google Search Console HTML verification artifact.
 - Both guide routes provide unique title and description metadata, canonical and reciprocal `hreflang`, Article and visible FAQ structured data, official manufacturer references, and language-correct planner calls to action.
 - Each planner route links compactly to its matching guide; switching the in-page language also updates that guide target while preserving local-file behavior.
 
@@ -43,6 +45,11 @@ For UI changes, also verify the source page, self-contained artifact, and produc
 
 ## Evidence
 
+- 2026-09-06 verification-release baseline: clean `main` matched `origin/main` at `e15f1da965f2c0c4c94909eb0e944f9a5bce1a76` after a fresh fetch.
+- Implementation commit `3f37f87f81f78e525cca75e24ad575aba4faca23` was pushed to `origin/main`.
+- `npm run check` passed with **40 tests, 0 failures**, including a deterministic byte-exact hosted-verification-artifact test; all three JavaScript syntax checks passed.
+- The owner download, repository-root file, and `dist/google15c6b5cc59503001.html` are each 53 bytes with SHA-256 `02ce3c62598b201d30e02e32af9e87aac8e4d5f12e3ff9b6adc87397569dfb20`.
+- Production readback of `https://elisa-planner.lexiansy.space/google15c6b5cc59503001.html` returned HTTP 200 `text/html`, 53 bytes, and an exact byte match to the owner download after the implementation push.
 - Clean baseline: `main` matched `origin/main` at `651e4fc`; `npm run check` passed with **34 tests, 0 failures** before edits.
 - Implementation commit `d70b683dc32e379c73beb2db50fba16df05f2541` was pushed to `origin/main`.
 - `npm run check`: passed after implementation.
@@ -75,4 +82,4 @@ For UI changes, also verify the source page, self-contained artifact, and produc
 
 ## Next safe step
 
-Review the two production guide pages once on a desktop and a phone for editorial comfort and visual rendering. Stop if wording, layout, or CTA placement needs revision; otherwise leave this deployed stage unchanged and begin bounded public discovery. Analytics remains a separate future decision.
+The owner can run Google Search Console's HTML-file verification for the intended property. Stop if Search Console reports a token or property mismatch; do not change DNS or Cloudflare configuration as part of this handoff.

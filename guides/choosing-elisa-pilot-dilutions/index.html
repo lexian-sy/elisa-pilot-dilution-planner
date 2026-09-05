@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <meta name="robots" content="index,follow">
+  <meta name="description" content="Choose an ELISA pilot dilution series from a defensible usable assay range, check concentration coverage, wells, and direct-preparation volumes.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Choosing ELISA Pilot Dilutions for Uncertain Samples">
+  <meta property="og:description" content="A practical, math-first guide to planning ELISA pilot dilutions when the original sample concentration is uncertain.">
+  <meta property="og:url" content="https://elisa-planner.lexiansy.space/guides/choosing-elisa-pilot-dilutions/">
+  <meta property="og:site_name" content="ELISA Pilot Dilution Planner">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="zh_TW">
+  <link rel="canonical" href="https://elisa-planner.lexiansy.space/guides/choosing-elisa-pilot-dilutions/">
+  <link rel="alternate" hreflang="en" href="https://elisa-planner.lexiansy.space/guides/choosing-elisa-pilot-dilutions/">
+  <link rel="alternate" hreflang="zh-TW" href="https://elisa-planner.lexiansy.space/zh-tw/guides/choosing-elisa-pilot-dilutions/">
+  <link rel="alternate" hreflang="x-default" href="https://elisa-planner.lexiansy.space/guides/choosing-elisa-pilot-dilutions/">
+  <title>Choosing ELISA Pilot Dilutions for Uncertain Samples</title>
+  <link rel="stylesheet" href="../../guide-styles.css">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "How to choose pilot dilutions for an ELISA when sample concentration is uncertain",
+      "description": "Choose an ELISA pilot dilution series from a defensible usable assay range, check concentration coverage, wells, and direct-preparation volumes.",
+      "inLanguage": "en",
+      "datePublished": "2026-09-06",
+      "dateModified": "2026-09-06",
+      "mainEntityOfPage": "https://elisa-planner.lexiansy.space/guides/choosing-elisa-pilot-dilutions/",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "ELISA Pilot Dilution Planner",
+        "url": "https://elisa-planner.lexiansy.space/"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can I use the full kit detection range as the usable assay range",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not by default. Use the quantitative interval supported by the kit insert, a validated method, or a documented lab decision. The reliable interval can be narrower than the full standard or detection range."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does gap-free coverage mean the assay will work",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Gap-free coverage is only a mathematical statement about concentration intervals. It does not establish matrix compatibility, dilutional linearity, recovery, hook-effect control, assay performance, or biological suitability."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What should I do when direct preparation needs too little original sample",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Treat the warning as a prompt to design an intermediate dilution using the kit instructions, validated method, and suitable lab practice. The planner deliberately does not invent that protocol."
+          }
+        }
+      ]
+    }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#guide-content">Skip to guide</a>
+  <header class="guide-header">
+    <nav class="guide-nav" aria-label="Guide navigation">
+      <a class="brand-link" href="https://elisa-planner.lexiansy.space/"><span class="brand-dot" aria-hidden="true"></span>ELISA Pilot Dilution Planner</a>
+      <a class="locale-link" lang="zh-TW" hreflang="zh-TW" href="https://elisa-planner.lexiansy.space/zh-tw/guides/choosing-elisa-pilot-dilutions/">繁體中文</a>
+    </nav>
+    <div class="guide-hero">
+      <p class="eyebrow">Practical ELISA planning guide</p>
+      <h1>How to choose pilot dilutions for an ELISA when sample concentration is uncertain</h1>
+      <p class="dek">Start with an assay interval you can defend, translate each dilution into the original concentration it can cover, then spend wells on a small series that avoids mathematical blind spots.</p>
+      <a class="primary-cta" href="https://elisa-planner.lexiansy.space/">Plan pilot dilutions</a>
+    </div>
+  </header>
+
+  <main id="guide-content" class="guide-layout">
+    <article>
+      <div class="summary-card">
+        <strong>The short answer</strong>
+        <p>Do not guess one dilution and hope it lands on the standard curve. Supply a defensible usable assay range, enter a deliberately broad estimate for the original sample concentration, and select several factors whose mapped concentration bands overlap. Then check whether the wells and preparation volumes are practical for the run.</p>
+      </div>
+
+      <section id="usable-range">
+        <p class="eyebrow">Step 1</p>
+        <h2>Define the usable assay range first</h2>
+        <p>Let <strong>L</strong> and <strong>U</strong> be the lower and upper concentrations that can be used for quantitative interpretation. These numbers must come from the kit insert, a validated method, or a documented lab-specific decision. They are inputs to the planning calculation, not outputs from it.</p>
+        <p>Do not automatically enter the lowest and highest printed standards or the full detection range. The ends of a response curve can carry more error, and an assay-specific quantitative interval may be narrower. Thermo Fisher's ELISA data-analysis guidance recommends diluting samples into the linear range and notes that values near the top or bottom tend to have more error.</p>
+        <aside class="callout" aria-label="Important range distinction">
+          <p><strong>Important:</strong> a planner cannot decide which part of a kit's curve is reliable for a particular matrix and method. Record the source of L and U before using them.</p>
+        </aside>
+      </section>
+
+      <section id="coverage">
+        <p class="eyebrow">Step 2</p>
+        <h2>Translate each dilution into original-sample coverage</h2>
+        <p>For a dilution factor <strong>d</strong>, a measurement that lands between L and U corresponds to an original-sample concentration between <strong>L × d</strong> and <strong>U × d</strong>. That interval is the useful mathematical contribution of the dilution point.</p>
+        <div class="formula-card" aria-label="Coverage formulas">
+          <p class="formula">coverage at d = [L × d, U × d]</p>
+          <p class="formula">next factor ÷ current factor ≤ U ÷ L</p>
+          <p>The second expression is the no-gap condition. In plain language, the next dilution must begin covering concentrations before the current dilution stops covering them. If the next factor is too far away, some possible original concentrations fall into a blind spot between the two points.</p>
+        </div>
+        <p>Choose the expected original concentration interval broadly when uncertainty is real. A lower bound that is unknown is not evidence that very low concentrations are covered. Dilution can move a high concentration downward into the assay range, but it cannot move a concentration below L upward.</p>
+      </section>
+
+      <section id="workflow">
+        <p class="eyebrow">Step 3</p>
+        <h2>Build a small series that answers the uncertainty</h2>
+        <ol>
+          <li><strong>Enter L and U.</strong> Use one concentration unit throughout and keep the evidence for the usable interval with the run plan.</li>
+          <li><strong>Bracket the original sample.</strong> Use prior data or a cautious estimate. When only an upper bound is known, make that limitation explicit.</li>
+          <li><strong>Allocate pilot points.</strong> More points can close gaps but consume more wells and sample. A fixed-fold series is acceptable to evaluate, but its coverage still needs to be checked.</li>
+          <li><strong>Inspect every interval.</strong> Confirm that adjacent bands overlap across the concentration span that matters. A familiar-looking serial dilution is not automatically gap-free.</li>
+          <li><strong>Check preparation feasibility.</strong> Compare required original-sample volumes with the minimum volume that can be pipetted reliably in the actual lab setup.</li>
+        </ol>
+        <p>Manufacturer protocols likewise direct users with unknown sample dilutions to consult the relevant literature and optimize with serial dilutions. That experimental guidance and the kit instructions remain authoritative; the planner only makes the concentration geometry and liquid arithmetic visible.</p>
+      </section>
+
+      <section id="example">
+        <p class="eyebrow">Worked example</p>
+        <h2>The planner's default scenario</h2>
+        <p>The current default uses a usable assay range of 1.6 to 100 ng/mL, an unknown lower sample bound, an upper estimate of 100,000 ng/mL, and four pilot points. Auto mode produces raw factors of approximately 1, 19.9, 396.9, and 7,905.7. Their coverage bands overlap across the planning span.</p>
+        <p>After a complete coverage re-check, the planner can offer the bench-friendly set below. Simplifying factors is never accepted merely because the values look tidy.</p>
+        <div class="coverage-demo" aria-label="Overlapping concentration coverage bands">
+          <div class="coverage-band">1:1 covers 1.6 to 100 ng/mL</div>
+          <div class="coverage-band">1:20 covers 32 to 2,000 ng/mL</div>
+          <div class="coverage-band">1:500 covers 800 to 50,000 ng/mL</div>
+          <div class="coverage-band">1:10,000 covers 16,000 to 1,000,000 ng/mL</div>
+        </div>
+        <p>The overlapping portions are intentional. They prevent a concentration gap between adjacent pilot points. Because the lower bound was unknown, the calculation starts at the assay lower limit of 1.6 ng/mL as a planning convention; it does not prove coverage of lower original concentrations.</p>
+      </section>
+
+      <section id="wells-volumes">
+        <p class="eyebrow">Step 4</p>
+        <h2>Budget wells and read volume warnings correctly</h2>
+        <p>With four dilution points and two replicates per point, the sample series uses eight wells. That count does not include standards, blanks, controls, plate-layout reserves, or any assay-specific wells. Replicate count should follow the kit or validated method. Thermo Fisher's guidance describes duplicate or triplicate sample testing as a way to assess run variation, subject to plate space and the method being used.</p>
+        <p>For the default 50 µL per well, two replicates, and 10 percent preparation overage, each point needs 110 µL of prepared sample. Direct preparation from the original sample would require the following volumes for the simplified factors.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th scope="col">Dilution</th><th scope="col">Prepared volume</th><th scope="col">Original sample</th><th scope="col">At a 2 µL minimum</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>1:1</td><td>110 µL</td><td>110 µL</td><td>Direct prep clears limit</td></tr>
+              <tr><td>1:20</td><td>110 µL</td><td>5.5 µL</td><td>Direct prep clears limit</td></tr>
+              <tr><td>1:500</td><td>110 µL</td><td>0.22 µL</td><td>Intermediate dilution needed</td></tr>
+              <tr><td>1:10,000</td><td>110 µL</td><td>0.011 µL</td><td>Intermediate dilution needed</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>A warning means the one-step mix falls below the user-entered pipetting minimum. It is not a validated intermediate-dilution recipe. Designing a staged preparation also depends on available pipettes, vessel dead volume, mixing, diluent, stability, and the assay protocol.</p>
+      </section>
+
+      <section id="boundaries">
+        <p class="eyebrow">Scientific boundary</p>
+        <h2>What this planning result does not establish</h2>
+        <p>The calculations plan concentration coverage, prepared liquid volumes, sample wells, and direct-pipetting warnings only. They do not validate matrix effects, dilutional linearity, recovery, hook effect, assay performance, biological suitability, clinical interpretation, or method compliance.</p>
+        <p>Those questions require assay-specific evidence. Thermo Fisher's spike-and-recovery and dilution-linearity guidance describes experiments used to examine matrix response and whether calculated analyte amounts remain consistent across dilutions. A gap-free plan can help choose what to test, but cannot substitute for those experiments.</p>
+      </section>
+
+      <section id="faq">
+        <p class="eyebrow">Decision FAQ</p>
+        <h2>Common planning decisions</h2>
+        <dl class="faq-list">
+          <div>
+            <dt>Can I use the full kit detection range as the usable assay range</dt>
+            <dd>Not by default. Use the quantitative interval supported by the kit insert, a validated method, or a documented lab decision. The reliable interval can be narrower than the full standard or detection range.</dd>
+          </div>
+          <div>
+            <dt>Does gap-free coverage mean the assay will work</dt>
+            <dd>No. Gap-free coverage is only a mathematical statement about concentration intervals. It does not establish matrix compatibility, dilutional linearity, recovery, hook-effect control, assay performance, or biological suitability.</dd>
+          </div>
+          <div>
+            <dt>What should I do when direct preparation needs too little original sample</dt>
+            <dd>Treat the warning as a prompt to design an intermediate dilution using the kit instructions, validated method, and suitable lab practice. The planner deliberately does not invent that protocol.</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section id="sources">
+        <p class="eyebrow">Primary sources</p>
+        <h2>Official technical guidance</h2>
+        <ul class="source-list">
+          <li><a href="https://www.thermofisher.com/hk/en/home/life-science/protein-biology/protein-biology-learning-center/protein-biology-resource-library/pierce-protein-methods/overview-elisa/elisa-data-analysis.html">Thermo Fisher Scientific — ELISA data analysis</a></li>
+          <li><a href="https://www.thermofisher.com/hk/en/home/life-science/protein-biology/protein-biology-learning-center/protein-biology-resource-library/pierce-protein-methods/overview-elisa/spike-recovery-linearity-assessment.html">Thermo Fisher Scientific — spike-and-recovery and linearity-of-dilution assessment</a></li>
+          <li><a href="https://www.abcam.com/en-us/technical-resources/protocols/competitive-elisa-protocol">Abcam — competitive ELISA protocol</a></li>
+          <li><a href="https://www.abcam.com/en-us/technical-resources/protocols/sandwich-elisa">Abcam — sandwich ELISA protocol</a></li>
+        </ul>
+      </section>
+
+      <div class="closing-cta">
+        <div>
+          <h2>Turn the range into a visible plan</h2>
+          <p>Enter the method-supported interval, a rough original concentration range, and the pilot budget.</p>
+        </div>
+        <a class="primary-cta" href="https://elisa-planner.lexiansy.space/">Open the planner</a>
+      </div>
+    </article>
+
+    <aside class="page-index" aria-label="On this page">
+      <strong>On this page</strong>
+      <a href="#usable-range">Usable range</a>
+      <a href="#coverage">Coverage math</a>
+      <a href="#workflow">Planning workflow</a>
+      <a href="#example">Worked example</a>
+      <a href="#wells-volumes">Wells and volumes</a>
+      <a href="#boundaries">Scientific boundary</a>
+      <a href="#faq">FAQ</a>
+      <a href="#sources">Sources</a>
+    </aside>
+  </main>
+
+  <footer class="guide-footer">
+    <div class="guide-footer-inner">
+      <p>Built by Lexian</p>
+      <p>Research planning only · no analytics, accounts, cookies, or data collection</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -113,6 +113,13 @@
     document.querySelectorAll("[data-i18n-aria-label]").forEach((node) => {
       node.setAttribute("aria-label", t(node.dataset.i18nAriaLabel));
     });
+    const guideLink = document.querySelector("[data-guide-link]");
+    if (guideLink) {
+      const guidePath = currentLanguage === "zh-Hant"
+        ? "zh-tw/guides/choosing-elisa-pilot-dilutions/"
+        : "guides/choosing-elisa-pilot-dilutions/";
+      guideLink.setAttribute("href", window.location.protocol === "file:" ? guidePath : `/${guidePath}`);
+    }
     languageButtons.forEach((button) => {
       button.setAttribute("aria-pressed", String(button.dataset.language === currentLanguage));
     });

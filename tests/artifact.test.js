@@ -10,6 +10,10 @@ const sourceHtml = fs.readFileSync(path.join(root, "index.html"), "utf8");
 const builtHtml = fs.readFileSync(path.join(root, "dist", "elisa-pilot-dilution-planner.html"), "utf8");
 const hostedHtml = fs.readFileSync(path.join(root, "dist", "index.html"), "utf8");
 const hostedChineseHtml = fs.readFileSync(path.join(root, "dist", "zh-tw", "index.html"), "utf8");
+const englishGuideSource = fs.readFileSync(path.join(root, "guides", "choosing-elisa-pilot-dilutions", "index.html"), "utf8");
+const chineseGuideSource = fs.readFileSync(path.join(root, "zh-tw", "guides", "choosing-elisa-pilot-dilutions", "index.html"), "utf8");
+const englishGuideHtml = fs.readFileSync(path.join(root, "dist", "guides", "choosing-elisa-pilot-dilutions", "index.html"), "utf8");
+const chineseGuideHtml = fs.readFileSync(path.join(root, "dist", "zh-tw", "guides", "choosing-elisa-pilot-dilutions", "index.html"), "utf8");
 const robots = fs.readFileSync(path.join(root, "dist", "robots.txt"), "utf8");
 const sitemap = fs.readFileSync(path.join(root, "dist", "sitemap.xml"), "utf8");
 const appJs = fs.readFileSync(path.join(root, "src", "app.js"), "utf8");
@@ -18,6 +22,13 @@ const css = fs.readFileSync(path.join(root, "styles.css"), "utf8");
 const license = fs.readFileSync(path.join(root, "LICENSE"), "utf8");
 const privacy = fs.readFileSync(path.join(root, "PRIVACY.md"), "utf8");
 const i18n = require("../src/i18n.js");
+
+function structuredData(html) {
+  return Array.from(
+    html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g),
+    (match) => JSON.parse(match[1]),
+  );
+}
 
 test("source IDs are unique and every static app selector resolves", () => {
   const ids = Array.from(sourceHtml.matchAll(/\sid="([^"]+)"/g), (match) => match[1]);
@@ -68,7 +79,96 @@ test("public discovery files point only to the production locale URLs", () => {
   assert.match(sitemap, new RegExp(`<loc>${origin}/zh-tw/</loc>`));
   assert.match(sitemap, /hreflang="en"/);
   assert.match(sitemap, /hreflang="zh-Hant"/);
+  assert.match(sitemap, new RegExp(`<loc>${origin}/guides/choosing-elisa-pilot-dilutions/</loc>`));
+  assert.match(sitemap, new RegExp(`<loc>${origin}/zh-tw/guides/choosing-elisa-pilot-dilutions/</loc>`));
+  assert.match(sitemap, /hreflang="zh-TW"/);
   assert.doesNotMatch(`${robots}\n${sitemap}`, /localhost|127\.0\.0\.1/);
+});
+
+test("both static guide routes publish unique crawlable localized pages", () => {
+  assert.match(englishGuideHtml, /<html lang="en">/);
+  assert.match(chineseGuideHtml, /<html lang="zh-TW">/);
+  assert.match(englishGuideHtml, /<title>Choosing ELISA Pilot Dilutions for Uncertain Samples<\/title>/);
+  assert.match(chineseGuideHtml, /<title>樣本濃度不確定時的 ELISA 預試稀釋選擇指南<\/title>/);
+  assert.notEqual(
+    englishGuideHtml.match(/<meta name="description" content="([^"]+)">/)[1],
+    chineseGuideHtml.match(/<meta name="description" content="([^"]+)">/)[1],
+  );
+  for (const output of [englishGuideHtml, chineseGuideHtml]) {
+    assert.match(output, /<meta name="robots" content="index,follow">/);
+    assert.match(output, /<main id="guide-content"/);
+    assert.match(output, /<h1>/);
+    assert.match(output, /class="skip-link"/);
+    assert.match(output, /<th scope="col">/);
+  }
+});
+
+test("guide canonical and reciprocal hreflang metadata use the custom hostname", () => {
+  const englishUrl = "https://elisa-planner.lexiansy.space/guides/choosing-elisa-pilot-dilutions/";
+  const chineseUrl = "https://elisa-planner.lexiansy.space/zh-tw/guides/choosing-elisa-pilot-dilutions/";
+  assert.match(englishGuideHtml, new RegExp(`<link rel="canonical" href="${englishUrl}">`));
+  assert.match(chineseGuideHtml, new RegExp(`<link rel="canonical" href="${chineseUrl}">`));
+  for (const output of [englishGuideHtml, chineseGuideHtml]) {
+    assert.match(output, new RegExp(`hreflang="en" href="${englishUrl}"`));
+    assert.match(output, new RegExp(`hreflang="zh-TW" href="${chineseUrl}"`));
+    assert.match(output, new RegExp(`hreflang="x-default" href="${englishUrl}"`));
+    assert.match(output, /<meta property="og:type" content="article">/);
+  }
+  assert.match(englishGuideHtml, new RegExp(`<meta property="og:url" content="${englishUrl}">`));
+  assert.match(chineseGuideHtml, new RegExp(`<meta property="og:url" content="${chineseUrl}">`));
+});
+
+test("visible guide content exactly supports Article and FAQ structured data", () => {
+  for (const output of [englishGuideHtml, chineseGuideHtml]) {
+    const documents = structuredData(output);
+    const article = documents.find((document) => document["@type"] === "Article");
+    const faq = documents.find((document) => document["@type"] === "FAQPage");
+    assert.ok(article);
+    assert.ok(faq);
+    assert.match(output, new RegExp(`<h1>${article.headline.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}</h1>`));
+    for (const item of faq.mainEntity) {
+      assert.ok(output.split(item.name).length >= 3, `FAQ question is not repeated visibly: ${item.name}`);
+      assert.ok(output.split(item.acceptedAnswer.text).length >= 3, `FAQ answer is not repeated visibly: ${item.acceptedAnswer.text}`);
+    }
+  }
+});
+
+test("guide calls to action and planner guide links stay language-correct", () => {
+  const englishPlanner = "https://elisa-planner.lexiansy.space/";
+  const chinesePlanner = "https://elisa-planner.lexiansy.space/zh-tw/";
+  assert.ok((englishGuideHtml.match(new RegExp(`class="primary-cta" href="${englishPlanner}"`, "g")) || []).length >= 2);
+  assert.ok((chineseGuideHtml.match(new RegExp(`class="primary-cta" href="${chinesePlanner}"`, "g")) || []).length >= 2);
+  assert.match(hostedHtml, /href="guides\/choosing-elisa-pilot-dilutions\/"[^>]+data-i18n="header\.guide"/);
+  assert.match(hostedChineseHtml, /href="guides\/choosing-elisa-pilot-dilutions\/"[^>]+data-i18n="header\.guide"/);
+  assert.match(appJs, /currentLanguage === "zh-Hant"[\s\S]+zh-tw\/guides\/choosing-elisa-pilot-dilutions/);
+  assert.match(appJs, /window\.location\.protocol === "file:"/);
+  assert.match(hostedHtml, />Unsure where to start · read the pilot dilution guide<\/a>/);
+  assert.match(hostedChineseHtml, />不確定如何開始 · 閱讀預試稀釋指南<\/a>/);
+});
+
+test("guide outputs contain no prohibited identity markers or remote runtime", () => {
+  const publicIdentitySurfaces = [
+    sourceHtml,
+    englishGuideSource,
+    chineseGuideSource,
+    englishGuideHtml,
+    chineseGuideHtml,
+    fs.readFileSync(path.join(root, "README.md"), "utf8"),
+    privacy,
+    sitemap,
+    robots,
+  ].join("\n");
+  assert.doesNotMatch(publicIdentitySurfaces, /Yao|瑤/iu);
+  for (const output of [englishGuideSource, chineseGuideSource, englishGuideHtml, chineseGuideHtml]) {
+    assert.doesNotMatch(output, /\?/);
+  }
+  for (const output of [englishGuideHtml, chineseGuideHtml]) {
+    assert.doesNotMatch(output, /<script\b[^>]+src=|<link\b[^>]+rel="stylesheet"|<iframe\b/i);
+    assert.doesNotMatch(output, /\b(?:fetch\s*\(|XMLHttpRequest|WebSocket|EventSource|sendBeacon|gtag\s*\(|googletagmanager|google-analytics)\b/i);
+    const scriptTags = Array.from(output.matchAll(/<script\b([^>]*)>/gi), (match) => match[1]);
+    assert.ok(scriptTags.length >= 2);
+    assert.ok(scriptTags.every((attributes) => /type="application\/ld\+json"/.test(attributes)));
+  }
 });
 
 test("artifact preserves required product and safety wording", () => {

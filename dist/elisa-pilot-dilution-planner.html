@@ -161,10 +161,25 @@ h1 {
 
 .header-copy {
   max-width: 660px;
-  margin-bottom: 0;
+  margin-bottom: 0.7rem;
   color: #c9dce6;
   font-size: 1.04rem;
   line-height: 1.65;
+}
+
+.header-guide-link {
+  display: inline-block;
+  color: #9de8e9;
+  font-size: 0.82rem;
+  font-weight: 750;
+  line-height: 1.5;
+  text-underline-offset: 0.2em;
+}
+
+.header-guide-link:focus-visible {
+  outline: 3px solid rgba(117, 220, 227, 0.38);
+  outline-offset: 3px;
+  border-radius: 0.2rem;
 }
 
 .header-tools {
@@ -591,6 +606,7 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
   .header-inner { min-height: 410px; padding: 5.4rem 0 3.8rem; align-items: flex-end; }
   h1 { font-size: clamp(3.05rem, 16vw, 4.4rem); }
   .header-copy { font-size: var(--mobile-reading-size); line-height: 1.7; }
+  .header-guide-link { font-size: var(--mobile-secondary-size); }
   .header-tools {
     top: 0.85rem;
     left: 0;
@@ -707,6 +723,7 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
         <p class="product-label" data-i18n="header.productLabel">Pre-run planning calculator</p>
         <h1>ELISA Pilot<br>Dilution Planner</h1>
         <p class="header-copy" data-i18n="header.copy">Turn an assay range and a rough target-analyte estimate into a transparent pilot coverage plan—before spending wells or sample.</p>
+        <a class="header-guide-link" href="guides/choosing-elisa-pilot-dilutions/" data-guide-link data-i18n="header.guide">Unsure where to start · read the pilot dilution guide</a>
       </div>
       <div class="header-tools">
         <div class="prototype-badge" data-i18n="header.prototype">Public beta · v0.4.1</div>
@@ -1206,6 +1223,7 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
       "language.label": "Language",
       "header.productLabel": "Pre-run planning calculator",
       "header.copy": "Turn an assay range and a rough target-analyte estimate into a transparent pilot coverage plan—before spending wells or sample.",
+      "header.guide": "Unsure where to start · read the pilot dilution guide",
       "header.prototype": "Public beta · v0.4.1",
       "intro.label": "Planner boundaries",
       "intro.coverage.title": "Coverage, not validation",
@@ -1325,6 +1343,7 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
       "language.label": "語言",
       "header.productLabel": "實驗前稀釋規劃工具",
       "header.copy": "輸入可用分析範圍與目標分析物的概略濃度，在耗用孔位與樣本之前，先建立透明可核對的初次稀釋涵蓋計畫。",
+      "header.guide": "不確定如何開始 · 閱讀預試稀釋指南",
       "header.prototype": "公開測試版 · v0.4.1",
       "intro.label": "規劃器界線",
       "intro.coverage.title": "規劃涵蓋範圍",
@@ -1583,6 +1602,13 @@ footer p { max-width: 430px; margin-bottom: 0; text-align: right; }
     document.querySelectorAll("[data-i18n-aria-label]").forEach((node) => {
       node.setAttribute("aria-label", t(node.dataset.i18nAriaLabel));
     });
+    const guideLink = document.querySelector("[data-guide-link]");
+    if (guideLink) {
+      const guidePath = currentLanguage === "zh-Hant"
+        ? "zh-tw/guides/choosing-elisa-pilot-dilutions/"
+        : "guides/choosing-elisa-pilot-dilutions/";
+      guideLink.setAttribute("href", window.location.protocol === "file:" ? guidePath : `/${guidePath}`);
+    }
     languageButtons.forEach((button) => {
       button.setAttribute("aria-pressed", String(button.dataset.language === currentLanguage));
     });

@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <meta name="robots" content="index,follow">
+  <meta name="description" content="從有依據的可用分析範圍選擇 ELISA 預試稀釋系列，檢查濃度涵蓋、孔數與直接配製體積。">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="樣本濃度不確定時的 ELISA 預試稀釋選擇指南">
+  <meta property="og:description" content="用清楚的涵蓋區間與體積計算，規劃樣本濃度不確定時的 ELISA 預試稀釋。">
+  <meta property="og:url" content="https://elisa-planner.lexiansy.space/zh-tw/guides/choosing-elisa-pilot-dilutions/">
+  <meta property="og:site_name" content="ELISA 初次稀釋規劃器">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:locale:alternate" content="en_US">
+  <link rel="canonical" href="https://elisa-planner.lexiansy.space/zh-tw/guides/choosing-elisa-pilot-dilutions/">
+  <link rel="alternate" hreflang="en" href="https://elisa-planner.lexiansy.space/guides/choosing-elisa-pilot-dilutions/">
+  <link rel="alternate" hreflang="zh-TW" href="https://elisa-planner.lexiansy.space/zh-tw/guides/choosing-elisa-pilot-dilutions/">
+  <link rel="alternate" hreflang="x-default" href="https://elisa-planner.lexiansy.space/guides/choosing-elisa-pilot-dilutions/">
+  <title>樣本濃度不確定時的 ELISA 預試稀釋選擇指南</title>
+  <link rel="stylesheet" href="../../../guide-styles.css">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "樣本濃度不確定時，如何選擇 ELISA 預試稀釋倍數",
+      "description": "從有依據的可用分析範圍選擇 ELISA 預試稀釋系列，檢查濃度涵蓋、孔數與直接配製體積。",
+      "inLanguage": "zh-TW",
+      "datePublished": "2026-09-06",
+      "dateModified": "2026-09-06",
+      "mainEntityOfPage": "https://elisa-planner.lexiansy.space/zh-tw/guides/choosing-elisa-pilot-dilutions/",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "ELISA 初次稀釋規劃器",
+        "url": "https://elisa-planner.lexiansy.space/zh-tw/"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "可否把試劑盒完整偵測範圍當作可用分析範圍",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "不應直接如此。請採用試劑盒說明書、已驗證方法，或有文件依據的實驗室決策所支持之定量區間。可靠區間可能比完整標準曲線或偵測範圍更窄。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "無缺口涵蓋是否表示分析方法可行",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "不是。無缺口涵蓋只說明濃度區間在數學上相接，並不證明基質相容性、稀釋線性、回收率、鉤狀效應控制、分析效能或生物適用性。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "直接配製所需原樣本體積太小時應如何處理",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "請把警示視為需要依試劑盒指示、已驗證方法及適合的實驗室操作設計中間稀釋的提示。規劃器刻意不代為制定該操作流程。"
+          }
+        }
+      ]
+    }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#guide-content">跳至指南內容</a>
+  <header class="guide-header">
+    <nav class="guide-nav" aria-label="指南導覽">
+      <a class="brand-link" href="https://elisa-planner.lexiansy.space/zh-tw/"><span class="brand-dot" aria-hidden="true"></span>ELISA 初次稀釋規劃器</a>
+      <a class="locale-link" lang="en" hreflang="en" href="https://elisa-planner.lexiansy.space/guides/choosing-elisa-pilot-dilutions/">English</a>
+    </nav>
+    <div class="guide-hero">
+      <p class="eyebrow">實用 ELISA 規劃指南</p>
+      <h1>樣本濃度不確定時，如何選擇 ELISA 預試稀釋倍數</h1>
+      <p class="dek">先確定一段可提出依據的分析區間，再把每個稀釋倍數換算成可涵蓋的原樣本濃度，最後以少量但沒有數學盲區的系列安排孔位。</p>
+      <a class="primary-cta" href="https://elisa-planner.lexiansy.space/zh-tw/">規劃預試稀釋</a>
+    </div>
+  </header>
+
+  <main id="guide-content" class="guide-layout">
+    <article>
+      <div class="summary-card">
+        <strong>簡要答案</strong>
+        <p>不要只猜一個倍數並期待它落在標準曲線內。先輸入有依據的可用分析範圍，再對原樣本濃度提供刻意保守而寬廣的估計，並選擇數個彼此涵蓋區間有重疊的倍數。最後確認所需孔數與配製體積適合這次預試。</p>
+      </div>
+
+      <section id="usable-range">
+        <p class="eyebrow">步驟 1</p>
+        <h2>先定義可用分析範圍</h2>
+        <p>以 <strong>L</strong> 與 <strong>U</strong> 表示可用於定量判讀的濃度下限與上限。這兩個數字必須來自試劑盒說明書、已驗證方法，或有文件依據的實驗室決策。它們是規劃計算的輸入，不是規劃器自行推定的輸出。</p>
+        <p>不要自動把最低與最高標準品濃度或完整偵測範圍填入。反應曲線兩端可能有較大誤差，而特定分析方法的定量區間也可能更窄。Thermo Fisher 的 ELISA 數據分析指引建議把樣本稀釋至線性範圍內，並指出曲線頂端或底端附近的值往往有較大誤差。</p>
+        <aside class="callout" aria-label="重要的範圍區別">
+          <p><strong>重要：</strong>規劃器無法判定試劑盒曲線的哪一段對特定基質與方法可靠。使用前應記錄 L 與 U 的依據。</p>
+        </aside>
+      </section>
+
+      <section id="coverage">
+        <p class="eyebrow">步驟 2</p>
+        <h2>把每個倍數換算成原樣本涵蓋區間</h2>
+        <p>對稀釋倍數 <strong>d</strong> 而言，如果測得濃度落在 L 與 U 之間，對應的原樣本濃度就在 <strong>L × d</strong> 與 <strong>U × d</strong> 之間。這段區間就是該稀釋點在數學上提供的有效涵蓋。</p>
+        <div class="formula-card" aria-label="涵蓋公式">
+          <p class="formula">倍數 d 的涵蓋區間 = [L × d, U × d]</p>
+          <p class="formula">下一倍數 ÷ 當前倍數 ≤ U ÷ L</p>
+          <p>第二式是無缺口條件。用白話說，下一個倍數開始涵蓋的位置，必須早於當前倍數停止涵蓋的位置。若兩個倍數相距太遠，就會有部分可能的原樣本濃度落在兩點之間的盲區。</p>
+        </div>
+        <p>若不確定性確實很大，預期原樣本濃度區間也應保守地放寬。下限未知不代表非常低的濃度已被涵蓋。稀釋可以把高濃度向下移入分析範圍，卻無法把低於 L 的濃度向上移。</p>
+      </section>
+
+      <section id="workflow">
+        <p class="eyebrow">步驟 3</p>
+        <h2>建立足以回答不確定性的小型系列</h2>
+        <ol>
+          <li><strong>輸入 L 與 U。</strong>全程使用同一濃度單位，並把可用區間的依據與預試計畫放在一起。</li>
+          <li><strong>框定原樣本濃度。</strong>使用先前數據或保守估計。只有上限時，應清楚保留下限未知這項限制。</li>
+          <li><strong>分配預試點數。</strong>增加點數可以縮小缺口，但也會耗用更多孔位與樣本。可以評估固定倍數系列，但仍須檢查其涵蓋。</li>
+          <li><strong>檢查每段區間。</strong>確認相鄰涵蓋帶在重要的濃度跨度上重疊。看起來熟悉的連續稀釋不一定沒有缺口。</li>
+          <li><strong>檢查配製可行性。</strong>將所需原樣本體積與實際實驗室設定中可可靠移取的最小體積相比。</li>
+        </ol>
+        <p>原廠操作指引也建議在未知樣本稀釋倍數時參考相關文獻，並以連續稀釋進行最佳化。這些實驗指引與試劑盒說明仍具有優先性；規劃器只把濃度幾何與液體計算清楚呈現。</p>
+      </section>
+
+      <section id="example">
+        <p class="eyebrow">計算範例</p>
+        <h2>規劃器的預設情境</h2>
+        <p>目前預設值使用 1.6 至 100 ng/mL 的可用分析範圍、未知的樣本濃度下限、100,000 ng/mL 的上限估計，以及四個預試點。自動模式產生約 1、19.9、396.9 與 7,905.7 的原始倍數，其涵蓋帶在規劃跨度內彼此重疊。</p>
+        <p>完整重新檢查涵蓋後，規劃器可提供下列便於操作的倍數組合。倍數不能只因數字整齊就視為可採用。</p>
+        <div class="coverage-demo" aria-label="彼此重疊的濃度涵蓋帶">
+          <div class="coverage-band">1:1 涵蓋 1.6 至 100 ng/mL</div>
+          <div class="coverage-band">1:20 涵蓋 32 至 2,000 ng/mL</div>
+          <div class="coverage-band">1:500 涵蓋 800 至 50,000 ng/mL</div>
+          <div class="coverage-band">1:10,000 涵蓋 16,000 至 1,000,000 ng/mL</div>
+        </div>
+        <p>重疊區段是刻意保留的，可避免相鄰預試點之間出現濃度缺口。因下限未知，計算以分析下限 1.6 ng/mL 作為規劃起點；這項約定並不證明更低的原樣本濃度已被涵蓋。</p>
+      </section>
+
+      <section id="wells-volumes">
+        <p class="eyebrow">步驟 4</p>
+        <h2>正確解讀孔數與體積警示</h2>
+        <p>四個稀釋點、每點兩個複孔時，樣本系列共使用八孔。這個數字不包含標準品、空白、對照、排版預留或其他分析方法要求的孔位。複孔數應依試劑盒或已驗證方法決定。Thermo Fisher 的指引說明，以兩個或三個複孔測試樣本可用於評估單次操作的變異，但仍須配合孔位空間與所採方法。</p>
+        <p>預設每孔 50 µL、每點兩個複孔，另加 10% 配製餘量，因此每點需要 110 µL 的已配製樣本。若使用簡化倍數並直接由原樣本配製，所需體積如下。</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th scope="col">稀釋</th><th scope="col">配製總體積</th><th scope="col">原樣本體積</th><th scope="col">最小 2 µL 時</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>1:1</td><td>110 µL</td><td>110 µL</td><td>可直接配製</td></tr>
+              <tr><td>1:20</td><td>110 µL</td><td>5.5 µL</td><td>可直接配製</td></tr>
+              <tr><td>1:500</td><td>110 µL</td><td>0.22 µL</td><td>需要中間稀釋</td></tr>
+              <tr><td>1:10,000</td><td>110 µL</td><td>0.011 µL</td><td>需要中間稀釋</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>警示表示單步混合所需體積低於使用者輸入的可靠移液下限，不代表已提供經驗證的中間稀釋操作。設計分段配製還須考量可用移液器、容器死體積、混合、稀釋液、穩定性與分析流程。</p>
+      </section>
+
+      <section id="boundaries">
+        <p class="eyebrow">科學界線</p>
+        <h2>這項規劃結果不能證明的事項</h2>
+        <p>計算只規劃濃度涵蓋、配製液體體積、樣本孔數與直接移液警示，不驗證基質效應、稀釋線性、回收率、鉤狀效應、分析效能、生物適用性、臨床判讀或方法合規性。</p>
+        <p>這些問題需要分析方法專屬證據。Thermo Fisher 的添加回收率與稀釋線性指引說明，可用實驗檢查基質反應，以及不同稀釋下計算出的分析物含量是否一致。無缺口的計畫可以協助選擇測試點，但不能取代這些實驗。</p>
+      </section>
+
+      <section id="faq">
+        <p class="eyebrow">決策問答</p>
+        <h2>常見規劃判斷</h2>
+        <dl class="faq-list">
+          <div>
+            <dt>可否把試劑盒完整偵測範圍當作可用分析範圍</dt>
+            <dd>不應直接如此。請採用試劑盒說明書、已驗證方法，或有文件依據的實驗室決策所支持之定量區間。可靠區間可能比完整標準曲線或偵測範圍更窄。</dd>
+          </div>
+          <div>
+            <dt>無缺口涵蓋是否表示分析方法可行</dt>
+            <dd>不是。無缺口涵蓋只說明濃度區間在數學上相接，並不證明基質相容性、稀釋線性、回收率、鉤狀效應控制、分析效能或生物適用性。</dd>
+          </div>
+          <div>
+            <dt>直接配製所需原樣本體積太小時應如何處理</dt>
+            <dd>請把警示視為需要依試劑盒指示、已驗證方法及適合的實驗室操作設計中間稀釋的提示。規劃器刻意不代為制定該操作流程。</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section id="sources">
+        <p class="eyebrow">第一方來源</p>
+        <h2>原廠技術指引</h2>
+        <ul class="source-list">
+          <li><a href="https://www.thermofisher.com/hk/en/home/life-science/protein-biology/protein-biology-learning-center/protein-biology-resource-library/pierce-protein-methods/overview-elisa/elisa-data-analysis.html">Thermo Fisher Scientific — ELISA 數據分析</a></li>
+          <li><a href="https://www.thermofisher.com/hk/en/home/life-science/protein-biology/protein-biology-learning-center/protein-biology-resource-library/pierce-protein-methods/overview-elisa/spike-recovery-linearity-assessment.html">Thermo Fisher Scientific — 添加回收率與稀釋線性評估</a></li>
+          <li><a href="https://www.abcam.com/en-us/technical-resources/protocols/competitive-elisa-protocol">Abcam — 競爭型 ELISA 操作流程</a></li>
+          <li><a href="https://www.abcam.com/en-us/technical-resources/protocols/sandwich-elisa">Abcam — 夾心式 ELISA 操作流程</a></li>
+        </ul>
+      </section>
+
+      <div class="closing-cta">
+        <div>
+          <h2>把範圍轉成看得見的計畫</h2>
+          <p>輸入方法支持的區間、原樣本概略濃度範圍與預試資源。</p>
+        </div>
+        <a class="primary-cta" href="https://elisa-planner.lexiansy.space/zh-tw/">開啟規劃器</a>
+      </div>
+    </article>
+
+    <aside class="page-index" aria-label="本頁內容">
+      <strong>本頁內容</strong>
+      <a href="#usable-range">可用分析範圍</a>
+      <a href="#coverage">涵蓋計算</a>
+      <a href="#workflow">規劃流程</a>
+      <a href="#example">計算範例</a>
+      <a href="#wells-volumes">孔數與體積</a>
+      <a href="#boundaries">科學界線</a>
+      <a href="#faq">常見問答</a>
+      <a href="#sources">資料來源</a>
+    </aside>
+  </main>
+
+  <footer class="guide-footer">
+    <div class="guide-footer-inner">
+      <p>Built by Lexian</p>
+      <p>僅供研究規劃 · 無分析追蹤、帳號、Cookie 或資料收集</p>
+    </div>
+  </footer>
+</body>
+</html>

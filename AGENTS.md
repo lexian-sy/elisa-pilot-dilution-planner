@@ -13,3 +13,4 @@ This repository is the public-beta source for **ELISA Pilot Dilution Planner**.
 - Do not change hosting, DNS, analytics, payment services, or other external commitments without explicit authorization for that stage.
 - Record verified state, checks, limitations, and the next safe step in `CURRENT_STATUS.md`.
 - A normal handoff must state what works, whether a reviewer needs to act, the single next step, stop conditions, and the exact handoff artifact. Preserve deeper technical evidence in the repository status document.
+- Every substantial stage must create one uniquely named Markdown handoff file under `handoffs/`. That exact file must contain the headings `For Yao` and `For Lex`; keep stage-specific status in the handoff and `CURRENT_STATUS.md`, not in this contract.

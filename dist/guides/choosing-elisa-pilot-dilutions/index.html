@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <meta name="robots" content="index,follow">
+  <meta name="description" content="Choose an ELISA pilot dilution series from a defensible usable assay range, check concentration coverage, wells, and direct-preparation volumes.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Choosing ELISA Pilot Dilutions for Uncertain Samples">
+  <meta property="og:description" content="A practical, math-first guide to planning ELISA pilot dilutions when the original sample concentration is uncertain.">
+  <meta property="og:url" content="https://elisa-planner.lexiansy.space/guides/choosing-elisa-pilot-dilutions/">
+  <meta property="og:site_name" content="ELISA Pilot Dilution Planner">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="zh_TW">
+  <link rel="canonical" href="https://elisa-planner.lexiansy.space/guides/choosing-elisa-pilot-dilutions/">
+  <link rel="alternate" hreflang="en" href="https://elisa-planner.lexiansy.space/guides/choosing-elisa-pilot-dilutions/">
+  <link rel="alternate" hreflang="zh-TW" href="https://elisa-planner.lexiansy.space/zh-tw/guides/choosing-elisa-pilot-dilutions/">
+  <link rel="alternate" hreflang="x-default" href="https://elisa-planner.lexiansy.space/guides/choosing-elisa-pilot-dilutions/">
+  <title>Choosing ELISA Pilot Dilutions for Uncertain Samples</title>
+  <style>
+:root {
+  --ink: #132238;
+  --muted: #5e6f83;
+  --navy: #0e2e4e;
+  --blue: #156f99;
+  --cyan: #38b9c7;
+  --ice: #e7f7f9;
+  --paper: #f6f4ee;
+  --card: #fffefa;
+  --line: #d8e0e3;
+  --warn: #7c470c;
+  --warn-bg: #fff1d8;
+  --shadow: 0 20px 60px rgba(14, 46, 78, 0.1);
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-synthesis: none;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  min-width: 320px;
+  margin: 0;
+  background:
+    radial-gradient(circle at 12% 19%, rgba(56, 185, 199, 0.09), transparent 27rem),
+    var(--paper);
+}
+
+a { color: var(--blue); text-underline-offset: 0.18em; }
+a:hover { text-decoration-thickness: 2px; }
+a:focus-visible { outline: 3px solid rgba(21, 111, 153, 0.28); outline-offset: 4px; border-radius: 0.18rem; }
+
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 20;
+  transform: translateY(-200%);
+  padding: 0.75rem 1rem;
+  color: white;
+  background: var(--navy);
+  border-radius: 0.5rem;
+}
+
+.skip-link:focus { transform: translateY(0); }
+
+.guide-header {
+  position: relative;
+  overflow: hidden;
+  color: #f7ffff;
+  background: linear-gradient(128deg, #09233c 0%, #0f3f62 62%, #0d566a 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.guide-header::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  opacity: 0.27;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: linear-gradient(to right, black, transparent 80%);
+}
+
+.guide-nav,
+.guide-hero,
+.guide-layout,
+.guide-footer-inner {
+  position: relative;
+  z-index: 1;
+  width: min(1120px, calc(100% - 2.5rem));
+  margin-inline: auto;
+}
+
+.guide-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.15rem;
+}
+
+.brand-link,
+.locale-link {
+  color: #d9f6f5;
+  font-size: 0.88rem;
+  font-weight: 760;
+  text-decoration: none;
+}
+
+.brand-link { display: inline-flex; align-items: center; gap: 0.55rem; }
+
+.brand-dot {
+  width: 0.8rem;
+  height: 0.8rem;
+  border: 2px solid #75dce3;
+  transform: rotate(45deg);
+}
+
+.locale-link {
+  min-height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 0.9rem;
+  border: 1px solid rgba(94, 230, 239, 0.32);
+  border-radius: 999px;
+  background: rgba(7, 30, 51, 0.42);
+}
+
+.guide-hero { padding: 4.7rem 0 5.2rem; }
+
+.eyebrow {
+  margin: 0 0 0.8rem;
+  color: var(--cyan);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3,
+p { margin-top: 0; }
+
+h1 {
+  max-width: 930px;
+  margin-bottom: 1.35rem;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.8rem, 7vw, 5.3rem);
+  font-weight: 400;
+  line-height: 0.96;
+  letter-spacing: -0.05em;
+}
+
+.dek {
+  max-width: 760px;
+  margin-bottom: 1.6rem;
+  color: #c9dce6;
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.primary-cta {
+  min-height: 3rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.1rem;
+  color: #08233b;
+  background: #9de8e9;
+  border: 1px solid #c5f4f2;
+  border-radius: 0.65rem;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(1, 19, 32, 0.2);
+}
+
+.guide-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 15rem;
+  gap: 3.5rem;
+  align-items: start;
+  padding: 3.2rem 0 5rem;
+}
+
+article { min-width: 0; }
+
+article > section,
+article > aside,
+article > .closing-cta { margin-top: 3.2rem; }
+
+.summary-card,
+.callout,
+.formula-card,
+.closing-cta {
+  padding: 1.4rem 1.5rem;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 0.9rem;
+  box-shadow: 0 8px 30px rgba(14, 46, 78, 0.05);
+}
+
+.summary-card {
+  margin-top: -5.1rem;
+  position: relative;
+  border-top: 4px solid var(--cyan);
+}
+
+.summary-card strong { display: block; margin-bottom: 0.45rem; color: var(--navy); font-size: 1.08rem; }
+.summary-card p:last-child,
+.callout p:last-child,
+.formula-card p:last-child,
+.closing-cta p:last-child { margin-bottom: 0; }
+
+h2 {
+  margin-bottom: 0.85rem;
+  color: var(--navy);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.9rem, 4vw, 2.55rem);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+}
+
+h3 {
+  margin-bottom: 0.45rem;
+  color: var(--navy);
+  font-size: 1.08rem;
+  line-height: 1.35;
+}
+
+p,
+li,
+th,
+td,
+dt,
+dd {
+  font-size: 1rem;
+  line-height: 1.72;
+}
+
+p,
+li,
+dd { color: #34465a; }
+
+ol,
+ul { padding-left: 1.35rem; }
+li + li { margin-top: 0.65rem; }
+
+.callout { border-left: 4px solid #e9a135; background: var(--warn-bg); }
+.callout strong { color: var(--warn); }
+
+.formula-card { margin-top: 1.25rem; background: #eef8f8; border-color: #b8dfe1; }
+
+.formula {
+  margin: 0.8rem 0;
+  color: var(--navy);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: clamp(1.05rem, 4vw, 1.35rem);
+  font-weight: 750;
+  letter-spacing: -0.02em;
+}
+
+.coverage-demo {
+  display: grid;
+  gap: 0.65rem;
+  margin-top: 1.25rem;
+}
+
+.coverage-band {
+  position: relative;
+  overflow: hidden;
+  padding: 0.8rem 0.9rem;
+  color: var(--navy);
+  background: #e2f4f5;
+  border: 1px solid #acdadd;
+  border-radius: 0.55rem;
+  font-size: 0.92rem;
+  font-weight: 750;
+}
+
+.coverage-band:nth-child(2) { margin-left: 9%; }
+.coverage-band:nth-child(3) { margin-left: 18%; }
+.coverage-band:nth-child(4) { margin-left: 27%; }
+
+.table-wrap { overflow-x: auto; margin-top: 1.15rem; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card);
+  border: 1px solid var(--line);
+}
+
+th,
+td {
+  padding: 0.7rem 0.8rem;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+th { color: var(--navy); background: #edf5f5; font-size: 0.9rem; }
+tr:last-child td { border-bottom: 0; }
+
+.source-list a { overflow-wrap: anywhere; }
+
+.page-index {
+  position: sticky;
+  top: 1.5rem;
+  padding-left: 1rem;
+  border-left: 1px solid var(--line);
+}
+
+.page-index strong {
+  display: block;
+  margin-bottom: 0.65rem;
+  color: var(--navy);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.page-index a {
+  display: block;
+  padding: 0.35rem 0;
+  color: var(--muted);
+  font-size: 0.87rem;
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+.faq-list { margin: 1.2rem 0 0; }
+.faq-list div { padding: 1rem 0; border-top: 1px solid var(--line); }
+.faq-list dt { color: var(--navy); font-weight: 800; }
+.faq-list dd { margin: 0.35rem 0 0; }
+
+.closing-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  background: var(--navy);
+}
+
+.closing-cta h2,
+.closing-cta p { color: white; }
+.closing-cta h2 { font-size: 1.7rem; }
+.closing-cta p { margin-bottom: 0; color: #c9dce6; }
+.closing-cta .primary-cta { flex: 0 0 auto; }
+
+.guide-footer { padding: 2rem 0; color: var(--muted); border-top: 1px solid var(--line); }
+.guide-footer-inner { display: flex; justify-content: space-between; gap: 1.5rem; }
+.guide-footer p { margin-bottom: 0; font-size: 0.88rem; }
+
+@media (max-width: 780px) {
+  .guide-layout { grid-template-columns: 1fr; gap: 0; }
+  .page-index { display: none; }
+  .closing-cta { display: block; }
+  .closing-cta .primary-cta { margin-top: 1.25rem; }
+}
+
+@media (max-width: 620px) {
+  .guide-nav,
+  .guide-hero,
+  .guide-layout,
+  .guide-footer-inner { width: min(100% - 1.25rem, 1120px); }
+  .guide-hero { padding: 3.7rem 0 4.6rem; }
+  h1 { font-size: clamp(2.65rem, 13vw, 4rem); }
+  .dek,
+  p,
+  li,
+  th,
+  td,
+  dt,
+  dd { font-size: 1rem; }
+  .summary-card { margin-top: -4.5rem; }
+  .summary-card,
+  .callout,
+  .formula-card,
+  .closing-cta { padding: 1.2rem; }
+  .coverage-band:nth-child(n) { margin-left: 0; }
+  .guide-footer-inner { display: block; }
+  .guide-footer p + p { margin-top: 0.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+</style>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "How to choose pilot dilutions for an ELISA when sample concentration is uncertain",
+      "description": "Choose an ELISA pilot dilution series from a defensible usable assay range, check concentration coverage, wells, and direct-preparation volumes.",
+      "inLanguage": "en",
+      "datePublished": "2026-09-06",
+      "dateModified": "2026-09-06",
+      "mainEntityOfPage": "https://elisa-planner.lexiansy.space/guides/choosing-elisa-pilot-dilutions/",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "ELISA Pilot Dilution Planner",
+        "url": "https://elisa-planner.lexiansy.space/"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can I use the full kit detection range as the usable assay range",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not by default. Use the quantitative interval supported by the kit insert, a validated method, or a documented lab decision. The reliable interval can be narrower than the full standard or detection range."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does gap-free coverage mean the assay will work",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Gap-free coverage is only a mathematical statement about concentration intervals. It does not establish matrix compatibility, dilutional linearity, recovery, hook-effect control, assay performance, or biological suitability."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What should I do when direct preparation needs too little original sample",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Treat the warning as a prompt to design an intermediate dilution using the kit instructions, validated method, and suitable lab practice. The planner deliberately does not invent that protocol."
+          }
+        }
+      ]
+    }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#guide-content">Skip to guide</a>
+  <header class="guide-header">
+    <nav class="guide-nav" aria-label="Guide navigation">
+      <a class="brand-link" href="https://elisa-planner.lexiansy.space/"><span class="brand-dot" aria-hidden="true"></span>ELISA Pilot Dilution Planner</a>
+      <a class="locale-link" lang="zh-TW" hreflang="zh-TW" href="https://elisa-planner.lexiansy.space/zh-tw/guides/choosing-elisa-pilot-dilutions/">繁體中文</a>
+    </nav>
+    <div class="guide-hero">
+      <p class="eyebrow">Practical ELISA planning guide</p>
+      <h1>How to choose pilot dilutions for an ELISA when sample concentration is uncertain</h1>
+      <p class="dek">Start with an assay interval you can defend, translate each dilution into the original concentration it can cover, then spend wells on a small series that avoids mathematical blind spots.</p>
+      <a class="primary-cta" href="https://elisa-planner.lexiansy.space/">Plan pilot dilutions</a>
+    </div>
+  </header>
+
+  <main id="guide-content" class="guide-layout">
+    <article>
+      <div class="summary-card">
+        <strong>The short answer</strong>
+        <p>Do not guess one dilution and hope it lands on the standard curve. Supply a defensible usable assay range, enter a deliberately broad estimate for the original sample concentration, and select several factors whose mapped concentration bands overlap. Then check whether the wells and preparation volumes are practical for the run.</p>
+      </div>
+
+      <section id="usable-range">
+        <p class="eyebrow">Step 1</p>
+        <h2>Define the usable assay range first</h2>
+        <p>Let <strong>L</strong> and <strong>U</strong> be the lower and upper concentrations that can be used for quantitative interpretation. These numbers must come from the kit insert, a validated method, or a documented lab-specific decision. They are inputs to the planning calculation, not outputs from it.</p>
+        <p>Do not automatically enter the lowest and highest printed standards or the full detection range. The ends of a response curve can carry more error, and an assay-specific quantitative interval may be narrower. Thermo Fisher's ELISA data-analysis guidance recommends diluting samples into the linear range and notes that values near the top or bottom tend to have more error.</p>
+        <aside class="callout" aria-label="Important range distinction">
+          <p><strong>Important:</strong> a planner cannot decide which part of a kit's curve is reliable for a particular matrix and method. Record the source of L and U before using them.</p>
+        </aside>
+      </section>
+
+      <section id="coverage">
+        <p class="eyebrow">Step 2</p>
+        <h2>Translate each dilution into original-sample coverage</h2>
+        <p>For a dilution factor <strong>d</strong>, a measurement that lands between L and U corresponds to an original-sample concentration between <strong>L × d</strong> and <strong>U × d</strong>. That interval is the useful mathematical contribution of the dilution point.</p>
+        <div class="formula-card" aria-label="Coverage formulas">
+          <p class="formula">coverage at d = [L × d, U × d]</p>
+          <p class="formula">next factor ÷ current factor ≤ U ÷ L</p>
+          <p>The second expression is the no-gap condition. In plain language, the next dilution must begin covering concentrations before the current dilution stops covering them. If the next factor is too far away, some possible original concentrations fall into a blind spot between the two points.</p>
+        </div>
+        <p>Choose the expected original concentration interval broadly when uncertainty is real. A lower bound that is unknown is not evidence that very low concentrations are covered. Dilution can move a high concentration downward into the assay range, but it cannot move a concentration below L upward.</p>
+      </section>
+
+      <section id="workflow">
+        <p class="eyebrow">Step 3</p>
+        <h2>Build a small series that answers the uncertainty</h2>
+        <ol>
+          <li><strong>Enter L and U.</strong> Use one concentration unit throughout and keep the evidence for the usable interval with the run plan.</li>
+          <li><strong>Bracket the original sample.</strong> Use prior data or a cautious estimate. When only an upper bound is known, make that limitation explicit.</li>
+          <li><strong>Allocate pilot points.</strong> More points can close gaps but consume more wells and sample. A fixed-fold series is acceptable to evaluate, but its coverage still needs to be checked.</li>
+          <li><strong>Inspect every interval.</strong> Confirm that adjacent bands overlap across the concentration span that matters. A familiar-looking serial dilution is not automatically gap-free.</li>
+          <li><strong>Check preparation feasibility.</strong> Compare required original-sample volumes with the minimum volume that can be pipetted reliably in the actual lab setup.</li>
+        </ol>
+        <p>Manufacturer protocols likewise direct users with unknown sample dilutions to consult the relevant literature and optimize with serial dilutions. That experimental guidance and the kit instructions remain authoritative; the planner only makes the concentration geometry and liquid arithmetic visible.</p>
+      </section>
+
+      <section id="example">
+        <p class="eyebrow">Worked example</p>
+        <h2>The planner's default scenario</h2>
+        <p>The current default uses a usable assay range of 1.6 to 100 ng/mL, an unknown lower sample bound, an upper estimate of 100,000 ng/mL, and four pilot points. Auto mode produces raw factors of approximately 1, 19.9, 396.9, and 7,905.7. Their coverage bands overlap across the planning span.</p>
+        <p>After a complete coverage re-check, the planner can offer the bench-friendly set below. Simplifying factors is never accepted merely because the values look tidy.</p>
+        <div class="coverage-demo" aria-label="Overlapping concentration coverage bands">
+          <div class="coverage-band">1:1 covers 1.6 to 100 ng/mL</div>
+          <div class="coverage-band">1:20 covers 32 to 2,000 ng/mL</div>
+          <div class="coverage-band">1:500 covers 800 to 50,000 ng/mL</div>
+          <div class="coverage-band">1:10,000 covers 16,000 to 1,000,000 ng/mL</div>
+        </div>
+        <p>The overlapping portions are intentional. They prevent a concentration gap between adjacent pilot points. Because the lower bound was unknown, the calculation starts at the assay lower limit of 1.6 ng/mL as a planning convention; it does not prove coverage of lower original concentrations.</p>
+      </section>
+
+      <section id="wells-volumes">
+        <p class="eyebrow">Step 4</p>
+        <h2>Budget wells and read volume warnings correctly</h2>
+        <p>With four dilution points and two replicates per point, the sample series uses eight wells. That count does not include standards, blanks, controls, plate-layout reserves, or any assay-specific wells. Replicate count should follow the kit or validated method. Thermo Fisher's guidance describes duplicate or triplicate sample testing as a way to assess run variation, subject to plate space and the method being used.</p>
+        <p>For the default 50 µL per well, two replicates, and 10 percent preparation overage, each point needs 110 µL of prepared sample. Direct preparation from the original sample would require the following volumes for the simplified factors.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th scope="col">Dilution</th><th scope="col">Prepared volume</th><th scope="col">Original sample</th><th scope="col">At a 2 µL minimum</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>1:1</td><td>110 µL</td><td>110 µL</td><td>Direct prep clears limit</td></tr>
+              <tr><td>1:20</td><td>110 µL</td><td>5.5 µL</td><td>Direct prep clears limit</td></tr>
+              <tr><td>1:500</td><td>110 µL</td><td>0.22 µL</td><td>Intermediate dilution needed</td></tr>
+              <tr><td>1:10,000</td><td>110 µL</td><td>0.011 µL</td><td>Intermediate dilution needed</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>A warning means the one-step mix falls below the user-entered pipetting minimum. It is not a validated intermediate-dilution recipe. Designing a staged preparation also depends on available pipettes, vessel dead volume, mixing, diluent, stability, and the assay protocol.</p>
+      </section>
+
+      <section id="boundaries">
+        <p class="eyebrow">Scientific boundary</p>
+        <h2>What this planning result does not establish</h2>
+        <p>The calculations plan concentration coverage, prepared liquid volumes, sample wells, and direct-pipetting warnings only. They do not validate matrix effects, dilutional linearity, recovery, hook effect, assay performance, biological suitability, clinical interpretation, or method compliance.</p>
+        <p>Those questions require assay-specific evidence. Thermo Fisher's spike-and-recovery and dilution-linearity guidance describes experiments used to examine matrix response and whether calculated analyte amounts remain consistent across dilutions. A gap-free plan can help choose what to test, but cannot substitute for those experiments.</p>
+      </section>
+
+      <section id="faq">
+        <p class="eyebrow">Decision FAQ</p>
+        <h2>Common planning decisions</h2>
+        <dl class="faq-list">
+          <div>
+            <dt>Can I use the full kit detection range as the usable assay range</dt>
+            <dd>Not by default. Use the quantitative interval supported by the kit insert, a validated method, or a documented lab decision. The reliable interval can be narrower than the full standard or detection range.</dd>
+          </div>
+          <div>
+            <dt>Does gap-free coverage mean the assay will work</dt>
+            <dd>No. Gap-free coverage is only a mathematical statement about concentration intervals. It does not establish matrix compatibility, dilutional linearity, recovery, hook-effect control, assay performance, or biological suitability.</dd>
+          </div>
+          <div>
+            <dt>What should I do when direct preparation needs too little original sample</dt>
+            <dd>Treat the warning as a prompt to design an intermediate dilution using the kit instructions, validated method, and suitable lab practice. The planner deliberately does not invent that protocol.</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section id="sources">
+        <p class="eyebrow">Primary sources</p>
+        <h2>Official technical guidance</h2>
+        <ul class="source-list">
+          <li><a href="https://www.thermofisher.com/hk/en/home/life-science/protein-biology/protein-biology-learning-center/protein-biology-resource-library/pierce-protein-methods/overview-elisa/elisa-data-analysis.html">Thermo Fisher Scientific — ELISA data analysis</a></li>
+          <li><a href="https://www.thermofisher.com/hk/en/home/life-science/protein-biology/protein-biology-learning-center/protein-biology-resource-library/pierce-protein-methods/overview-elisa/spike-recovery-linearity-assessment.html">Thermo Fisher Scientific — spike-and-recovery and linearity-of-dilution assessment</a></li>
+          <li><a href="https://www.abcam.com/en-us/technical-resources/protocols/competitive-elisa-protocol">Abcam — competitive ELISA protocol</a></li>
+          <li><a href="https://www.abcam.com/en-us/technical-resources/protocols/sandwich-elisa">Abcam — sandwich ELISA protocol</a></li>
+        </ul>
+      </section>
+
+      <div class="closing-cta">
+        <div>
+          <h2>Turn the range into a visible plan</h2>
+          <p>Enter the method-supported interval, a rough original concentration range, and the pilot budget.</p>
+        </div>
+        <a class="primary-cta" href="https://elisa-planner.lexiansy.space/">Open the planner</a>
+      </div>
+    </article>
+
+    <aside class="page-index" aria-label="On this page">
+      <strong>On this page</strong>
+      <a href="#usable-range">Usable range</a>
+      <a href="#coverage">Coverage math</a>
+      <a href="#workflow">Planning workflow</a>
+      <a href="#example">Worked example</a>
+      <a href="#wells-volumes">Wells and volumes</a>
+      <a href="#boundaries">Scientific boundary</a>
+      <a href="#faq">FAQ</a>
+      <a href="#sources">Sources</a>
+    </aside>
+  </main>
+
+  <footer class="guide-footer">
+    <div class="guide-footer-inner">
+      <p>Built by Lexian</p>
+      <p>Research planning only · no analytics, accounts, cookies, or data collection</p>
+    </div>
+  </footer>
+</body>
+</html>

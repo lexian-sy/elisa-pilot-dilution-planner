@@ -20,6 +20,8 @@ The public beta contains an in-page `EN / 繁中` switch. The English root follo
 - Public source: <https://github.com/lexian-sy/elisa-pilot-dilution-planner>
 - Live tool: <https://elisa-planner.lexiansy.space/>
 - Traditional Chinese route: <https://elisa-planner.lexiansy.space/zh-tw/>
+- English pilot-dilution guide: <https://elisa-planner.lexiansy.space/guides/choosing-elisa-pilot-dilutions/>
+- Traditional Chinese guide: <https://elisa-planner.lexiansy.space/zh-tw/guides/choosing-elisa-pilot-dilutions/>
 - A quiet external support link opens Lexian's Buy Me a Coffee page. Payment processing stays outside the calculator; there is no embedded checkout, analytics, or backend.
 
 ## Run, test, and build

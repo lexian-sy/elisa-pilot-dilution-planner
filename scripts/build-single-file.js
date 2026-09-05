@@ -9,12 +9,17 @@ const stylePath = path.join(root, "styles.css");
 const plannerPath = path.join(root, "src", "planner.js");
 const i18nPath = path.join(root, "src", "i18n.js");
 const appPath = path.join(root, "src", "app.js");
+const guideStylePath = path.join(root, "guide-styles.css");
+const englishGuideSourcePath = path.join(root, "guides", "choosing-elisa-pilot-dilutions", "index.html");
+const chineseGuideSourcePath = path.join(root, "zh-tw", "guides", "choosing-elisa-pilot-dilutions", "index.html");
 const distPath = path.join(root, "dist");
 const offlineOutputPath = path.join(distPath, "elisa-pilot-dilution-planner.html");
 const rootOutputPath = path.join(distPath, "index.html");
 const chineseOutputPath = path.join(distPath, "zh-tw", "index.html");
 const robotsOutputPath = path.join(distPath, "robots.txt");
 const sitemapOutputPath = path.join(distPath, "sitemap.xml");
+const englishGuideOutputPath = path.join(distPath, "guides", "choosing-elisa-pilot-dilutions", "index.html");
+const chineseGuideOutputPath = path.join(distPath, "zh-tw", "guides", "choosing-elisa-pilot-dilutions", "index.html");
 const productionOrigin = "https://elisa-planner.lexiansy.space";
 
 let html = fs.readFileSync(indexPath, "utf8");
@@ -23,6 +28,9 @@ const planner = fs.readFileSync(plannerPath, "utf8");
 const i18n = fs.readFileSync(i18nPath, "utf8");
 const translations = require(i18nPath);
 const app = fs.readFileSync(appPath, "utf8");
+const guideStyles = fs.readFileSync(guideStylePath, "utf8");
+const englishGuideSource = fs.readFileSync(englishGuideSourcePath, "utf8");
+const chineseGuideSource = fs.readFileSync(chineseGuideSourcePath, "utf8");
 
 html = html.replace('<link rel="stylesheet" href="styles.css">', `<style>\n${styles}\n</style>`);
 html = html.replace('<script src="src/planner.js"></script>', `<script>\n${planner}\n</script>`);
@@ -73,6 +81,19 @@ function localizeStaticHtml(source, language) {
 }
 
 const chineseHtml = localizeStaticHtml(html, "zh-Hant");
+function buildGuide(source) {
+  const built = source.replace(
+    /<link rel="stylesheet" href="(?:\.\.\/){2,3}guide-styles\.css">/,
+    `<style>\n${guideStyles}\n</style>`,
+  );
+  if (built === source || /<link\b[^>]+rel="stylesheet"/i.test(built)) {
+    throw new Error("A guide build still contains a stylesheet dependency.");
+  }
+  return built;
+}
+
+const englishGuideHtml = buildGuide(englishGuideSource);
+const chineseGuideHtml = buildGuide(chineseGuideSource);
 const robots = `User-agent: *\nAllow: /\n\nSitemap: ${productionOrigin}/sitemap.xml\n`;
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -88,13 +109,29 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
     <xhtml:link rel="alternate" hreflang="zh-Hant" href="${productionOrigin}/zh-tw/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="${productionOrigin}/" />
   </url>
+  <url>
+    <loc>${productionOrigin}/guides/choosing-elisa-pilot-dilutions/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="${productionOrigin}/guides/choosing-elisa-pilot-dilutions/" />
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="${productionOrigin}/zh-tw/guides/choosing-elisa-pilot-dilutions/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="${productionOrigin}/guides/choosing-elisa-pilot-dilutions/" />
+  </url>
+  <url>
+    <loc>${productionOrigin}/zh-tw/guides/choosing-elisa-pilot-dilutions/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="${productionOrigin}/guides/choosing-elisa-pilot-dilutions/" />
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="${productionOrigin}/zh-tw/guides/choosing-elisa-pilot-dilutions/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="${productionOrigin}/guides/choosing-elisa-pilot-dilutions/" />
+  </url>
 </urlset>
 `;
 
 fs.mkdirSync(path.dirname(chineseOutputPath), { recursive: true });
+fs.mkdirSync(path.dirname(englishGuideOutputPath), { recursive: true });
+fs.mkdirSync(path.dirname(chineseGuideOutputPath), { recursive: true });
 fs.writeFileSync(offlineOutputPath, html, "utf8");
 fs.writeFileSync(rootOutputPath, html, "utf8");
 fs.writeFileSync(chineseOutputPath, chineseHtml, "utf8");
+fs.writeFileSync(englishGuideOutputPath, englishGuideHtml, "utf8");
+fs.writeFileSync(chineseGuideOutputPath, chineseGuideHtml, "utf8");
 fs.writeFileSync(robotsOutputPath, robots, "utf8");
 fs.writeFileSync(sitemapOutputPath, sitemap, "utf8");
-process.stdout.write(`${offlineOutputPath}\n${rootOutputPath}\n${chineseOutputPath}\n${robotsOutputPath}\n${sitemapOutputPath}\n`);
+process.stdout.write(`${offlineOutputPath}\n${rootOutputPath}\n${chineseOutputPath}\n${englishGuideOutputPath}\n${chineseGuideOutputPath}\n${robotsOutputPath}\n${sitemapOutputPath}\n`);

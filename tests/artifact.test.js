@@ -51,7 +51,7 @@ test("hosted outputs preserve the accepted artifact and expose a Chinese route",
 });
 
 test("hosted outputs publish canonical and alternate locale URLs", () => {
-  const origin = "https://elisa-pilot-dilution-planner.lexian.workers.dev";
+  const origin = "https://elisa-planner.lexiansy.space";
   assert.match(hostedHtml, new RegExp(`<link rel="canonical" href="${origin}/">`));
   assert.match(hostedChineseHtml, new RegExp(`<link rel="canonical" href="${origin}/zh-tw/">`));
   for (const output of [hostedHtml, hostedChineseHtml]) {
@@ -62,7 +62,7 @@ test("hosted outputs publish canonical and alternate locale URLs", () => {
 });
 
 test("public discovery files point only to the production locale URLs", () => {
-  const origin = "https://elisa-pilot-dilution-planner.lexian.workers.dev";
+  const origin = "https://elisa-planner.lexiansy.space";
   assert.match(robots, new RegExp(`Sitemap: ${origin}/sitemap\\.xml`));
   assert.match(sitemap, new RegExp(`<loc>${origin}/</loc>`));
   assert.match(sitemap, new RegExp(`<loc>${origin}/zh-tw/</loc>`));

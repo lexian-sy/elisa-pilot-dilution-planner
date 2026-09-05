@@ -15,7 +15,7 @@ const rootOutputPath = path.join(distPath, "index.html");
 const chineseOutputPath = path.join(distPath, "zh-tw", "index.html");
 const robotsOutputPath = path.join(distPath, "robots.txt");
 const sitemapOutputPath = path.join(distPath, "sitemap.xml");
-const productionOrigin = "https://elisa-pilot-dilution-planner.lexian.workers.dev";
+const productionOrigin = "https://elisa-planner.lexiansy.space";
 
 let html = fs.readFileSync(indexPath, "utf8");
 const styles = fs.readFileSync(stylePath, "utf8");

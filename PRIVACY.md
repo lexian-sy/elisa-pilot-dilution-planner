@@ -6,7 +6,7 @@ ELISA Pilot Dilution Planner performs its calculations in the browser. The publi
 
 Concentration values, volume settings, and calculated plans are held only in the open page and are not persisted by the application. The tool may store one language preference (`English` or `Traditional Chinese`) in the browser's local storage. Clearing site data removes that preference.
 
-The public beta is available at <https://elisa-pilot-dilution-planner.lexian.workers.dev/> and is hosted using Cloudflare Workers Static Assets. Cloudflare may process ordinary request metadata such as IP address, browser information, requested URL, and request time to deliver and protect the site. See [Cloudflare's privacy policy](https://www.cloudflare.com/privacypolicy/) for its practices.
+The public beta is available at <https://elisa-planner.lexiansy.space/> and is delivered through Cloudflare. The calculator origin uses Cloudflare Workers Static Assets, while the custom hostname is fronted by a thin Cloudflare Worker bridge. Cloudflare may process ordinary request metadata such as IP address, browser information, requested URL, and request time to deliver and protect the site. See [Cloudflare's privacy policy](https://www.cloudflare.com/privacypolicy/) for its practices.
 
 The footer contains an optional link to Lexian's page on Buy Me a Coffee. The calculator does not send concentration inputs, results, or other application data to that service. The link opens a separate website; if you follow it, Buy Me a Coffee and its payment providers process activity under their own terms and privacy policies.
 

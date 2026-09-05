@@ -34,3 +34,10 @@ This checklist begins only after the v0.3.1 iPhone readability and header-placem
 - Support platform: Buy Me a Coffee external link (`buymeacoffee.com/lexian`)
 - Support-link deployed commit: `cc5382c`
 - English and Traditional Chinese production-link check: 2026-09-03
+
+## Custom-hostname promotion
+
+- Date: 2026-09-05
+- Canonical production: <https://elisa-planner.lexiansy.space/>
+- Traditional Chinese: <https://elisa-planner.lexiansy.space/zh-tw/>
+- Initial 2026-09-03 workers.dev production record above is retained as historical release evidence.

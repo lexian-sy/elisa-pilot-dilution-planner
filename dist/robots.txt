@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://elisa-pilot-dilution-planner.lexian.workers.dev/sitemap.xml
+Sitemap: https://elisa-planner.lexiansy.space/sitemap.xml

@@ -18,8 +18,8 @@ The public beta contains an in-page `EN / 繁中` switch. The English root follo
 - Source entry: `index.html` (serve the repository root for development).
 - Self-contained QA artifact: `dist/elisa-pilot-dilution-planner.html` (opens directly from `file://`).
 - Public source: <https://github.com/lexian-sy/elisa-pilot-dilution-planner>
-- Live tool: <https://elisa-pilot-dilution-planner.lexian.workers.dev/>
-- Traditional Chinese route: <https://elisa-pilot-dilution-planner.lexian.workers.dev/zh-tw/>
+- Live tool: <https://elisa-planner.lexiansy.space/>
+- Traditional Chinese route: <https://elisa-planner.lexiansy.space/zh-tw/>
 - A quiet external support link opens Lexian's Buy Me a Coffee page. Payment processing stays outside the calculator; there is no embedded checkout, analytics, or backend.
 
 ## Run, test, and build
@@ -46,7 +46,7 @@ The source is released under the MIT License; see `LICENSE`. The application pri
 - Direct preparation is calculated independently from original sample for every factor. When the needed original volume is below the user-entered pipetting minimum, the tool flags that an intermediate dilution is required but does not invent a staged protocol.
 - Auto mode uses a geometric-midpoint/log-spacing engineering heuristic and exposes gaps; it is not a vendor recommendation.
 - Lower-bound-only uncertainty cannot establish coverage below the assay lower limit.
-- Next safe step: verify the external support destination from the deployed English and Traditional Chinese routes, then begin bounded public discovery and feedback collection. A custom hostname remains a separate future decision.
+- Next safe step: begin bounded public discovery and feedback collection from the verified custom hostname. Analytics remains a separate future decision.
 
 ## Attribution
 

@@ -4,10 +4,10 @@
 
 - Product: ELISA Pilot Dilution Planner
 - Stage: public beta v0.4.1 — support link deployed and verified on both production routes
-- Date: 2026-09-03
+- Date: 2026-09-05
 - Public source: <https://github.com/lexian-sy/elisa-pilot-dilution-planner>
-- Production: <https://elisa-pilot-dilution-planner.lexian.workers.dev/>
-- Traditional Chinese: <https://elisa-pilot-dilution-planner.lexian.workers.dev/zh-tw/>
+- Production: <https://elisa-planner.lexiansy.space/>
+- Traditional Chinese: <https://elisa-planner.lexiansy.space/zh-tw/>
 
 ## Implemented
 
@@ -26,6 +26,7 @@
 - Cloudflare Workers Static Assets deployment with no Worker script, analytics, or backend.
 - MIT license, public privacy statement, and explicit scientific boundaries.
 - Optional external Buy Me a Coffee support link in both interfaces; no embedded checkout or calculator-data transfer.
+- Canonical custom hostname elisa-planner.lexiansy.space is fronted by a thin Cloudflare Worker bridge; the calculator itself remains static and backend-free.
 
 ## Required check
 
@@ -49,6 +50,7 @@ For UI changes, also verify the source page, self-contained artifact, and produc
 - Cloudflare Workers Builds deploys pushes from `main`; the first deployed commit was `33d97c6` and the localized public release is tagged `v0.4.0`.
 - Production smoke checks on commit `cc5382c` confirmed `Support this tool` on `/`, `支持這個工具` on `/zh-tw/`, and navigation to Lexian's live Buy Me a Coffee page.
 - Repository metadata links directly to the live tool and includes focused discovery topics for ELISA, dilution calculation, laboratory work, research tools, JavaScript, and open source.
+- 2026-09-05 custom-hostname smoke checks: https://elisa-planner.lexiansy.space/ and /zh-tw/ both returned HTTP 200 text/html through the verified bridge.
 
 ## Known limits
 
@@ -57,8 +59,8 @@ For UI changes, also verify the source page, self-contained artifact, and produc
 - No OD/curve fitting or assay-type input.
 - No scientific input/result persistence, PWA, offline service worker, analytics, backend, or remote data.
 - Support is an external link; payments, supporter identity, refunds, and payout processing remain on Buy Me a Coffee and its payment providers.
-- The public beta uses the independent `workers.dev` hostname.
+- The canonical public hostname is `elisa-planner.lexiansy.space`; the independent `workers.dev` origin remains reachable as an infrastructure fallback.
 
 ## Next safe step
 
-Begin bounded public discovery from the verified release. After the first eligible support balance appears, complete Buy Me a Coffee's first-payout moderation review and record gross, direct fees, and net received in the Lexian Fund ledger. Keep a custom hostname and analytics as separate future decisions.
+Begin bounded public discovery from the verified release. After the first eligible support balance appears, complete Buy Me a Coffee's first-payout moderation review and record gross, direct fees, and net received in the Lexian Fund ledger. Keep analytics as a separate future decision.

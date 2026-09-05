@@ -16,6 +16,8 @@ const englishGuideHtml = fs.readFileSync(path.join(root, "dist", "guides", "choo
 const chineseGuideHtml = fs.readFileSync(path.join(root, "dist", "zh-tw", "guides", "choosing-elisa-pilot-dilutions", "index.html"), "utf8");
 const robots = fs.readFileSync(path.join(root, "dist", "robots.txt"), "utf8");
 const sitemap = fs.readFileSync(path.join(root, "dist", "sitemap.xml"), "utf8");
+const googleVerificationSource = fs.readFileSync(path.join(root, "google15c6b5cc59503001.html"));
+const googleVerificationArtifact = fs.readFileSync(path.join(root, "dist", "google15c6b5cc59503001.html"));
 const appJs = fs.readFileSync(path.join(root, "src", "app.js"), "utf8");
 const plannerJs = fs.readFileSync(path.join(root, "src", "planner.js"), "utf8");
 const css = fs.readFileSync(path.join(root, "styles.css"), "utf8");
@@ -29,6 +31,11 @@ function structuredData(html) {
     (match) => JSON.parse(match[1]),
   );
 }
+
+test("hosted Google verification artifact is byte-exact", () => {
+  assert.deepEqual(googleVerificationSource, Buffer.from("google-site-verification: google15c6b5cc59503001.html"));
+  assert.deepEqual(googleVerificationArtifact, googleVerificationSource);
+});
 
 test("source IDs are unique and every static app selector resolves", () => {
   const ids = Array.from(sourceHtml.matchAll(/\sid="([^"]+)"/g), (match) => match[1]);

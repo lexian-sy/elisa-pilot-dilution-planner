@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "ELISA Pilot Dilution Planner"
+type: software
+version: "0.4.1"
+date-released: 2026-09-03
+authors:
+  - family-names: "SY"
+    given-names: "Lexian"
+license: MIT
+repository-code: "https://github.com/lexian-sy/elisa-pilot-dilution-planner"
+url: "https://elisa-planner.lexiansy.space/"
+abstract: >-
+  Browser-based planning aid for choosing pilot ELISA sample dilutions from an
+  assay's usable range, a rough analyte concentration estimate, sample and well
+  constraints, replicates, and a minimum reliable pipetting volume. It
+  visualizes mathematical dilution coverage and flags direct preparations below
+  the pipetting minimum; it does not validate assay performance or fit ELISA
+  standard curves.
+keywords:
+  - ELISA
+  - dilution planning
+  - assay development
+  - wet lab
+  - laboratory software

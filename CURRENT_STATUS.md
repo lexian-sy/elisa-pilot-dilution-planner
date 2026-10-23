@@ -83,3 +83,10 @@ For UI changes, also verify the source page, self-contained artifact, and produc
 ## Next safe step
 
 The owner can run Google Search Console's HTML-file verification for the intended property. Stop if Search Console reports a token or property mismatch; do not change DNS or Cloudflare configuration as part of this handoff.
+
+
+## Working security toolchain candidate｜2026-10-23 (branch only)
+
+- An isolated 2026-10-23 security candidate on `security/2026-10-23-node-lts-engine-floor` updates only `package.json` `engines.node` from `>=20` to `^22.23.4 || ^24.22.1 || ^26.12.1`. Node 20 is EOL; this metadata limits future build/toolchain choices and does not upgrade a running server.
+- Baseline `main` at `d0948ff1a6d2b6e05b82db9a406918443346feaa` was cloned into an isolated build location and tested with verified Node 24.22.1. The unchanged baseline and patched candidate each passed `npm run check` with 40/40 tests. English, Traditional Chinese, and offline single-file output SHA-256 values were identical before and after. No scientific or user-facing behavior change.
+- **Status: Working / draft review pending.** Production / `main` remain unchanged; merge to main would automatically trigger Cloudflare deployment and is a separate approval gate. Scope and evidence: [handoff](handoffs/sec10-node-security-toolchain-20261023.md).

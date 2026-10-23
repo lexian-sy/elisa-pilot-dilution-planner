@@ -9,6 +9,6 @@
     "check": "npm run build && npm test && node --check src/planner.js && node --check src/i18n.js && node --check src/app.js"
   },
   "engines": {
-    "node": ">=20"
+    "node": "^22.23.4 || ^24.22.1 || ^26.12.1"
   }
 }
